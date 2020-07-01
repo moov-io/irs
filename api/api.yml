@@ -1,0 +1,153 @@
+openapi: 3.0.2
+info:
+  title: "IRS API"
+  version: 0.0.1
+  description: "Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and 
+CLI for creating, parsing, validating, and transforming IRS electronic Filing Information Returns 
+Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and 
+CSV/TEXT file formats.
+"
+servers:
+  - url: https://local.moov.io:8208/
+    description: Local Testing
+  - url: https://api.moov.io/
+    description: Production
+paths: {}
+
+  # DELETE WHEN NO LONGER NEEDED
+  # Below are examples/stubs for a full CRUD endpoint
+  # 
+  # /examples:
+  #   get:
+  #     operationId: ListExamples
+  #     summary: List outstanding examples
+  #     tags:
+  #     - examples
+  #     security:
+  #     - GatewayAuth: []
+  #     responses:
+  #       '200':
+  #         description: Examples that are outstanding
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               maxItems: 300
+  #               items:
+  #                 $ref: '#/components/schemas/Example'
+  #       default:
+  #         $ref: '#/components/responses/Empty'
+  #   post:
+  #     operationId: CreateExample
+  #     summary: Create an Example
+  #     tags:
+  #     - examples
+  #     security:
+  #     - GatewayAuth: []
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Example'
+  #     responses:
+  #       '200':
+  #         description: Example Created
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Example'
+  #       default:
+  #         $ref: '#/components/responses/Empty'
+
+  # /examples/{exampleID}:
+  #   put:
+  #     operationId: UpdateExample
+  #     summary: Update a specific Example
+  #     tags:
+  #     - examples
+  #     security:
+  #     - GatewayAuth: []
+  #     parameters:
+  #     - in: path
+  #       name: exampleID
+  #       description: ID of the example to update
+  #       required: true
+  #       schema:
+  #         $ref: '#/components/schemas/UUID'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Example'
+  #     responses:
+  #       '200':
+  #         description: Example was updated.
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Example'
+  #       '404':
+  #         description: Example was not found
+  #         $ref: '#/components/responses/Empty'
+  #       default:
+  #         $ref: '#/components/responses/Empty'
+  #   delete:
+  #     operationId: DisableExample
+  #     summary: Disable and tombstone an example.
+  #     tags:
+  #     - examples
+  #     parameters:
+  #     - in: path
+  #       name: exampleID
+  #       description: ID of the example to delete
+  #       required: true
+  #       schema:
+  #         $ref: '#/components/schemas/UUID'
+  #     security:
+  #     - GatewayAuth: []
+  #     responses:
+  #       '204':
+  #         description: Example was removed.
+  #       '404':
+  #         description: Example was not found.
+  #         $ref: '#/components/responses/Empty'
+  #       default:
+  #         $ref: '#/components/responses/Empty'
+
+components:
+  responses:
+    Empty:
+      description: Empty response for unauthorized or any other returned http status code
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: ""
+            maxLength: 0
+            pattern: "//i"
+
+  securitySchemes:
+    GatewayAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT that comes from the gateway that validates against the gateways public RSA key
+
+  schemas:
+    UUID:
+      description: UUID v4
+      type: string
+      format: uuid
+      maxLength: 36
+      pattern: ^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$
+
+    # Example:
+    #   description: Describes an example.
+    #   type: object
+    #   additionalProperties: false
+    #   properties:
+    #     exampleID:
+    #       $ref: '#/components/schemas/UUID'
+    #       readOnly: true

@@ -1,0 +1,9 @@
+inputSpec: /local/api/api.yml
+outputDir: /local/pkg/client
+generatorName: go
+artifactId: "irs-client"
+gitUserId: moov-io
+gitRepoId: "irs"
+additionalProperties:
+  isGoSubmodule: true
+  packageName: client
