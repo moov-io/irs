@@ -16,8 +16,9 @@ Package `github.com/moov-io/irs` implements a file reader and writer written in 
 
 We are just getting started! 
 
-- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)  
 - [ ] 1099-MISC [About Form 1099-MISC](https://www.irs.gov/forms-pubs/about-form-1099-misc)
+- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)  
+
 
 
 ... more to come 
