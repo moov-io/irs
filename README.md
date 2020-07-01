@@ -12,12 +12,24 @@ CLI for creating, parsing, validating, and transforming IRS electronic Filing In
 Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and 
 CSV/TEXT file formats.
 
+| Input      | Output     |
+|------------|------------|
+| JSON       | JSON       |
+| ASCII FIRE | ASCII FIRE |
+|            | PDF Form   |
+|            | SQL        |
+
 
 Docs: [docs](docs/README.md) | [open api specification](api/api.yml)
 
 ## Project Status
 
-This project is currently under development and could introduce breaking changes to reach a stable status. We are looking for community feedback so please try out our code or give us feedback!
+We are just getting started! 
+
+- [ ] 1099-MISC [About Form 1099-MISC](https://www.irs.gov/forms-pubs/about-form-1099-misc)
+- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)  
+
+... more to come 
 
 ## Getting Started
 

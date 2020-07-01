@@ -10,6 +10,13 @@ CLI for creating, parsing, validating, and transforming IRS electronic Filing In
 Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and 
 CSV/TEXT file formats.
 
+| Input      | Output     |
+|------------|------------|
+| JSON       | JSON       |
+| ASCII FIRE | ASCII FIRE |
+|            | PDF Form   |
+|            | SQL        |
+
 
 ---
 **[Next - Configuration](CONFIGURATION.md)**
