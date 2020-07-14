@@ -1,4 +1,5 @@
 FROM debian:buster AS runtime
+LABEL maintainer="Moov <support@moov.io>"
 WORKDIR /
 
 RUN apt-get update && apt-get install -y ca-certificates \
