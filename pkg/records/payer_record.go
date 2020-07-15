@@ -1,5 +1,13 @@
 package records
 
+import (
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+	"reflect"
+	"strings"
+	"unicode/utf8"
+)
+
 type ARecord struct {
 	// Required. Enter “A.”
 	RecordType string `json:"record_type" validate:"required"`
@@ -29,7 +37,7 @@ type ARecord struct {
 	// Note: For foreign entities that are not required to have a TIN,
 	// this field must be blank; however, the Foreign Entity Indicator,
 	// position 52 of the “A” Record, must be set to one (1).
-	TIN int `json:"payer_tin" validate:"required"`
+	TIN string `json:"payer_tin" validate:"required"`
 
 	// Enter the four characters of the name control or enter blanks.
 	PayerNameControl string `json:"payer_name_control"`
@@ -80,7 +88,7 @@ type ARecord struct {
 	// 1: The entity in the Second Payer Name Line Field is the transfer (or paying) agent.
 	// 0: The entity shown is not the transfer (or paying) agent (that is, the Second Payer Name Line Field either contains
 	//    a continuation of the First Payer Name Line Field or blanks).
-	TransferAgentIndicator int `json:"transfer_agent_control" validate:"required"`
+	TransferAgentIndicator string `json:"transfer_agent_control" validate:"required"`
 
 	// Required. If position 133 Transfer Agent Indicator is “1” (one),
 	// enter the shipping address of the transfer or paying agent.
@@ -117,12 +125,12 @@ type ARecord struct {
 	// foreign countries, alpha characters are acceptable as long as
 	// the filer has entered a “1” (one) in “A” Record, field position 52
 	// Foreign Entity Indicator.
-	PayerZipCode int `json:"payer_zip_code" validate:"required"`
+	PayerZipCode string `json:"payer_zip_code" validate:"required"`
 
 	// Enter the payer’s telephone number and extension. Omit
 	// hyphens. Left justify the information and fill unused positions
 	// with blanks.
-	PayerTelephoneNumber int `json:"payer_telephone_number_and_ext"`
+	PayerTelephoneNumber string `json:"payer_telephone_number_and_ext"`
 
 	// Required. Enter the number of the record as it appears within
 	// the file. The record sequence number for the “T” Record will
@@ -136,4 +144,57 @@ type ARecord struct {
 	// second “B” Record, “00000004” and so on until the final record
 	// of the file, the “F” Record.
 	RecordSequenceNumber int `json:"record_sequence_number" validate:"required"`
+}
+
+// Type returns type of “A” record
+func (r *ARecord) Type() string {
+	return config.ARecordType
+}
+
+// Parse parses the “A” record from fire ascii
+func (r *ARecord) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.RecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.ARecordLayout, record)
+}
+
+// Ascii returns fire ascii of “A” record
+func (r *ARecord) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.ARecordLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.RecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *ARecord) Validate() error {
+	return nil
+}
+
+// SequenceNumber returns sequence number of the record
+func (r *ARecord) SequenceNumber() int {
+	return r.RecordSequenceNumber
+}
+
+// SequenceNumber set sequence number of the record
+func (r *ARecord) SetSequenceNumber(number int) {
+	r.RecordSequenceNumber = number
 }

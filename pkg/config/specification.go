@@ -1,5 +1,7 @@
 package config
 
+import "sort"
+
 type SpecField struct {
 	Start    int
 	Length   int
@@ -103,7 +105,7 @@ var (
 		"PaymentYear":              {1, 4, DateYear, Required},
 		"CorrectedReturnIndicator": {5, 1, Alphanumeric, Applicable},
 		"NameControl":              {6, 4, Alphanumeric, Applicable},
-		"TypeOfTIN":                {10, 1, Alphanumeric, Applicable},
+		"TypeOfTIN":                {10, 1, Numeric, Applicable},
 		"TIN":                      {11, 9, Numeric, Required},
 		"PayerAccountNumber":       {20, 20, Alphanumeric, Required},
 		"PayerOfficeCode":          {40, 4, Alphanumeric, Applicable},
@@ -141,7 +143,7 @@ var (
 	// End of Payer “C” Record
 	CRecordLayout = map[string]SpecField{
 		"RecordType":           {0, 1, Alphanumeric, Required},
-		"NumberPayees":         {1, 8, Numeric, Required},
+		"NumberPayees":         {1, 8, ZeroNumeric, Required},
 		"Blank1":               {9, 6, Alphanumeric, Nullable},
 		"ControlTotal1":        {15, 18, ZeroNumeric, Required},
 		"ControlTotal2":        {33, 18, ZeroNumeric, Required},
@@ -167,7 +169,7 @@ var (
 	// State Totals “K” Record
 	KRecordLayout = map[string]SpecField{
 		"RecordType":                  {0, 1, Alphanumeric, Required},
-		"NumberPayees":                {1, 8, Numeric, Required},
+		"NumberPayees":                {1, 8, ZeroNumeric, Required},
 		"Blank1":                      {9, 6, Alphanumeric, Nullable},
 		"ControlTotal1":               {15, 18, ZeroNumeric, Required},
 		"ControlTotal2":               {33, 18, ZeroNumeric, Required},
@@ -225,52 +227,66 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-INT
 	Sub1099INTLayout = map[string]SpecField{
-		"SecondTINNotice":             {0, 1, Alphanumeric, Applicable},
-		"Blank1":                      {1, 2, Alphanumeric, Nullable},
-		"ForeignCountry":              {3, 40, Alphanumeric, Applicable},
-		"CUSIP":                       {43, 13, Alphanumeric, Applicable},
-		"FATCA":                       {56, 1, Alphanumeric, Applicable},
-		"Blank2":                      {57, 62, Alphanumeric, Nullable},
-		"SpecialDataEntries":          {119, 60, Alphanumeric, Applicable},
-		"StateIncomeTaxWithheldTotal": {179, 12, Numeric, Applicable},
-		"LocalIncomeTaxWithheldTotal": {191, 12, Numeric, Applicable},
-		"CombinedFSCode":              {203, 2, Alphanumeric, Required},
-		"Blank3":                      {205, 2, Alphanumeric, Nullable},
+		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 2, Alphanumeric, Nullable},
+		"ForeignCountry":         {3, 40, Alphanumeric, Applicable},
+		"CUSIP":                  {43, 13, Alphanumeric, Applicable},
+		"FATCA":                  {56, 1, Alphanumeric, Applicable},
+		"Blank2":                 {57, 62, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-MISC
 	Sub1099MISCLayout = map[string]SpecField{
-		"SecondTINNotice":             {0, 1, Alphanumeric, Applicable},
-		"Blank1":                      {1, 2, Alphanumeric, Nullable},
-		"DirectSalesIndicator ":       {3, 1, Alphanumeric, Applicable},
-		"FATCA":                       {4, 1, Alphanumeric, Applicable},
-		"Blank2":                      {5, 114, Alphanumeric, Nullable},
-		"SpecialDataEntries":          {119, 60, Alphanumeric, Applicable},
-		"StateIncomeTaxWithheldTotal": {179, 12, Numeric, Applicable},
-		"LocalIncomeTaxWithheldTotal": {191, 12, Numeric, Applicable},
-		"CombinedFSCode":              {203, 2, Alphanumeric, Required},
-		"Blank3":                      {205, 2, Alphanumeric, Nullable},
+		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 2, Alphanumeric, Nullable},
+		"DirectSalesIndicator ":  {3, 1, Alphanumeric, Applicable},
+		"FATCA":                  {4, 1, Alphanumeric, Applicable},
+		"Blank2":                 {5, 114, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-OID
 	Sub1099OIDLayout = map[string]SpecField{
-		"SecondTINNotice":             {0, 1, Alphanumeric, Applicable},
-		"Blank1":                      {1, 2, Alphanumeric, Nullable},
-		"Description":                 {3, 39, Alphanumeric, Applicable},
-		"FATCA":                       {42, 1, Alphanumeric, Applicable},
-		"Blank2":                      {43, 76, Alphanumeric, Nullable},
-		"SpecialDataEntries":          {119, 60, Alphanumeric, Applicable},
-		"StateIncomeTaxWithheldTotal": {179, 12, Numeric, Applicable},
-		"LocalIncomeTaxWithheldTotal": {191, 12, Numeric, Applicable},
-		"CombinedFSCode":              {203, 2, Alphanumeric, Required},
-		"Blank3":                      {205, 2, Alphanumeric, Nullable},
+		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 2, Alphanumeric, Nullable},
+		"Description":            {3, 39, Alphanumeric, Applicable},
+		"FATCA":                  {42, 1, Alphanumeric, Applicable},
+		"Blank2":                 {43, 76, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-PATR
 	Sub1099PATRLayout = map[string]SpecField{
-		"SecondTINNotice":             {0, 1, Alphanumeric, Applicable},
-		"Blank1":                      {1, 118, Alphanumeric, Nullable},
-		"SpecialDataEntries":          {119, 60, Alphanumeric, Applicable},
-		"StateIncomeTaxWithheldTotal": {179, 12, Numeric, Applicable},
-		"LocalIncomeTaxWithheldTotal": {191, 12, Numeric, Applicable},
-		"CombinedFSCode":              {203, 2, Alphanumeric, Required},
-		"Blank3":                      {205, 2, Alphanumeric, Nullable},
+		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 118, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 )
+
+func ToSpecifications(fieldsFormat map[string]SpecField) []SpecRecord {
+	var records []SpecRecord
+	for key, field := range fieldsFormat {
+		records = append(records, SpecRecord{field.Start, key, field})
+	}
+	sort.Slice(records, func(i, j int) bool {
+		if records[i].Key == records[j].Key {
+			return records[i].Name < records[j].Name
+		}
+		return records[i].Key < records[j].Key
+	})
+	return records
+}

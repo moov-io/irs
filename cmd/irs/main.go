@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/moov-io/identity/pkg/logging"
-	"irs/pkg/service"
+	"github.com/moov-io/irs/pkg/service"
 )
 
 func main() {

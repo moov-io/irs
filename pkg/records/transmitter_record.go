@@ -1,5 +1,14 @@
 package records
 
+import (
+	"reflect"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
+
 type TRecord struct {
 	// Required. Enter “T.”
 	RecordType string `json:"record_type" validate:"required"`
@@ -14,7 +23,7 @@ type TRecord struct {
 	PriorYearDataIndicator string `json:"prior_year_data_indicator" validate:"required"`
 
 	// Required. Enter the transmitter’s nine-digit taxpayer identification number (TIN).
-	TIN int `json:"transmitter_tin" validate:"required"`
+	TIN string `json:"transmitter_tin" validate:"required"`
 
 	// Required. Enter the five-character alphanumeric Transmitter Control Code (TCC) assigned by the IRS.
 	TCC string `json:"transmitter_control_code" validate:"required"`
@@ -55,7 +64,7 @@ type TRecord struct {
 
 	// Required. Enter the nine-digit ZIP Code assigned by the U.S.
 	// Postal Service. If only the first five digits are known, left justify the information and fill unused positions with blanks.
-	CompanyZipCode int `json:"company_zip_code" validate:"required"`
+	CompanyZipCode string `json:"company_zip_code" validate:"required"`
 
 	// Enter the total number of Payee “B” Records reported in the file.
 	// Right justify the information and fill unused positions with zeros.
@@ -67,7 +76,7 @@ type TRecord struct {
 	// Required. Enter the telephone number of the person to contact regarding electronic files. Omit hyphens.
 	// If no extension is available, left justify the information and fill unused positions with blanks.
 	// Example: The IRS telephone number of 866-455-7438 with an extension of 52345 would be 866455743852345.
-	ContactTelephoneNumber int64 `json:"contact_telephone_number_and_ext" validate:"required"`
+	ContactTelephoneNumber string `json:"contact_telephone_number_and_ext" validate:"required"`
 
 	// Required if available. Enter the email address of the person to contact regarding electronic files.
 	// If no email address is available, enter blanks. Left justify.
@@ -118,7 +127,7 @@ type TRecord struct {
 	// Required. Enter the valid nine-digit ZIP Code assigned by the U.S.
 	// Postal Service. If only the first five digits are known, fill unused
 	// positions with blanks. Left justify. If the software is produced inhouse, enter blanks.
-	VendorZIPCode int `json:"vendor_zip_code" validate:"required"`
+	VendorZIPCode string `json:"vendor_zip_code" validate:"required"`
 
 	// Required. Enter the name of the person to contact concerning
 	// software questions. If the software is produced in-house, enter
@@ -133,4 +142,57 @@ type TRecord struct {
 
 	// Enter “1” (one) if the vendor is a foreign entity. Otherwise, enter a blank.
 	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator" validate:"required"`
+}
+
+// Type returns type of “T” record
+func (r *TRecord) Type() string {
+	return config.TRecordType
+}
+
+// Parse parses the “T” record from fire ascii
+func (r *TRecord) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.RecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.TRecordLayout, record)
+}
+
+// Ascii returns fire ascii of “T” record
+func (r *TRecord) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.TRecordLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.RecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *TRecord) Validate() error {
+	return nil
+}
+
+// SequenceNumber returns sequence number of the record
+func (r *TRecord) SequenceNumber() int {
+	return r.RecordSequenceNumber
+}
+
+// SequenceNumber set sequence number of the record
+func (r *TRecord) SetSequenceNumber(number int) {
+	r.RecordSequenceNumber = number
 }

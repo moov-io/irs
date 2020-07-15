@@ -1,5 +1,14 @@
 package records
 
+import (
+	"reflect"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
+
 type BRecord struct {
 	// Required. Enter “B.”
 	RecordType string `json:"record_type" validate:"required"`
@@ -50,7 +59,7 @@ type BRecord struct {
 	// received, enter blanks. All zeros, ones, twos, etc., will have
 	// the effect of an incorrect TIN. If the TIN is not available, enter
 	// blanks.
-	TIN  int `json:"payees_tin" validate:"required"`
+	TIN string `json:"payees_tin" validate:"required"`
 
 	// Required if submitting more than one information return of the
 	// same type for the same payee. Enter any number assigned by
@@ -100,22 +109,22 @@ type BRecord struct {
 	// Negative over punch cannot be used in PC created files.
 	// Payment amounts must be right justified and fill unused
 	// positions with zeros.
-	PaymentAmount1  int `json:"payment_amount_1" validate:"required"`
-	PaymentAmount2  int `json:"payment_amount_2" validate:"required"`
-	PaymentAmount3  int `json:"payment_amount_3" validate:"required"`
-	PaymentAmount4  int `json:"payment_amount_4" validate:"required"`
-	PaymentAmount5  int `json:"payment_amount_5" validate:"required"`
-	PaymentAmount6  int `json:"payment_amount_6" validate:"required"`
-	PaymentAmount7  int `json:"payment_amount_7" validate:"required"`
-	PaymentAmount8  int `json:"payment_amount_8" validate:"required"`
-	PaymentAmount9  int `json:"payment_amount_9" validate:"required"`
-	PaymentAmountA  int `json:"payment_amount_A" validate:"required"`
-	PaymentAmountB  int `json:"payment_amount_B" validate:"required"`
-	PaymentAmountC  int `json:"payment_amount_C" validate:"required"`
-	PaymentAmountD  int `json:"payment_amount_D" validate:"required"`
-	PaymentAmountE  int `json:"payment_amount_E" validate:"required"`
-	PaymentAmountF  int `json:"payment_amount_F" validate:"required"`
-	PaymentAmountG  int `json:"payment_amount_G" validate:"required"`
+	PaymentAmount1 int `json:"payment_amount_1" validate:"required"`
+	PaymentAmount2 int `json:"payment_amount_2" validate:"required"`
+	PaymentAmount3 int `json:"payment_amount_3" validate:"required"`
+	PaymentAmount4 int `json:"payment_amount_4" validate:"required"`
+	PaymentAmount5 int `json:"payment_amount_5" validate:"required"`
+	PaymentAmount6 int `json:"payment_amount_6" validate:"required"`
+	PaymentAmount7 int `json:"payment_amount_7" validate:"required"`
+	PaymentAmount8 int `json:"payment_amount_8" validate:"required"`
+	PaymentAmount9 int `json:"payment_amount_9" validate:"required"`
+	PaymentAmountA int `json:"payment_amount_A" validate:"required"`
+	PaymentAmountB int `json:"payment_amount_B" validate:"required"`
+	PaymentAmountC int `json:"payment_amount_C" validate:"required"`
+	PaymentAmountD int `json:"payment_amount_D" validate:"required"`
+	PaymentAmountE int `json:"payment_amount_E" validate:"required"`
+	PaymentAmountF int `json:"payment_amount_F" validate:"required"`
+	PaymentAmountG int `json:"payment_amount_G" validate:"required"`
 
 	// If the address of the payee is in a foreign country, enter a
 	// “1” (one) in this field. Otherwise, enter blank. When filers use
@@ -185,7 +194,7 @@ type BRecord struct {
 	// Country Indicator, located in position 247 of the “B” Record. If
 	// only the first five-digits are known, left justify the information
 	// and fill the unused positions with blanks.
-	PayeeZipCode int `json:"payee_zip_code" validate:"required"`
+	PayeeZipCode string `json:"payee_zip_code" validate:"required"`
 
 	// Required. Enter the number of the record as it appears
 	//within the file. The record sequence number for the “T”
@@ -200,4 +209,57 @@ type BRecord struct {
 	//Record, “00000004”, and so on until the final record of the
 	//file, the “F” Record.
 	RecordSequenceNumber int `json:"record_sequence_number" validate:"required"`
+}
+
+// Type returns type of “B” record
+func (r *BRecord) Type() string {
+	return config.BRecordType
+}
+
+// Parse parses the “B” record from fire ascii
+func (r *BRecord) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.RecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.BRecordLayout, record)
+}
+
+// Ascii returns fire ascii of “B” record
+func (r *BRecord) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.BRecordLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.RecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *BRecord) Validate() error {
+	return nil
+}
+
+// SequenceNumber returns sequence number of the record
+func (r *BRecord) SequenceNumber() int {
+	return r.RecordSequenceNumber
+}
+
+// SequenceNumber set sequence number of the record
+func (r *BRecord) SetSequenceNumber(number int) {
+	r.RecordSequenceNumber = number
 }

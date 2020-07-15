@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	client "irs/pkg/client"
+	client "github.com/moov-io/irs/pkg/client"
 )
 
 func NewTestClient(handler http.Handler) *client.APIClient {

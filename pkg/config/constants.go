@@ -31,3 +31,10 @@ const (
 	// SubRecordLength indicates length of sub record for payee “B” record
 	SubRecordLength = 207
 )
+
+const (
+	// BlankString indicates the empty string
+	BlankString = " "
+	// ZeroString indicates the zero string
+	ZeroString = "0"
+)

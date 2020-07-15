@@ -1,5 +1,14 @@
 package records
 
+import (
+	"reflect"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
+
 type KRecord struct {
 	// Required. Enter “K.”
 	RecordType string `json:"record_type" validate:"required"`
@@ -56,14 +65,67 @@ type KRecord struct {
 	// Aggregate totals of the state income tax withheld field in the
 	// Payee “B” Records. Otherwise, enter blanks. (This field is for
 	// the convenience of filers.)
-	StateIncomeTaxWithheldTotal int `json:"state_income_tax_withheld_total"`
+	StateIncomeTaxWithheldTotal string `json:"state_income_tax_withheld_total"`
 
 	// Aggregate totals of the local income tax withheld field in the
 	// Payee “B” Records. Otherwise, enter blanks. (This field is for
 	// the convenience of filers.)
-	LocalIncomeTaxWithheldTotal int `json:"local_income_tax_withheld_total"`
+	LocalIncomeTaxWithheldTotal string `json:"local_income_tax_withheld_total"`
 
 	// Required. Enter the CF/SF code assigned to the state which
 	// is to receive the information.
 	CombinedFSCode string `json:"combined_federal_state_code" validate:"required"`
+}
+
+// Type returns type of “K” record
+func (r *KRecord) Type() string {
+	return config.KRecordType
+}
+
+// Parse parses the “K” record from fire ascii
+func (r *KRecord) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.RecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.KRecordLayout, record)
+}
+
+// Ascii returns fire ascii of “K” record
+func (r *KRecord) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.KRecordLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.RecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *KRecord) Validate() error {
+	return nil
+}
+
+// SequenceNumber returns sequence number of the record
+func (r *KRecord) SequenceNumber() int {
+	return r.RecordSequenceNumber
+}
+
+// SequenceNumber set sequence number of the record
+func (r *KRecord) SetSequenceNumber(number int) {
+	r.RecordSequenceNumber = number
 }

@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/moov-io/identity/pkg/logging"
+	"github.com/moov-io/irs/pkg/service"
 	"github.com/stretchr/testify/assert"
-	"irs/pkg/service"
 )
 
 func Test_Environment_Startup(t *testing.T) {

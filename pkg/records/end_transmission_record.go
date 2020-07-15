@@ -1,5 +1,14 @@
 package records
 
+import (
+	"reflect"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
+
 type FRecord struct {
 	// Required. Enter “F.”
 	RecordType string `json:"record_type" validate:"required"`
@@ -28,4 +37,57 @@ type FRecord struct {
 	// Record, “00000004” and so on until the final record of the
 	// file, the “F” Record.
 	RecordSequenceNumber int `json:"record_sequence_number" validate:"required"`
+}
+
+// Type returns type of “F” record
+func (r *FRecord) Type() string {
+	return config.FRecordType
+}
+
+// Parse parses the “F” record from fire ascii
+func (r *FRecord) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.RecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.FRecordLayout, record)
+}
+
+// Ascii returns fire ascii of “F” record
+func (r *FRecord) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.FRecordLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.RecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *FRecord) Validate() error {
+	return nil
+}
+
+// SequenceNumber returns sequence number of the record
+func (r *FRecord) SequenceNumber() int {
+	return r.RecordSequenceNumber
+}
+
+// SequenceNumber set sequence number of the record
+func (r *FRecord) SetSequenceNumber(number int) {
+	r.RecordSequenceNumber = number
 }

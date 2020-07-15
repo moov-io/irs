@@ -1,5 +1,14 @@
 package subrecords
 
+import (
+	"reflect"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
+
 type Sub1099PATR struct {
 	// Enter “2” (two) to indicate notification by the IRS twice within
 	// three calendar years that the payee provided an incorrect
@@ -11,7 +20,7 @@ type Sub1099PATR struct {
 	// filer’s own purposes. Payers should contact the state or local
 	// revenue departments for filing requirements. If this field is not
 	// used, enter blanks.
-	SpecialDataEntries  string `json:"special_data_entries"`
+	SpecialDataEntries string `json:"special_data_entries"`
 
 	// State income tax withheld is for the convenience of the filers.
 	// This information does not need to be reported to the IRS.
@@ -32,4 +41,47 @@ type Sub1099PATR struct {
 	// Enter the valid CF/SF code if this payee record is to be
 	// forwarded to a state agency as part of the CF/SF Program.
 	CombinedFSCode string `json:"combined_federal_state_code"`
+}
+
+// Type returns type of “1099-PATR” record
+func (r *Sub1099PATR) Type() string {
+	return config.Sub1099PATRType
+}
+
+// Parse parses the “1099-PATR” record from fire ascii
+func (r *Sub1099PATR) Parse(buf []byte) error {
+	record := string(buf)
+	if utf8.RuneCountInString(record) < config.SubRecordLength {
+		return utils.ErrSegmentLength
+	}
+
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return utils.ErrValidField
+	}
+
+	return utils.ParseValue(fields, config.Sub1099PATRLayout, record)
+}
+
+// Ascii returns fire ascii of “1099-PATR” record
+func (r *Sub1099PATR) Ascii() []byte {
+	var buf strings.Builder
+	records := config.ToSpecifications(config.Sub1099PATRLayout)
+	fields := reflect.ValueOf(r).Elem()
+	if !fields.IsValid() {
+		return nil
+	}
+
+	buf.Grow(config.SubRecordLength)
+	for _, spec := range records {
+		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
+		buf.WriteString(value)
+	}
+
+	return []byte(buf.String())
+}
+
+// Validate performs some checks on the record and returns an error if not Validated
+func (r *Sub1099PATR) Validate() error {
+	return nil
 }
