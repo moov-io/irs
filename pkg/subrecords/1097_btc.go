@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package subrecords
 
 import (
@@ -55,8 +59,8 @@ func (r *Sub1097BTC) Type() string {
 // Parse parses the “1097-BTC” record from fire ascii
 func (r *Sub1097BTC) Parse(buf []byte) error {
 	record := string(buf)
-	if utf8.RuneCountInString(record) < config.SubRecordLength {
-		return utils.ErrSegmentLength
+	if utf8.RuneCountInString(record) != config.SubRecordLength {
+		return utils.ErrRecordLength
 	}
 
 	fields := reflect.ValueOf(r).Elem()
@@ -87,5 +91,5 @@ func (r *Sub1097BTC) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1097BTC) Validate() error {
-	return nil
+	return utils.Validate(r, config.Sub1097BTCLayout)
 }

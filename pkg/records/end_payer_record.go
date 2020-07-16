@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package records
 
 import (
@@ -71,8 +75,8 @@ func (r *CRecord) Type() string {
 // Parse parses the “C” record from fire ascii
 func (r *CRecord) Parse(buf []byte) error {
 	record := string(buf)
-	if utf8.RuneCountInString(record) < config.RecordLength {
-		return utils.ErrSegmentLength
+	if utf8.RuneCountInString(record) != config.RecordLength {
+		return utils.ErrRecordLength
 	}
 
 	fields := reflect.ValueOf(r).Elem()
@@ -103,7 +107,7 @@ func (r *CRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *CRecord) Validate() error {
-	return nil
+	return utils.Validate(r, config.CRecordLayout)
 }
 
 // SequenceNumber returns sequence number of the record
@@ -114,4 +118,14 @@ func (r *CRecord) SequenceNumber() int {
 // SequenceNumber set sequence number of the record
 func (r *CRecord) SetSequenceNumber(number int) {
 	r.RecordSequenceNumber = number
+}
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *CRecord) ValidateSequenceNumber() error {
+	if r.RecordSequenceNumber < 1 {
+		return utils.NewErrValidValue("sequence number")
+	}
+	return nil
 }

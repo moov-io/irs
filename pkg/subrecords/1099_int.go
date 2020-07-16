@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package subrecords
 
 import (
@@ -67,8 +71,8 @@ func (r *Sub1099INT) Type() string {
 // Parse parses the “1099-INT” record from fire ascii
 func (r *Sub1099INT) Parse(buf []byte) error {
 	record := string(buf)
-	if utf8.RuneCountInString(record) < config.SubRecordLength {
-		return utils.ErrSegmentLength
+	if utf8.RuneCountInString(record) != config.SubRecordLength {
+		return utils.ErrRecordLength
 	}
 
 	fields := reflect.ValueOf(r).Elem()
@@ -99,5 +103,5 @@ func (r *Sub1099INT) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099INT) Validate() error {
-	return nil
+	return utils.Validate(r, config.Sub1099INTLayout)
 }

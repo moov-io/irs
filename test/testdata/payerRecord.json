@@ -1,0 +1,20 @@
+{
+	"record_type": "A",
+	"payment_year": 2017,
+	"combined_fs_filing_program": "1",
+	"payer_tin": "123456789",
+	"payer_name_control": "ASDF",
+	"last_filing_indicator": "1",
+	"type_of_return": "A",
+	"amount_codes": "7",
+	"foreign_entity_indicator": "1",
+	"first_payer_name": "ASDF GLOBAL INC",
+	"second_payer_name": "",
+	"transfer_agent_control": "1",
+	"payer_shipping_address": "123 ASDF STREET",
+	"payer_city": "NEW YORK",
+	"payer_state": "NY",
+	"payer_zip_code": "10001",
+	"payer_telephone_number_and_ext": "5555555555",
+	"record_sequence_number": 2
+}

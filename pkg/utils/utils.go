@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -58,15 +60,62 @@ func ToString(elm SpecField, data reflect.Value) string {
 
 	sizeStr := strconv.Itoa(elm.Length)
 	switch elm.Type {
-	case Alphanumeric, Email:
+	case Alphanumeric, Email, Numeric, TelephoneNumber:
 		return fmt.Sprintf("%-"+sizeStr+"s", data)
 	case ZeroNumeric:
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
-	case TelephoneNumber, DateYear, Numeric:
+	case DateYear:
 		return fmt.Sprintf("%-"+sizeStr+"d", data)
 	}
 
 	return fillString(elm)
+}
+
+// to validate fields of record
+func Validate(r interface{}, spec map[string]SpecField) error {
+	fields := reflect.ValueOf(r).Elem()
+	for i := 0; i < fields.NumField(); i++ {
+		fieldName := fields.Type().Field(i).Name
+		if !fields.IsValid() {
+			return ErrValidField
+		}
+
+		if spec, ok := spec[fieldName]; ok {
+			if spec.Required == Required {
+				fieldValue := fields.FieldByName(fieldName)
+				if fieldValue.IsZero() {
+					return ErrFieldRequired
+				}
+			}
+		}
+
+		funcName := validateFuncName(fieldName)
+		method := reflect.ValueOf(r).MethodByName(funcName)
+		if method.IsValid() {
+			response := method.Call(nil)
+			if len(response) == 0 {
+				continue
+			}
+
+			err := method.Call(nil)[0]
+			if !err.IsNil() {
+				return err.Interface().(error)
+			}
+		}
+	}
+
+	return nil
+}
+
+// File Read
+func ReadFile(f *os.File) []byte {
+	scanner := bufio.NewScanner(f)
+	scanner.Split(bufio.ScanLines)
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	return []byte(strings.Join(lines, ""))
 }
 
 func isValidType(elm SpecField, data string) error {
@@ -108,6 +157,7 @@ func isBlank(data string) bool {
 }
 
 func isNumeric(data string) error {
+	data = strings.TrimRight(data, BlankString)
 	if !numericRegex.MatchString(data) {
 		return ErrNumeric
 	}
@@ -122,13 +172,14 @@ func isAlphanumeric(data string) error {
 }
 
 func isDateYear(data string) error {
-	if yearRegex.MatchString(data) {
+	if !yearRegex.MatchString(data) {
 		return ErrValidDate
 	}
 	return nil
 }
 
 func isEmail(data string) error {
+	data = strings.TrimRight(data, BlankString)
 	if !emailRegex.MatchString(data) {
 		return ErrEmail
 	}
@@ -147,12 +198,18 @@ func parseValue(elm SpecField, field reflect.Value, data string) error {
 	case Alphanumeric, Email, Numeric, TelephoneNumber:
 		data = strings.TrimRight(data, BlankString)
 		field.SetString(data)
+		return nil
 	case ZeroNumeric, DateYear:
 		value, err := strconv.ParseInt(data, 10, 64)
 		if err != nil {
 			return err
 		}
 		field.SetInt(value)
+		return nil
 	}
 	return ErrValidField
+}
+
+func validateFuncName(name string) string {
+	return "Validate" + name
 }

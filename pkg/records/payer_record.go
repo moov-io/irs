@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package records
 
 import (
@@ -28,7 +32,7 @@ type ARecord struct {
 	// code the Payee “B” Records with the appropriate state code.
 	// Refer to Part A. Sec. 12, Table 1, Participating States and
 	// Codes, for further information.
-	CombinedFedState string `json:"combined_fed_state"`
+	CombinedFSFilingProgram string `json:"combined_fs_filing_program"`
 
 	// Required. Enter the valid nine-digit taxpayer identification
 	// number assigned to the payer. Do not enter blanks, hyphens,
@@ -154,8 +158,8 @@ func (r *ARecord) Type() string {
 // Parse parses the “A” record from fire ascii
 func (r *ARecord) Parse(buf []byte) error {
 	record := string(buf)
-	if utf8.RuneCountInString(record) < config.RecordLength {
-		return utils.ErrSegmentLength
+	if utf8.RuneCountInString(record) != config.RecordLength {
+		return utils.ErrRecordLength
 	}
 
 	fields := reflect.ValueOf(r).Elem()
@@ -186,7 +190,7 @@ func (r *ARecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *ARecord) Validate() error {
-	return nil
+	return utils.Validate(r, config.ARecordLayout)
 }
 
 // SequenceNumber returns sequence number of the record
@@ -197,4 +201,14 @@ func (r *ARecord) SequenceNumber() int {
 // SequenceNumber set sequence number of the record
 func (r *ARecord) SetSequenceNumber(number int) {
 	r.RecordSequenceNumber = number
+}
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *ARecord) ValidateSequenceNumber() error {
+	if r.RecordSequenceNumber < 1 {
+		return utils.NewErrValidValue("sequence number")
+	}
+	return nil
 }

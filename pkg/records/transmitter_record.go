@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package records
 
 import (
@@ -127,7 +131,7 @@ type TRecord struct {
 	// Required. Enter the valid nine-digit ZIP Code assigned by the U.S.
 	// Postal Service. If only the first five digits are known, fill unused
 	// positions with blanks. Left justify. If the software is produced inhouse, enter blanks.
-	VendorZIPCode string `json:"vendor_zip_code" validate:"required"`
+	VendorZipCode string `json:"vendor_zip_code" validate:"required"`
 
 	// Required. Enter the name of the person to contact concerning
 	// software questions. If the software is produced in-house, enter
@@ -152,8 +156,8 @@ func (r *TRecord) Type() string {
 // Parse parses the “T” record from fire ascii
 func (r *TRecord) Parse(buf []byte) error {
 	record := string(buf)
-	if utf8.RuneCountInString(record) < config.RecordLength {
-		return utils.ErrSegmentLength
+	if utf8.RuneCountInString(record) != config.RecordLength {
+		return utils.ErrRecordLength
 	}
 
 	fields := reflect.ValueOf(r).Elem()
@@ -184,7 +188,7 @@ func (r *TRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *TRecord) Validate() error {
-	return nil
+	return utils.Validate(r, config.TRecordLayout)
 }
 
 // SequenceNumber returns sequence number of the record
@@ -195,4 +199,14 @@ func (r *TRecord) SequenceNumber() int {
 // SequenceNumber set sequence number of the record
 func (r *TRecord) SetSequenceNumber(number int) {
 	r.RecordSequenceNumber = number
+}
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *TRecord) ValidateSequenceNumber() error {
+	if r.RecordSequenceNumber < 1 {
+		return utils.NewErrValidValue("sequence number")
+	}
+	return nil
 }
