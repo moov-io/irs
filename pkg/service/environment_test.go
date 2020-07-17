@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package service_test
 
 import (
@@ -6,8 +10,8 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/moov-io/identity/pkg/logging"
+	"github.com/moov-io/irs/pkg/service"
 	"github.com/stretchr/testify/assert"
-	"irs/pkg/service"
 )
 
 func Test_Environment_Startup(t *testing.T) {

@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package test
 
 import (
@@ -5,7 +9,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	client "irs/pkg/client"
+	client "github.com/moov-io/irs/pkg/client"
 )
 
 func NewTestClient(handler http.Handler) *client.APIClient {

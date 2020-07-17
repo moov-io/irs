@@ -1,8 +1,14 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package service
 
 import (
 	"context"
 	"database/sql"
+	"io/ioutil"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/moov-io/identity/pkg/config"
@@ -90,8 +96,13 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 		}
 	}
 
-	if err := database.RunMigrations(logger, db, config); err != nil {
-		return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
+	backupFiles, _ := ioutil.ReadDir(filepath.Join("migrations"))
+	if len(backupFiles) > 0 {
+		if err := database.RunMigrations(logger, db, config); err != nil {
+			return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
+		}
+	} else {
+		logger.Info().Log("there is no backup files of database")
 	}
 
 	logger.Info().Log("finished initializing db")
