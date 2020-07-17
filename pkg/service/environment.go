@@ -8,9 +8,9 @@ import (
 	"context"
 	"database/sql"
 	"io/ioutil"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
-	"github.com/markbates/pkger"
 	"github.com/moov-io/identity/pkg/config"
 	"github.com/moov-io/identity/pkg/database"
 	"github.com/moov-io/identity/pkg/logging"
@@ -96,8 +96,7 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 		}
 	}
 
-	backupDir := pkger.Include("./migrations/")
-	backupFiles, _ := ioutil.ReadDir(backupDir)
+	backupFiles, _ := ioutil.ReadDir(filepath.Join("migrations"))
 	if len(backupFiles) > 0 {
 		if err := database.RunMigrations(logger, db, config); err != nil {
 			return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
