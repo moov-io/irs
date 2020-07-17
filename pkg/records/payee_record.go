@@ -5,12 +5,12 @@
 package records
 
 import (
-	"github.com/moov-io/irs/pkg/subrecords"
+	"bytes"
 	"reflect"
-	"strings"
 	"unicode/utf8"
 
 	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/subrecords"
 	"github.com/moov-io/irs/pkg/utils"
 )
 
@@ -236,12 +236,14 @@ func (r *BRecord) Parse(buf []byte) error {
 		return utils.ErrValidField
 	}
 
+	r.extRecord = nil
+
 	return utils.ParseValue(fields, config.BRecordLayout, record)
 }
 
 // Ascii returns fire ascii of “B” record
 func (r *BRecord) Ascii() []byte {
-	var buf strings.Builder
+	var buf bytes.Buffer
 	records := config.ToSpecifications(config.BRecordLayout)
 	fields := reflect.ValueOf(r).Elem()
 	if !fields.IsValid() {
@@ -254,7 +256,7 @@ func (r *BRecord) Ascii() []byte {
 		buf.WriteString(value)
 	}
 
-	return []byte(buf.String())
+	return buf.Bytes()
 }
 
 // Validate performs some checks on the record and returns an error if not Validated

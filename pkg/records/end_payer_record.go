@@ -5,8 +5,8 @@
 package records
 
 import (
+	"bytes"
 	"reflect"
-	"strings"
 	"unicode/utf8"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -89,7 +89,7 @@ func (r *CRecord) Parse(buf []byte) error {
 
 // Ascii returns fire ascii of “C” record
 func (r *CRecord) Ascii() []byte {
-	var buf strings.Builder
+	var buf bytes.Buffer
 	records := config.ToSpecifications(config.CRecordLayout)
 	fields := reflect.ValueOf(r).Elem()
 	if !fields.IsValid() {
@@ -102,7 +102,7 @@ func (r *CRecord) Ascii() []byte {
 		buf.WriteString(value)
 	}
 
-	return []byte(buf.String())
+	return buf.Bytes()
 }
 
 // Validate performs some checks on the record and returns an error if not Validated

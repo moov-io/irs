@@ -5,8 +5,8 @@
 package subrecords
 
 import (
+	"bytes"
 	"reflect"
-	"strings"
 	"unicode/utf8"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -69,7 +69,7 @@ func (r *Sub1099PATR) Parse(buf []byte) error {
 
 // Ascii returns fire ascii of “1099-PATR” record
 func (r *Sub1099PATR) Ascii() []byte {
-	var buf strings.Builder
+	var buf bytes.Buffer
 	records := config.ToSpecifications(config.Sub1099PATRLayout)
 	fields := reflect.ValueOf(r).Elem()
 	if !fields.IsValid() {
@@ -82,7 +82,7 @@ func (r *Sub1099PATR) Ascii() []byte {
 		buf.WriteString(value)
 	}
 
-	return []byte(buf.String())
+	return buf.Bytes()
 }
 
 // Validate performs some checks on the record and returns an error if not Validated

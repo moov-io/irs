@@ -7,8 +7,10 @@ package service
 import (
 	"context"
 	"database/sql"
+	"io/ioutil"
 
 	"github.com/gorilla/mux"
+	"github.com/markbates/pkger"
 	"github.com/moov-io/identity/pkg/config"
 	"github.com/moov-io/identity/pkg/database"
 	"github.com/moov-io/identity/pkg/logging"
@@ -94,8 +96,14 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 		}
 	}
 
-	if err := database.RunMigrations(logger, db, config); err != nil {
-		return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
+	backupDir := pkger.Include("./migrations/")
+	backupFiles, _ := ioutil.ReadDir(backupDir)
+	if len(backupFiles) > 0 {
+		if err := database.RunMigrations(logger, db, config); err != nil {
+			return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
+		}
+	} else {
+		logger.Info().Log("there is no backup files of database")
 	}
 
 	logger.Info().Log("finished initializing db")
