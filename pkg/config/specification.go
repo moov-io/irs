@@ -199,8 +199,8 @@ var (
 	// End of Transmission “F” Record
 	FRecordLayout = map[string]SpecField{
 		"RecordType":           {0, 1, Alphanumeric, Required},
-		"NumberARecords":       {1, 8, ZeroNumeric, Required},
-		"Zero":                 {9, 21, ZeroNumeric, Required},
+		"NumberPayerRecords":   {1, 8, ZeroNumeric, Required},
+		"Zero":                 {9, 21, ZeroNumeric, Applicable},
 		"Blank2":               {30, 19, Alphanumeric, Nullable},
 		"TotalNumberPayees":    {49, 8, ZeroNumeric, Applicable},
 		"Blank3":               {57, 442, Alphanumeric, Nullable},

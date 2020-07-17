@@ -17,6 +17,9 @@ type FRecord struct {
 	// Required. Enter “F.”
 	RecordType string `json:"record_type" validate:"required"`
 
+	// Enter zeros.
+	Zero int `json:"zero"`
+
 	// Enter the total number of Payer “A” Records in the entire file.
 	// Right justify the information and fill unused positions with
 	// zeros or enter all zeros.

@@ -23,6 +23,12 @@ type RecordTest struct {
 	aRecordAscii []byte
 	bRecordJson  []byte
 	bRecordAscii []byte
+	cRecordJson  []byte
+	cRecordAscii []byte
+	kRecordJson  []byte
+	kRecordAscii []byte
+	fRecordJson  []byte
+	fRecordAscii []byte
 }
 
 var _ = check.Suite(&RecordTest{})
@@ -51,4 +57,28 @@ func (t *RecordTest) SetUpSuite(c *check.C) {
 	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "payeeRecord.ascii"))
 	c.Assert(err, check.IsNil)
 	t.bRecordAscii = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "endPayerRecord.json"))
+	c.Assert(err, check.IsNil)
+	t.cRecordJson = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "endPayerRecord.ascii"))
+	c.Assert(err, check.IsNil)
+	t.cRecordAscii = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "stateRecord.json"))
+	c.Assert(err, check.IsNil)
+	t.kRecordJson = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "stateRecord.ascii"))
+	c.Assert(err, check.IsNil)
+	t.kRecordAscii = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "endTransmitterRecord.json"))
+	c.Assert(err, check.IsNil)
+	t.fRecordJson = utils.ReadFile(f)
+
+	f, err = os.Open(filepath.Join("..", "..", "test", "testdata", "endTransmitterRecord.ascii"))
+	c.Assert(err, check.IsNil)
+	t.fRecordAscii = utils.ReadFile(f)
 }

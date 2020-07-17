@@ -5,6 +5,7 @@
 package records
 
 import (
+	"github.com/moov-io/irs/pkg/subrecords"
 	"reflect"
 	"strings"
 	"unicode/utf8"
@@ -213,6 +214,9 @@ type BRecord struct {
 	//Record, “00000004”, and so on until the final record of the
 	//file, the “F” Record.
 	RecordSequenceNumber int `json:"record_sequence_number" validate:"required"`
+
+	typeOfReturn string
+	extRecord    subrecords.SubRecord
 }
 
 // Type returns type of “B” record
@@ -266,6 +270,16 @@ func (r *BRecord) SequenceNumber() int {
 // SequenceNumber set sequence number of the record
 func (r *BRecord) SetSequenceNumber(number int) {
 	r.RecordSequenceNumber = number
+}
+
+// SetTypeOfReturn set type of return of the record
+func (r *BRecord) SetTypeOfReturn(typeOfReturn string) {
+	r.typeOfReturn = typeOfReturn
+}
+
+// SetTypeOfReturn returns type of return of the record
+func (r *BRecord) TypeOfReturn() string {
+	return r.typeOfReturn
 }
 
 // customized field validation functions
