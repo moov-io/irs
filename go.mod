@@ -7,7 +7,7 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/moov-io/base v0.11.0
 	github.com/moov-io/identity v0.1.0
-	github.com/moov-io/tumbler v0.0.0-20200702154909-c9a5dbdd4b59
+	github.com/moov-io/tumbler v0.1.0
 	github.com/stretchr/testify v1.6.1
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15
 )
