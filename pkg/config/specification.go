@@ -26,6 +26,7 @@ const (
 // field types
 const (
 	Alphanumeric = 1 << iota
+	AlphanumericRightAlign
 	Numeric
 	ZeroNumeric
 	TelephoneNumber
@@ -218,7 +219,7 @@ var (
 		"Blank2":             {4, 8, Alphanumeric, Nullable},
 		"Code":               {12, 1, Alphanumeric, Required},
 		"Blank3":             {13, 3, Alphanumeric, Nullable},
-		"UniqueIdentifier":   {16, 39, Alphanumeric, Applicable},
+		"UniqueIdentifier":   {16, 39, AlphanumericRightAlign, Applicable},
 		"BondType":           {55, 3, Alphanumeric, Required},
 		"Blank4":             {58, 61, Alphanumeric, Nullable},
 		"SpecialDataEntries": {119, 60, Alphanumeric, Applicable},
@@ -227,10 +228,10 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-INT
 	Sub1099INTLayout = map[string]SpecField{
-		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
 		"Blank1":                 {1, 2, Alphanumeric, Nullable},
 		"ForeignCountry":         {3, 40, Alphanumeric, Applicable},
-		"CUSIP":                  {43, 13, Alphanumeric, Applicable},
+		"CUSIP":                  {43, 13, AlphanumericRightAlign, Applicable},
 		"FATCA":                  {56, 1, Alphanumeric, Applicable},
 		"Blank2":                 {57, 62, Alphanumeric, Nullable},
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
@@ -241,9 +242,9 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-MISC
 	Sub1099MISCLayout = map[string]SpecField{
-		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
 		"Blank1":                 {1, 2, Alphanumeric, Nullable},
-		"DirectSalesIndicator ":  {3, 1, Alphanumeric, Applicable},
+		"DirectSalesIndicator":   {3, 1, Alphanumeric, Applicable},
 		"FATCA":                  {4, 1, Alphanumeric, Applicable},
 		"Blank2":                 {5, 114, Alphanumeric, Nullable},
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
@@ -254,7 +255,7 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-OID
 	Sub1099OIDLayout = map[string]SpecField{
-		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
 		"Blank1":                 {1, 2, Alphanumeric, Nullable},
 		"Description":            {3, 39, Alphanumeric, Applicable},
 		"FATCA":                  {42, 1, Alphanumeric, Applicable},
@@ -267,7 +268,7 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-PATR
 	Sub1099PATRLayout = map[string]SpecField{
-		"SecondTINNotice":        {0, 1, Alphanumeric, Applicable},
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
 		"Blank1":                 {1, 118, Alphanumeric, Nullable},
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
 		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},

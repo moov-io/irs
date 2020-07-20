@@ -7,23 +7,82 @@ package records
 import (
 	"encoding/json"
 	"gopkg.in/check.v1"
+
+	"github.com/moov-io/irs/pkg/config"
 )
 
-func (t *RecordTest) TestBRecord(c *check.C) {
+func (t *RecordTest) TestBRecordWith1099MISC(c *check.C) {
 	r := &BRecord{}
+	r.SetTypeOfReturn(config.Sub1099MiscType)
 	c.Assert(r.Validate(), check.Not(check.IsNil))
-	err := json.Unmarshal(t.bRecordJson, r)
+	err := json.Unmarshal(t.bRecord1099MiscJson, r)
 	c.Assert(err, check.IsNil)
-	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecordAscii))
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099MiscAscii))
 	c.Assert(r.Validate(), check.IsNil)
-	err = r.Parse(t.bRecordAscii)
+	err = r.Parse(t.bRecord1099MiscAscii)
 	c.Assert(err, check.IsNil)
 	c.Assert(r.Validate(), check.IsNil)
-	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecordAscii))
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099MiscAscii))
 }
 
 func (t *RecordTest) TestBRecordWithError(c *check.C) {
 	r := &BRecord{}
-	err := r.Parse(t.bRecordAscii[1:])
+	err := r.Parse(t.bRecord1099MiscAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+}
+
+func (t *RecordTest) TestBRecordWith1099Int(c *check.C) {
+	r := &BRecord{}
+	r.SetTypeOfReturn(config.Sub1099IntType)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.bRecord1099IntJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099IntAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099IntAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099IntAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099Oid(c *check.C) {
+	r := &BRecord{}
+	r.SetTypeOfReturn(config.Sub1099OidType)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.bRecord1099OidJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099OidAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099OidAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099OidAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099Patr(c *check.C) {
+	r := &BRecord{}
+	r.SetTypeOfReturn(config.Sub1099PatrType)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.bRecord1099PatrJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099PatrAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099PatrAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099PatrAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1097Btc(c *check.C) {
+	r := &BRecord{}
+	r.SetTypeOfReturn(config.Sub1097BtcType)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.bRecord1097BtcJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1097BtcAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1097BtcAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1097BtcAscii))
 }

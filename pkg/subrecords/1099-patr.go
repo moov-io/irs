@@ -49,7 +49,7 @@ type Sub1099PATR struct {
 
 // Type returns type of “1099-PATR” record
 func (r *Sub1099PATR) Type() string {
-	return config.Sub1099PATRType
+	return config.Sub1099PatrType
 }
 
 // Parse parses the “1099-PATR” record from fire ascii

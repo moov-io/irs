@@ -53,7 +53,7 @@ type Sub1097BTC struct {
 
 // Type returns type of “1097-BTC” record
 func (r *Sub1097BTC) Type() string {
-	return config.Sub1097BTCType
+	return config.Sub1097BtcType
 }
 
 // Parse parses the “1097-BTC” record from fire ascii

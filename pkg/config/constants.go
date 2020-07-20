@@ -17,16 +17,16 @@ const (
 	KRecordType = "K"
 	// FRecordType indicates name of transmission “F” record
 	FRecordType = "F"
-	// Sub1097BTCType indicates type of payee “B” record for form 1097-BTC
-	Sub1097BTCType = "1097-BTC"
-	// Sub1099INTType indicates type of payee “B” record for form 1099-INT
-	Sub1099INTType = "1099-INT"
-	// Sub1099MISCType indicates type of payee “B” record for form 1099-MISC
-	Sub1099MISCType = "1099-MISC"
-	// Sub1099OIDType indicates type of payee “B” record for form 1099-OID
-	Sub1099OIDType = "1099-OID"
-	// Sub1099OIDType indicates type of payee “B” record for form 1099-PATR
-	Sub1099PATRType = "1099-PATR"
+	// Sub1097BtcType indicates type of payee “B” record for form 1097-BTC
+	Sub1097BtcType = "1097-BTC"
+	// Sub1099IntType indicates type of payee “B” record for form 1099-INT
+	Sub1099IntType = "1099-INT"
+	// Sub1099MiscType indicates type of payee “B” record for form 1099-MISC
+	Sub1099MiscType = "1099-MISC"
+	// Sub1099OidType indicates type of payee “B” record for form 1099-OID
+	Sub1099OidType = "1099-OID"
+	// Sub1099PatrType indicates type of payee “B” record for form 1099-PATR
+	Sub1099PatrType = "1099-PATR"
 )
 
 const (
