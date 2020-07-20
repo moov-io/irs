@@ -356,6 +356,7 @@ github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3Rllmb
 github.com/moov-io/authn v0.0.0-20200617215513-66004d37afbf/go.mod h1:V1B1hPjcF1qgt7SmDGwX1DKv7JdVUAaON7ToDVbaU0A=
 github.com/moov-io/authn v0.0.0-20200624134956-322faea3c757 h1:sWetZ+V8cnxCuylHBDAqI0/4kPoyKfxI8Vna66/RQq8=
 github.com/moov-io/authn v0.0.0-20200624134956-322faea3c757/go.mod h1:X5Cbe60BsdDXJIr8mwExQrc7giJdO3dCl0UXOHaEAHQ=
+github.com/moov-io/authn v0.0.0-20200702173859-0575c2c0dcb5/go.mod h1:6ojOGG2NjByRcs6lRXs47MOCasanEDS26CqA95tjlEw=
 github.com/moov-io/base v0.11.0 h1:1dhI8qsIxsUjMmbzE52ycyy2S1z3DGUN6swGYjSmOLs=
 github.com/moov-io/base v0.11.0/go.mod h1:jEkZukoSaJ4rDFoe00S5zuoLE+p3U3BEunSEPchgSbU=
 github.com/moov-io/identity v0.0.0-20200616225744-0dba4de79fed/go.mod h1:8cp+tvEWLT4l5+KaYAm39a54/Eazk21x3+124QWm1cQ=
@@ -363,12 +364,16 @@ github.com/moov-io/identity v0.0.0-20200617215100-dfd904ab610b/go.mod h1:knCJJiE
 github.com/moov-io/identity v0.0.0-20200617222838-75f18c632b1b/go.mod h1:vht1EqhyPooW+PIrhryhmFG9sUbKKI8F9MmV/zaruWM=
 github.com/moov-io/identity v0.0.0-20200629175045-a9c82645ec0c h1:UcX50knBL6hoEigz2gTqkhEx6m7I4l+vfZJ70EhW5x8=
 github.com/moov-io/identity v0.0.0-20200629175045-a9c82645ec0c/go.mod h1:1l0U9OBLjsYD66+L1wIBm/69vM2VnhxKK/MwSUS/8tI=
+github.com/moov-io/identity v0.1.0 h1:QLZn+v9TBD5VVQoWn2u5IA4mv6mghbnaSJ/KjsRdAqg=
+github.com/moov-io/identity v0.1.0/go.mod h1:TkmDGY3y/L9MCKgdEsgxBW+UdAL5sEXuHgh7Q9TSeLo=
 github.com/moov-io/irs v0.0.0-20200714155157-3a3bb428af05 h1:a6UV3iaE1mwzkUPqN0aD/79D/j4rT4NplE5sOw/PAuI=
 github.com/moov-io/tumbler v0.0.0-20200617212523-2a85ad22d0a9/go.mod h1:NmMeFW5pxs9+UXWRdykFOBq0vywh1s//VPzReT72W0s=
 github.com/moov-io/tumbler v0.0.0-20200617215154-5dcc2086b159/go.mod h1:DygEzjd1S/5WoTOYhDyP3tqXQNae/yRx4Vywy20oA9g=
 github.com/moov-io/tumbler v0.0.0-20200617223608-90d44979500f/go.mod h1:DygEzjd1S/5WoTOYhDyP3tqXQNae/yRx4Vywy20oA9g=
 github.com/moov-io/tumbler v0.0.0-20200624142544-e34edfe5e2b4 h1:JSCsh+l5jrh2p8UEn1Ihzf6LiARx5qIDKqEVZehuXIk=
 github.com/moov-io/tumbler v0.0.0-20200624142544-e34edfe5e2b4/go.mod h1:yy5fEWtKoxxfh8KCewMHLJ+V1kWXEIPzFLt/h5zVTsc=
+github.com/moov-io/tumbler v0.0.0-20200702154909-c9a5dbdd4b59 h1:hb4fs1OUR2DmQnVGsNNsa4ZZyOuzdhBkFLYpJMv4gOs=
+github.com/moov-io/tumbler v0.0.0-20200702154909-c9a5dbdd4b59/go.mod h1:2oPTr8Ne5jVLFui5yGrP6K8bDFSfHALjtO9ZIQb+Phw=
 github.com/morikuni/aec v1.0.0 h1:nP9CBfwrvYnBRgY6qfDQkygYDmYwOilePFkwzv4dU8A=
 github.com/morikuni/aec v1.0.0/go.mod h1:BbKIizmSmc5MMPqRYbxO4ZU0S0+P200+tUnFx7PXmsc=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
