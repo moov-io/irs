@@ -32,10 +32,8 @@
 	"payee_zip_code": "22222",
 	"record_sequence_number": 3,
 	"second_tin_notice": "",
-	"direct_sales_indicator": "",
-	"fatca_filing_requirement_indicator": "",
 	"special_data_entries": "",
-	"state_income_tax_withheld": "",
-	"local_income_tax_withheld": "",
-	"combined_federal_state_code": ""
+	"state_income_tax_withheld": 0,
+	"local_income_tax_withheld": 1,
+	"combined_federal_state_code": "01"
 }

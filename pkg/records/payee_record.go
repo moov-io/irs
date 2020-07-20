@@ -6,6 +6,7 @@ package records
 
 import (
 	"bytes"
+	"encoding/json"
 	"reflect"
 	"unicode/utf8"
 
@@ -236,9 +237,16 @@ func (r *BRecord) Parse(buf []byte) error {
 		return utils.ErrValidField
 	}
 
-	r.extRecord = nil
+	err := utils.ParseValue(fields, config.BRecordLayout, record)
+	if err != nil {
+		return err
+	}
 
-	return utils.ParseValue(fields, config.BRecordLayout, record)
+	if r.extRecord != nil {
+		err = r.extRecord.Parse(buf[config.RecordLength-config.SubRecordLength:])
+	}
+
+	return err
 }
 
 // Ascii returns fire ascii of “B” record
@@ -250,10 +258,15 @@ func (r *BRecord) Ascii() []byte {
 		return nil
 	}
 
-	buf.Grow(config.RecordLength)
+	buf.Grow(config.RecordLength - config.SubRecordLength)
 	for _, spec := range records {
 		value := utils.ToString(spec.Field, fields.FieldByName(spec.Name))
 		buf.WriteString(value)
+	}
+
+	if r.extRecord != nil {
+		buf.Grow(config.RecordLength)
+		buf.Write(r.extRecord.Ascii())
 	}
 
 	return buf.Bytes()
@@ -261,7 +274,15 @@ func (r *BRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *BRecord) Validate() error {
-	return utils.Validate(r, config.BRecordLayout)
+	err := utils.Validate(r, config.BRecordLayout)
+	if err != nil {
+		return err
+	}
+	if r.extRecord == nil {
+		return utils.ErrPayeeExtBlock
+	}
+
+	return r.extRecord.Validate()
 }
 
 // SequenceNumber returns sequence number of the record
@@ -277,11 +298,62 @@ func (r *BRecord) SetSequenceNumber(number int) {
 // SetTypeOfReturn set type of return of the record
 func (r *BRecord) SetTypeOfReturn(typeOfReturn string) {
 	r.typeOfReturn = typeOfReturn
+	r.extRecord = subrecords.NewSubRecord(r.typeOfReturn)
 }
 
 // SetTypeOfReturn returns type of return of the record
 func (r *BRecord) TypeOfReturn() string {
 	return r.typeOfReturn
+}
+
+// Marshal returns the JSON encoding
+func (r *BRecord) MarshalJSON() ([]byte, error) {
+	type recordJson BRecord
+	vRecord := recordJson{}
+	utils.CopyStruct(r, &vRecord)
+	buf, err := json.Marshal(vRecord)
+	if r.extRecord == nil || err != nil {
+		return buf, err
+	}
+
+	jsonMap := make(map[string]interface{})
+	err = json.Unmarshal(buf, &jsonMap)
+	if err != nil {
+		return nil, err
+	}
+
+	jsonMapExt := make(map[string]interface{})
+	buf, err = json.Marshal(r.extRecord)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(buf, &jsonMap)
+	if err != nil {
+		return nil, err
+	}
+
+	for k, v := range jsonMapExt {
+		jsonMap[k] = v
+	}
+
+	return json.Marshal(jsonMap)
+}
+
+// Unmarshal parses the JSON-encoded data
+func (r *BRecord) UnmarshalJSON(data []byte) error {
+	type recordJson BRecord
+	vRecord := recordJson{}
+	err := json.Unmarshal(data, &vRecord)
+	if err != nil {
+		return err
+	}
+	utils.CopyStruct(&vRecord, r)
+
+	if r.extRecord == nil || err != nil {
+		return nil
+	}
+
+	return json.Unmarshal(data, r.extRecord)
 }
 
 // customized field validation functions

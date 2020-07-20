@@ -62,7 +62,7 @@ type Sub1099OID struct {
 
 // Type returns type of “1099-OID” record
 func (r *Sub1099OID) Type() string {
-	return config.Sub1099OIDType
+	return config.Sub1099OidType
 }
 
 // Parse parses the “1099-OID” record from fire ascii

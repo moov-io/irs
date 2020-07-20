@@ -12,11 +12,11 @@ import (
 )
 
 var (
-	alphanumericRegex    = regexp.MustCompile(`[^ \w!"#$%&'()*+,-.\\/:;<>=?@\[\]^_{}|~]+`)
-	numericRegex         = regexp.MustCompile(`^[0-9]+$`)
-	yearRegex            = regexp.MustCompile(`((19|20)\d\d)`)
-	emailRegex           = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	minPhoneNumberLength = 10
+	upperAlphanumericRegex = regexp.MustCompile(`[^ A-Z0-9!"#$%&'()*+,-.\\/:;<>=?@\[\]^_{}|~]+`)
+	numericRegex           = regexp.MustCompile(`^[0-9]+$`)
+	yearRegex              = regexp.MustCompile(`((19|20)\d\d)`)
+	emailRegex             = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	minPhoneNumberLength   = 10
 )
 
 // parse field with string
@@ -52,6 +52,10 @@ func ParseValue(fields reflect.Value, spec map[string]config.SpecField, record s
 
 // to string from field
 func ToString(elm config.SpecField, data reflect.Value) string {
+	if elm.Required == config.Expandable {
+		return ""
+	}
+
 	if !data.IsValid() {
 		return fillString(elm)
 	}
@@ -60,6 +64,8 @@ func ToString(elm config.SpecField, data reflect.Value) string {
 	switch elm.Type {
 	case config.Alphanumeric, config.Email, config.Numeric, config.TelephoneNumber:
 		return fmt.Sprintf("%-"+sizeStr+"s", data)
+	case config.AlphanumericRightAlign:
+		return fmt.Sprintf("%"+sizeStr+"s", data)
 	case config.ZeroNumeric:
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
 	case config.DateYear:
@@ -105,6 +111,24 @@ func Validate(r interface{}, spec map[string]config.SpecField) error {
 	return nil
 }
 
+// to copy fields between struct instances
+func CopyStruct(from interface{}, to interface{}) {
+	fromFields := reflect.ValueOf(from).Elem()
+	toFields := reflect.ValueOf(to).Elem()
+	for i := 0; i < fromFields.NumField(); i++ {
+		fieldName := fromFields.Type().Field(i).Name
+		// skip local variable
+		if !unicode.IsUpper([]rune(fieldName)[0]) {
+			continue
+		}
+		fromField := fromFields.FieldByName(fieldName)
+		toField := toFields.FieldByName(fieldName)
+		if fromField.IsValid() && toField.CanSet() {
+			toField.Set(fromField)
+		}
+	}
+}
+
 func isValidType(elm config.SpecField, data string) error {
 	if elm.Required == config.Required {
 		if isBlank(data) {
@@ -118,7 +142,7 @@ func isValidType(elm config.SpecField, data string) error {
 	}
 
 	switch elm.Type {
-	case config.Alphanumeric:
+	case config.Alphanumeric, config.AlphanumericRightAlign:
 		return isAlphanumeric(data)
 	case config.Numeric, config.ZeroNumeric:
 		return isNumeric(data)
@@ -152,7 +176,7 @@ func isNumeric(data string) error {
 }
 
 func isAlphanumeric(data string) error {
-	if alphanumericRegex.MatchString(data) {
+	if upperAlphanumericRegex.MatchString(data) {
 		return ErrNonAlphanumeric
 	}
 	return nil
@@ -182,7 +206,7 @@ func fillString(elm config.SpecField) string {
 
 func parseValue(elm config.SpecField, field reflect.Value, data string) error {
 	switch elm.Type {
-	case config.Alphanumeric, config.Email, config.Numeric, config.TelephoneNumber:
+	case config.Alphanumeric, config.AlphanumericRightAlign, config.Email, config.Numeric, config.TelephoneNumber:
 		data = strings.TrimRight(data, config.BlankString)
 		field.SetString(data)
 		return nil

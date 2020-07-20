@@ -28,7 +28,7 @@ type Sub1099INT struct {
 	// in the aggregate for multiple bonds or accounts, enter
 	// VARIOUS. Right justify the information and fill unused
 	// positions with blanks.
-	CUSIPNumber string `json:"cusip_number"`
+	CUSIP string `json:"cusip_number"`
 
 	// Enter "1" (one) if there is FATCA filing requirement.
 	// Otherwise, enter a blank.
@@ -65,7 +65,7 @@ type Sub1099INT struct {
 
 // Type returns type of “1099-INT” record
 func (r *Sub1099INT) Type() string {
-	return config.Sub1099INTType
+	return config.Sub1099IntType
 }
 
 // Parse parses the “1099-INT” record from fire ascii

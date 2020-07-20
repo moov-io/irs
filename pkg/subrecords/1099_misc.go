@@ -63,7 +63,7 @@ type Sub1099MISC struct {
 
 // Type returns type of “1099-MISC” record
 func (r *Sub1099MISC) Type() string {
-	return config.Sub1099MISCType
+	return config.Sub1099MiscType
 }
 
 // Parse parses the “1099-MISC” record from fire ascii
