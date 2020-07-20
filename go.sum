@@ -371,6 +371,8 @@ github.com/moov-io/identity v0.1.0 h1:QLZn+v9TBD5VVQoWn2u5IA4mv6mghbnaSJ/KjsRdAq
 github.com/moov-io/identity v0.1.0/go.mod h1:TkmDGY3y/L9MCKgdEsgxBW+UdAL5sEXuHgh7Q9TSeLo=
 github.com/moov-io/identity v0.2.0 h1:b2em476bFXDMyto0Z5ajJHONBFJ5JMo8eAK/uSQ2cZE=
 github.com/moov-io/identity v0.2.0/go.mod h1:jn7eH9/ybZ5gOF/bC3eD7/VJ1PKLDyptb7Uy7b67X5A=
+github.com/moov-io/identity v0.2.1 h1:lmsRu9HKGDCMUlY9d/IErUtR/edlPXl4csb/aq66SmY=
+github.com/moov-io/identity v0.2.1/go.mod h1:jn7eH9/ybZ5gOF/bC3eD7/VJ1PKLDyptb7Uy7b67X5A=
 github.com/moov-io/irs v0.0.0-20200714155157-3a3bb428af05 h1:a6UV3iaE1mwzkUPqN0aD/79D/j4rT4NplE5sOw/PAuI=
 github.com/moov-io/tumbler v0.0.0-20200617212523-2a85ad22d0a9/go.mod h1:NmMeFW5pxs9+UXWRdykFOBq0vywh1s//VPzReT72W0s=
 github.com/moov-io/tumbler v0.0.0-20200617215154-5dcc2086b159/go.mod h1:DygEzjd1S/5WoTOYhDyP3tqXQNae/yRx4Vywy20oA9g=
