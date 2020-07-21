@@ -38,7 +38,7 @@ docker: install
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -o ${PWD}/bin/.docker/irs cmd/irs/*
 	docker build --pull -t moov/irs:$(VERSION) -f Dockerfile .
 	docker tag moov/irs:$(VERSION) moov/irs:latest
-	
+
 docker-run:
 	docker run -v ${PWD}/data:/data -v ${PWD}/configs:/configs --env APP_CONFIG="/configs/config.yml" -it --rm moov/irs:$(VERSION)
 
