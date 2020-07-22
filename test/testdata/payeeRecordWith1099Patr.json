@@ -35,5 +35,5 @@
 	"special_data_entries": "",
 	"state_income_tax_withheld": 0,
 	"local_income_tax_withheld": 1,
-	"combined_federal_state_code": "01"
+	"combined_federal_state_code": 1
 }

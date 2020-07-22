@@ -7,6 +7,8 @@ package records
 import (
 	"bytes"
 	"reflect"
+	"sort"
+	"strings"
 	"unicode/utf8"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -212,4 +214,88 @@ func (r *ARecord) ValidateSequenceNumber() error {
 		return utils.NewErrValidValue("sequence number")
 	}
 	return nil
+}
+
+func (r *ARecord) ValidateCombinedFSFilingProgram() error {
+	if r.CombinedFSFilingProgram == config.FSFilingProgramApproved || len(r.CombinedFSFilingProgram) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("combined federal filing program")
+}
+
+func (r *ARecord) ValidateLastFilingIndicator() error {
+	if r.LastFilingIndicator == config.LastFilingIndicator || len(r.LastFilingIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("last filing indicator")
+}
+
+func (r *ARecord) ValidateTypeOfReturn() error {
+	if _, ok := config.TypeOfReturns[r.TypeOfReturn]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("type of return")
+}
+
+func (r *ARecord) ValidateForeignEntityIndicator() error {
+	if r.ForeignEntityIndicator == config.ForeignEntityIndicator || len(r.ForeignEntityIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("foreign entity indicator")
+}
+
+func (r *ARecord) ValidateTransferAgentIndicator() error {
+	if r.TransferAgentIndicator == config.TransferAgentIndicator || r.TransferAgentIndicator == config.NotTransferAgentIndicator {
+		return nil
+	}
+	return utils.NewErrValidValue("transfer agent indicator")
+}
+
+func (r *ARecord) ValidatePayerState() error {
+	if _, ok := config.StateAbbreviationCodes[r.PayerState]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("payer state")
+}
+
+func (r *ARecord) ValidateAmountCodes() error {
+	returnType, exist := config.TypeOfReturns[r.TypeOfReturn]
+	if !exist {
+		return utils.NewErrValidValue("type of return")
+	}
+
+	codeMap, exist := config.AmountCodes[returnType]
+	if !exist {
+		return utils.NewErrValidValue("amount codes")
+	}
+	if !checkAvailableCodes(r.AmountCodes, codeMap) {
+		return utils.NewErrValidValue("amount codes")
+	}
+
+	return nil
+}
+
+func checkAvailableCodes(codes string, codeMap map[string]string) bool {
+	codes = strings.TrimRight(codes, config.BlankString)
+	codeList := strings.Split(codes, "")
+	sort.Strings(codeList)
+	if strings.Join(codeList, "") != codes {
+		return false
+	}
+
+	repeated := map[string]int{}
+	for i := 0; i < len(codeList); i++ {
+		repeated[codeList[i]]++
+	}
+
+	for code, v := range repeated {
+		if v > 1 {
+			return false
+		}
+		if _, ok := codeMap[code]; !ok {
+			return false
+		}
+	}
+
+	return true
 }

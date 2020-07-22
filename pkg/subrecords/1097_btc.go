@@ -93,3 +93,27 @@ func (r *Sub1097BTC) Ascii() []byte {
 func (r *Sub1097BTC) Validate() error {
 	return utils.Validate(r, config.Sub1097BTCLayout)
 }
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *Sub1097BTC) ValidateIssuerIndicator() error {
+	if _, ok := config.BtcIssuerIndicator[r.IssuerIndicator]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("issuer indicator")
+}
+
+func (r *Sub1097BTC) ValidateCode() error {
+	if _, ok := config.BtcCode[r.Code]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("code")
+}
+
+func (r *Sub1097BTC) ValidateBondType() error {
+	if _, ok := config.BtcBondType[r.BondType]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("bond type")
+}

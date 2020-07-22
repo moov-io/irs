@@ -44,7 +44,7 @@ type Sub1099PATR struct {
 
 	// Enter the valid CF/SF code if this payee record is to be
 	// forwarded to a state agency as part of the CF/SF Program.
-	CombinedFSCode string `json:"combined_federal_state_code"`
+	CombinedFSCode int `json:"combined_federal_state_code"`
 }
 
 // Type returns type of “1099-PATR” record
@@ -88,4 +88,21 @@ func (r *Sub1099PATR) Ascii() []byte {
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099PATR) Validate() error {
 	return utils.Validate(r, config.Sub1099PATRLayout)
+}
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *Sub1099PATR) ValidateVendorForeignEntityIndicator() error {
+	if r.SecondTinNotice == config.SecondTINNotice || len(r.SecondTinNotice) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("second tin notice")
+}
+
+func (r *Sub1099PATR) ValidateCombinedFSCode() error {
+	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("combined federal state code")
 }

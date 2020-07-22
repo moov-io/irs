@@ -60,7 +60,7 @@ type Sub1099INT struct {
 
 	// Enter the valid CF/SF code if this payee record is to be
 	// forwarded to a state agency as part of the CF/SF Program.
-	CombinedFSCode string `json:"combined_federal_state_code"`
+	CombinedFSCode int `json:"combined_federal_state_code"`
 }
 
 // Type returns type of “1099-INT” record
@@ -104,4 +104,28 @@ func (r *Sub1099INT) Ascii() []byte {
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099INT) Validate() error {
 	return utils.Validate(r, config.Sub1099INTLayout)
+}
+
+// customized field validation functions
+// function name should be "Validate" + field name
+
+func (r *Sub1099INT) ValidateVendorForeignEntityIndicator() error {
+	if r.SecondTinNotice == config.SecondTINNotice || len(r.SecondTinNotice) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("second tin notice")
+}
+
+func (r *Sub1099INT) ValidateFATCA() error {
+	if r.FATCA == config.FatcaFilingRequirementIndicator || len(r.FATCA) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("fatca filing requirement indicator")
+}
+
+func (r *Sub1099INT) ValidateCombinedFSCode() error {
+	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("combined federal state code")
 }

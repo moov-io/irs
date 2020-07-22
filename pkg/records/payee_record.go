@@ -365,3 +365,35 @@ func (r *BRecord) ValidateSequenceNumber() error {
 	}
 	return nil
 }
+
+func (r *BRecord) ValidateCorrectedReturnIndicator() error {
+	if r.CorrectedReturnIndicator == config.CorrectedReturnIndicatorC ||
+		r.CorrectedReturnIndicator == config.CorrectedReturnIndicatorG ||
+		len(r.CorrectedReturnIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("corrected return indicator")
+}
+
+func (r *BRecord) ValidateTypeOfTIN() error {
+	if r.TypeOfTIN == config.TinType1 ||
+		r.TypeOfTIN == config.TinType2 ||
+		len(r.TypeOfTIN) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("type of tin")
+}
+
+func (r *BRecord) ValidateForeignCountryIndicator() error {
+	if r.ForeignCountryIndicator == config.ForeignCountryIndicator || len(r.ForeignCountryIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("foreign country indicator")
+}
+
+func (r *BRecord) ValidatePayeeState() error {
+	if _, ok := config.StateAbbreviationCodes[r.PayeeState]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("payee state")
+}
