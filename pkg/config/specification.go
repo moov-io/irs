@@ -194,7 +194,7 @@ var (
 		"StateIncomeTaxWithheldTotal": {706, 18, Numeric, Applicable},
 		"LocalIncomeTaxWithheldTotal": {724, 18, Numeric, Applicable},
 		"Blank4":                      {742, 4, Alphanumeric, Nullable},
-		"CombinedFSCode":              {746, 2, Alphanumeric, Required},
+		"CombinedFederalStateCode":    {746, 2, Alphanumeric, Required},
 		"Blank5":                      {748, 2, Alphanumeric, Nullable},
 	}
 	// End of Transmission “F” Record
@@ -237,7 +237,7 @@ var (
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
 		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
-		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-MISC
@@ -250,7 +250,7 @@ var (
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
 		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
-		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-OID
@@ -263,7 +263,7 @@ var (
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
 		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
-		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-PATR
@@ -273,7 +273,7 @@ var (
 		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
 		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
-		"CombinedFSCode":         {203, 2, Alphanumeric, Required},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 )

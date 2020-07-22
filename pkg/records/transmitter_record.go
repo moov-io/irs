@@ -210,3 +210,52 @@ func (r *TRecord) ValidateSequenceNumber() error {
 	}
 	return nil
 }
+
+func (r *TRecord) ValidatePriorYearDataIndicator() error {
+	if r.PriorYearDataIndicator == config.PriorYearDataIndicator || len(r.PriorYearDataIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("prior year data indicator")
+}
+
+func (r *TRecord) ValidateTestFileIndicator() error {
+	if r.TestFileIndicator == config.TestFileIndicator || len(r.TestFileIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("test file indicator")
+}
+
+func (r *TRecord) ValidateForeignEntityIndicator() error {
+	if r.ForeignEntityIndicator == config.ForeignEntityIndicator || len(r.ForeignEntityIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("foreign entity indicator")
+}
+
+func (r *TRecord) ValidateCompanyState() error {
+	if _, ok := config.StateAbbreviationCodes[r.CompanyState]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("company state")
+}
+
+func (r *TRecord) ValidateVendorIndicator() error {
+	if r.VendorIndicator == config.VendorIndicatorProduced || r.VendorIndicator == config.VendorIndicatorPurchased {
+		return nil
+	}
+	return utils.NewErrValidValue("vendor indicator")
+}
+
+func (r *TRecord) ValidateVendorState() error {
+	if _, ok := config.StateAbbreviationCodes[r.VendorState]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("vendor state")
+}
+
+func (r *TRecord) ValidateVendorForeignEntityIndicator() error {
+	if r.VendorForeignEntityIndicator == config.ForeignEntityIndicator || len(r.VendorForeignEntityIndicator) == 0 {
+		return nil
+	}
+	return utils.NewErrValidValue("vendor foreign entity indicator")
+}

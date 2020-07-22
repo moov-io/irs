@@ -78,7 +78,7 @@ type KRecord struct {
 
 	// Required. Enter the CF/SF code assigned to the state which
 	// is to receive the information.
-	CombinedFSCode string `json:"combined_federal_state_code" validate:"required"`
+	CombinedFederalStateCode string `json:"combined_federal_state_code" validate:"required"`
 }
 
 // Type returns type of “K” record
@@ -142,4 +142,11 @@ func (r *KRecord) ValidateSequenceNumber() error {
 		return utils.NewErrValidValue("sequence number")
 	}
 	return nil
+}
+
+func (r *KRecord) ValidateCombinedFederalStateCode() error {
+	if _, ok := config.StateAbbreviationCodes[r.CombinedFederalStateCode]; ok {
+		return nil
+	}
+	return utils.NewErrValidValue("combined federal state code")
 }
