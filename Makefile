@@ -45,6 +45,12 @@ docker-run:
 clean:
 	rm ./data/*
 
+.PHONY: cover-test cover-web
+cover-test:
+	go test -coverprofile=cover.out ./...
+cover-web:
+	go tool cover -html=cover.out
+
 # Generate the go code from the public and internal api's
 openapitools:
 	docker run --rm \
