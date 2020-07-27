@@ -10,7 +10,7 @@ import (
 )
 
 func (t *RecordTest) TestCRecord(c *check.C) {
-	r := &CRecord{}
+	r := NewCRecord()
 	c.Assert(r.Validate(), check.Not(check.IsNil))
 	err := json.Unmarshal(t.cRecordJson, r)
 	c.Assert(err, check.IsNil)

@@ -8,8 +8,6 @@ import (
 var (
 	// ErrNonAlphanumeric is given when a field has non-alphanumeric characters
 	ErrNonAlphanumeric = errors.New("has non alphanumeric characters")
-	// ErrFieldRequired is given when a field is required
-	ErrFieldRequired = errors.New("is an invalid required field")
 	// ErrUpperAlpha is given when a field is not numeric characters
 	ErrNumeric = errors.New("is not numeric characters")
 	// ErrUpperAlpha is given when a field is an invalid phone number
@@ -26,9 +24,18 @@ var (
 	ErrEmail = errors.New("is not email address")
 	// ErrPayeeExtBlock is given when payee record has not extension block for  for each type of return
 	ErrPayeeExtBlock = errors.New("should exist extension block")
+	// ErrInvalidAscii is given when is invalid ascii
+	ErrInvalidAscii = errors.New("is invalid ascii")
+	// ErrInvalidFile is given when is invalid file
+	ErrInvalidFile = errors.New("is invalid file")
 )
 
 // NewErrValidValue returns a error that has invalid value
 func NewErrValidValue(field string) error {
 	return fmt.Errorf("is an invalid value of %s", field)
+}
+
+// NewErrFieldRequired returns a error that has empty required field
+func NewErrFieldRequired(field string) error {
+	return fmt.Errorf("is required field (%s)", field)
 }
