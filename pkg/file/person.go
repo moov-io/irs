@@ -86,15 +86,15 @@ func (p *paymentPerson) SequenceNumber() int {
 }
 
 // SequenceNumber set sequence number of the record
-func (p *paymentPerson) SetSequenceNumber(number int) {}
+func (p *paymentPerson) SetSequenceNumber(int) {}
 
-// Parse attempts to initialize a *File object assuming the input is valid raw data.
-func (p *paymentPerson) Parse(buf []byte) (error, int) {
+// Parse attempts to parse with raw data.
+func (p *paymentPerson) Parse(buf []byte) (int, error) {
 	bufSize := len(buf)
 	readPtr := 0
 
 	if string(buf[readPtr]) != config.ARecordType || bufSize < config.RecordLength {
-		return utils.ErrInvalidAscii, readPtr
+		return readPtr, utils.ErrInvalidAscii
 	}
 
 	if p.Payer == nil {
@@ -102,7 +102,7 @@ func (p *paymentPerson) Parse(buf []byte) (error, int) {
 	}
 	err := p.Payer.Parse(buf[readPtr : readPtr+config.RecordLength])
 	if err != nil {
-		return err, readPtr
+		return readPtr, err
 	}
 	readPtr += config.RecordLength
 
@@ -114,12 +114,12 @@ func (p *paymentPerson) Parse(buf []byte) (error, int) {
 	p.Payees = []records.Record{}
 	for string(buf[readPtr]) == config.BRecordType {
 		if bufSize < readPtr+config.RecordLength {
-			return utils.ErrInvalidAscii, readPtr
+			return readPtr, utils.ErrInvalidAscii
 		}
 
 		newPayee := records.NewBRecord(typeOfReturn)
 		if err = newPayee.Parse(buf[readPtr : readPtr+config.RecordLength]); err != nil {
-			return err, readPtr
+			return readPtr, err
 		}
 
 		readPtr += config.RecordLength
@@ -132,7 +132,7 @@ func (p *paymentPerson) Parse(buf []byte) (error, int) {
 		}
 		err := p.EndPayer.Parse(buf[readPtr : readPtr+config.RecordLength])
 		if err != nil {
-			return err, readPtr
+			return readPtr, err
 		}
 		readPtr += config.RecordLength
 	}
@@ -140,19 +140,19 @@ func (p *paymentPerson) Parse(buf []byte) (error, int) {
 	p.States = []records.Record{}
 	for string(buf[readPtr]) == config.KRecordType {
 		if bufSize < readPtr+config.RecordLength {
-			return utils.ErrInvalidAscii, readPtr
+			return readPtr, utils.ErrInvalidAscii
 		}
 
 		newState := records.NewKRecord()
 		if err = newState.Parse(buf[readPtr : readPtr+config.RecordLength]); err != nil {
-			return err, readPtr
+			return readPtr, err
 		}
 
 		readPtr += config.RecordLength
 		p.States = append(p.States, newState)
 	}
 
-	return nil, readPtr
+	return readPtr, nil
 }
 
 // UnmarshalJSON parses a JSON blob

@@ -50,11 +50,11 @@ func (f *fileInstance) Parse(buf []byte) error {
 	f.PaymentPersons = []*paymentPerson{}
 	for string(buf[readPtr]) == config.ARecordType {
 		currentPerson := &paymentPerson{}
-		err, size := currentPerson.Parse(buf[readPtr:])
+		readSize, err := currentPerson.Parse(buf[readPtr:])
 		if err != nil {
 			return err
 		}
-		readPtr += size
+		readPtr += readSize
 		f.PaymentPersons = append(f.PaymentPersons, currentPerson)
 	}
 
