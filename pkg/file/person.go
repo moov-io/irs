@@ -3,6 +3,8 @@ package file
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+
 	"github.com/moov-io/irs/pkg/config"
 	"github.com/moov-io/irs/pkg/records"
 	"github.com/moov-io/irs/pkg/utils"
@@ -108,7 +110,11 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 
 	typeOfReturn := ""
 	if p.Payer != nil {
-		typeOfReturn = config.TypeOfReturns[p.Payer.(*records.ARecord).TypeOfReturn]
+		if arec, ok := p.Payer.(*records.ARecord); !ok {
+			return -1, fmt.Errorf("unexpected Payer to be an ARecord, but got %T", p.Payer)
+		} else {
+			typeOfReturn = config.TypeOfReturns[arec.TypeOfReturn]
+		}
 	}
 
 	p.Payees = []records.Record{}
@@ -177,7 +183,11 @@ func (p *paymentPerson) UnmarshalJSON(data []byte) error {
 
 	typeOfReturn := ""
 	if p.Payer != nil {
-		typeOfReturn = config.TypeOfReturns[p.Payer.(*records.ARecord).TypeOfReturn]
+		if arec, ok := p.Payer.(*records.ARecord); !ok {
+			return fmt.Errorf("unexpected Payer to be an ARecord, but got %T", p.Payer)
+		} else {
+			typeOfReturn = config.TypeOfReturns[arec.TypeOfReturn]
+		}
 	}
 
 	for name, record := range dummy {
