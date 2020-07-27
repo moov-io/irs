@@ -13,3 +13,29 @@ type Record interface {
 	Ascii() []byte
 	Validate() error
 }
+
+func NewARecord() Record {
+	return &ARecord{}
+}
+
+func NewBRecord(typeOfReturn string) Record {
+	record := &BRecord{}
+	record.SetTypeOfReturn(typeOfReturn)
+	return record
+}
+
+func NewCRecord() Record {
+	return &CRecord{}
+}
+
+func NewTRecord() Record {
+	return &TRecord{}
+}
+
+func NewFRecord() Record {
+	return &FRecord{}
+}
+
+func NewKRecord() Record {
+	return &KRecord{}
+}

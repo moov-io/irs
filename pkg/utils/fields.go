@@ -39,7 +39,7 @@ func ParseValue(fields reflect.Value, spec map[string]config.SpecField, record s
 		}
 
 		data := record[spec.Start : spec.Start+spec.Length]
-		if err := isValidType(spec, data); err != nil {
+		if err := isValidType(fieldName, spec, data); err != nil {
 			return err
 		}
 
@@ -88,7 +88,7 @@ func Validate(r interface{}, spec map[string]config.SpecField) error {
 			if spec.Required == config.Required {
 				fieldValue := fields.FieldByName(fieldName)
 				if fieldValue.IsZero() {
-					return ErrFieldRequired
+					return NewErrFieldRequired(fieldName)
 				}
 			}
 		}
@@ -129,10 +129,10 @@ func CopyStruct(from interface{}, to interface{}) {
 	}
 }
 
-func isValidType(elm config.SpecField, data string) error {
+func isValidType(fieldName string, elm config.SpecField, data string) error {
 	if elm.Required == config.Required {
 		if isBlank(data) {
-			return ErrFieldRequired
+			return NewErrFieldRequired(fieldName)
 		}
 	}
 
@@ -157,7 +157,7 @@ func isValidType(elm config.SpecField, data string) error {
 		return isDateYear(data)
 	}
 
-	return ErrValidField
+	return NewErrValidValue(fieldName)
 }
 
 func isBlank(data string) bool {
