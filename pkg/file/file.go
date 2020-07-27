@@ -2,6 +2,7 @@ package file
 
 import (
 	"encoding/json"
+
 	"github.com/moov-io/irs/pkg/records"
 )
 
@@ -24,17 +25,12 @@ func NewFile() File {
 func CreateFile(buf []byte) (File, error) {
 	var err error
 	f := NewFile()
-	if isJsonString(buf) {
+	if json.Valid(buf) {
 		err = json.Unmarshal(buf, f)
 	} else {
 		err = f.Parse(buf)
 	}
 	return f, err
-}
-
-func isJsonString(buf []byte) bool {
-	var js json.RawMessage
-	return json.Unmarshal(buf, &js) == nil
 }
 
 func readJsonWithRecord(record records.Record, data interface{}) error {
