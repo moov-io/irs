@@ -50,6 +50,8 @@ var (
 	ErrDuplicatedFSCode = errors.New("has duplicated combined fs code")
 	// ErrInvalidNumberPayers is given when has incorrect number of payers
 	ErrInvalidNumberPayers = errors.New("has incorrect number of payers")
+	// ErrInvalidTCC is given when is invalid transmitter control code
+	ErrInvalidTCC = errors.New("is invalid transmitter control code")
 )
 
 // NewErrValidValue returns a error that has invalid value

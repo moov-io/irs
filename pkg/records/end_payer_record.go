@@ -145,7 +145,7 @@ func (r *CRecord) TotalCodes() string {
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *CRecord) ValidateSequenceNumber() error {
+func (r *CRecord) ValidateRecordSequenceNumber() error {
 	if r.RecordSequenceNumber < 1 {
 		return utils.NewErrValidValue("sequence number")
 	}

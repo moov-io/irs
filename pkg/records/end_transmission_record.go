@@ -102,7 +102,7 @@ func (r *FRecord) SetSequenceNumber(number int) {
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *FRecord) ValidateSequenceNumber() error {
+func (r *FRecord) ValidateRecordSequenceNumber() error {
 	if r.RecordSequenceNumber < 1 {
 		return utils.NewErrValidValue("sequence number")
 	}
