@@ -7,6 +7,8 @@ package records
 import (
 	"encoding/json"
 	"gopkg.in/check.v1"
+
+	"github.com/moov-io/irs/pkg/config"
 )
 
 func (t *RecordTest) TestFRecord(c *check.C) {
@@ -25,6 +27,7 @@ func (t *RecordTest) TestFRecord(c *check.C) {
 	c.Assert(r.Validate(), check.IsNil)
 	r.SetSequenceNumber(-1)
 	c.Assert(r.Validate(), check.NotNil)
+	c.Assert(r.Type(), check.Equals, config.FRecordType)
 }
 
 func (t *RecordTest) TestFRecordWithError(c *check.C) {

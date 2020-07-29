@@ -36,6 +36,7 @@ func (t *RecordTest) TestBRecordWith1099MISC(c *check.C) {
 	c.Assert(r.Validate(), check.IsNil)
 	r.SetSequenceNumber(-1)
 	c.Assert(r.Validate(), check.NotNil)
+	c.Assert(r.Type(), check.Equals, config.BRecordType)
 }
 
 func (t *RecordTest) TestBRecordWithError(c *check.C) {
