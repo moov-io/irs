@@ -5,6 +5,7 @@
 package records
 
 import (
+	"bytes"
 	"encoding/json"
 	"gopkg.in/check.v1"
 
@@ -23,6 +24,18 @@ func (t *RecordTest) TestBRecordWith1099MISC(c *check.C) {
 	c.Assert(err, check.IsNil)
 	c.Assert(r.Validate(), check.IsNil)
 	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099MiscAscii))
+	buf, err := json.Marshal(r)
+	c.Assert(err, check.IsNil)
+	var prettyJSON1 bytes.Buffer
+	json.Indent(&prettyJSON1, buf, "", "  ")
+	var prettyJSON2 bytes.Buffer
+	json.Indent(&prettyJSON2, t.bRecord1099MiscJson, "", "  ")
+	c.Assert(prettyJSON1.String(), check.Equals, prettyJSON2.String())
+	r.SetSequenceNumber(1)
+	c.Assert(r.SequenceNumber(), check.Equals, 1)
+	c.Assert(r.Validate(), check.IsNil)
+	r.SetSequenceNumber(-1)
+	c.Assert(r.Validate(), check.NotNil)
 }
 
 func (t *RecordTest) TestBRecordWithError(c *check.C) {

@@ -20,6 +20,11 @@ func (t *RecordTest) TestKRecord(c *check.C) {
 	c.Assert(err, check.IsNil)
 	c.Assert(r.Validate(), check.IsNil)
 	c.Assert(string(r.Ascii()), check.Equals, string(t.kRecordAscii))
+	r.SetSequenceNumber(1)
+	c.Assert(r.SequenceNumber(), check.Equals, 1)
+	c.Assert(r.Validate(), check.IsNil)
+	r.SetSequenceNumber(-1)
+	c.Assert(r.Validate(), check.NotNil)
 }
 
 func (t *RecordTest) TestKRecordWithError(c *check.C) {

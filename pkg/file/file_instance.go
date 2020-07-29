@@ -17,12 +17,27 @@ type fileInstance struct {
 	EndTransmitter records.Record   `json:"end_transmitter"`
 }
 
+// SetTCC set transmitter control code
+func (f *fileInstance) SetTCC(code string) error {
+	tRecord, _, err := f.getRecords()
+	if err != nil {
+		return err
+	}
+	tRecord.TCC = code
+	return nil
+}
+
+// TCC returns transmitter control code
+func (f *fileInstance) TCC() (*string, error) {
+	tRecord, _, err := f.getRecords()
+	if err != nil {
+		return nil, err
+	}
+	return &tRecord.TCC, nil
+}
+
 // Validate performs some checks on the file and returns an error if not Validated
 func (f *fileInstance) Validate() error {
-	if f.Transmitter == nil || f.EndTransmitter == nil {
-		return utils.ErrInvalidFile
-	}
-
 	err := f.validateRecords()
 	if err != nil {
 		return err
@@ -167,6 +182,10 @@ func (f *fileInstance) UnmarshalJSON(data []byte) error {
 }
 
 func (f *fileInstance) validateRecords() error {
+	if f.Transmitter == nil || f.EndTransmitter == nil {
+		return utils.ErrInvalidFile
+	}
+
 	err := f.Transmitter.Validate()
 	if err != nil {
 		return err
@@ -258,6 +277,10 @@ func (f *fileInstance) integrationCheck() error {
 }
 
 func (f *fileInstance) getRecords() (*records.TRecord, *records.FRecord, error) {
+	if f.Transmitter == nil || f.EndTransmitter == nil {
+		return nil, nil, utils.ErrInvalidFile
+	}
+
 	tRecord, ok := f.Transmitter.(*records.TRecord)
 	if !ok {
 		return nil, nil, utils.NewErrUnexpectedRecord("transmitter", f.Transmitter)
