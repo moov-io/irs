@@ -111,6 +111,19 @@ func Validate(r interface{}, spec map[string]config.SpecField) error {
 	return nil
 }
 
+// to get field
+func GetField(from interface{}, fieldName string) (reflect.Value, error) {
+	fields := reflect.ValueOf(from).Elem()
+	if !fields.IsValid() {
+		return fields, ErrValidField
+	}
+	field := fields.FieldByName(fieldName)
+	if !field.IsValid() || !field.CanSet() {
+		return field, ErrValidField
+	}
+	return field, nil
+}
+
 // to copy fields between struct instances
 func CopyStruct(from interface{}, to interface{}) {
 	fromFields := reflect.ValueOf(from).Elem()

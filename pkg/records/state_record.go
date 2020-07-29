@@ -35,22 +35,22 @@ type KRecord struct {
 	// Positive and negative amounts are indicated by placing a “+”
 	// (plus) or “-” (minus) sign in the left-most position of the
 	// payment amount field.
-	ControlTotal1 int `json:"control_total_1" validate:"required"`
-	ControlTotal2 int `json:"control_total_2" validate:"required"`
-	ControlTotal3 int `json:"control_total_3" validate:"required"`
-	ControlTotal4 int `json:"control_total_4" validate:"required"`
-	ControlTotal5 int `json:"control_total_5" validate:"required"`
-	ControlTotal6 int `json:"control_total_6" validate:"required"`
-	ControlTotal7 int `json:"control_total_7" validate:"required"`
-	ControlTotal8 int `json:"control_total_8" validate:"required"`
-	ControlTotal9 int `json:"control_total_9" validate:"required"`
-	ControlTotalA int `json:"control_total_A" validate:"required"`
-	ControlTotalB int `json:"control_total_B" validate:"required"`
-	ControlTotalC int `json:"control_total_C" validate:"required"`
-	ControlTotalD int `json:"control_total_D" validate:"required"`
-	ControlTotalE int `json:"control_total_E" validate:"required"`
-	ControlTotalF int `json:"control_total_F" validate:"required"`
-	ControlTotalG int `json:"control_total_G" validate:"required"`
+	ControlTotal1 int `json:"control_total_1"`
+	ControlTotal2 int `json:"control_total_2"`
+	ControlTotal3 int `json:"control_total_3"`
+	ControlTotal4 int `json:"control_total_4"`
+	ControlTotal5 int `json:"control_total_5"`
+	ControlTotal6 int `json:"control_total_6"`
+	ControlTotal7 int `json:"control_total_7"`
+	ControlTotal8 int `json:"control_total_8"`
+	ControlTotal9 int `json:"control_total_9"`
+	ControlTotalA int `json:"control_total_A"`
+	ControlTotalB int `json:"control_total_B"`
+	ControlTotalC int `json:"control_total_C"`
+	ControlTotalD int `json:"control_total_D"`
+	ControlTotalE int `json:"control_total_E"`
+	ControlTotalF int `json:"control_total_F"`
+	ControlTotalG int `json:"control_total_G"`
 
 	// Required. Enter the number of the record as it appears
 	// within the file. The record sequence number for the “T”
@@ -132,6 +132,28 @@ func (r *KRecord) SequenceNumber() int {
 // SequenceNumber set sequence number of the record
 func (r *KRecord) SetSequenceNumber(number int) {
 	r.RecordSequenceNumber = number
+}
+
+// ControlTotal returns total of any payment amount field
+func (r *KRecord) ControlTotal(index string) (int, error) {
+	value, err := utils.GetField(r, "ControlTotal"+index)
+	if err != nil {
+		return 0, err
+	}
+	return int(value.Int()), nil
+}
+
+// PaymentAmount returns payment codes
+func (r *KRecord) PaymentCodes() string {
+	codes := ""
+	codeIndexes := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G"}
+	for _, index := range codeIndexes {
+		amount, err := r.ControlTotal(index)
+		if err == nil && amount > 0 {
+			codes += index
+		}
+	}
+	return codes
 }
 
 // customized field validation functions

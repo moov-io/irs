@@ -3,6 +3,8 @@ package file
 import (
 	"bytes"
 	"encoding/json"
+	"sort"
+
 	"github.com/moov-io/irs/pkg/config"
 	"github.com/moov-io/irs/pkg/records"
 	"github.com/moov-io/irs/pkg/utils"
@@ -17,12 +19,21 @@ type fileInstance struct {
 
 // Validate performs some checks on the file and returns an error if not Validated
 func (f *fileInstance) Validate() error {
+	if f.Transmitter == nil || f.EndTransmitter == nil {
+		return utils.ErrInvalidFile
+	}
+
 	err := f.validateRecords()
 	if err != nil {
 		return err
 	}
 
-	err = f.validateSequenceNumber()
+	err = f.validateRecordSequenceNumber()
+	if err != nil {
+		return err
+	}
+
+	err = f.integrationCheck()
 	if err != nil {
 		return err
 	}
@@ -145,14 +156,17 @@ func (f *fileInstance) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// sort by record sequence number
+	if f.PaymentPersons != nil {
+		sort.SliceStable(f.PaymentPersons, func(i, j int) bool {
+			return f.PaymentPersons[i].SequenceNumber() < f.PaymentPersons[j].SequenceNumber()
+		})
+	}
+
 	return nil
 }
 
 func (f *fileInstance) validateRecords() error {
-	if f.Transmitter == nil || f.EndTransmitter == nil {
-		return utils.ErrInvalidFile
-	}
-
 	err := f.Transmitter.Validate()
 	if err != nil {
 		return err
@@ -173,6 +187,94 @@ func (f *fileInstance) validateRecords() error {
 	return nil
 }
 
-func (f *fileInstance) validateSequenceNumber() error {
+func (f *fileInstance) validateRecordSequenceNumber() error {
+	sequenceNumber := 1
+	if sequenceNumber != f.Transmitter.SequenceNumber() {
+		utils.NewErrRecordSequenceNumber(f.Transmitter.Type())
+	}
+	sequenceNumber++
+
+	for _, person := range f.PaymentPersons {
+		if sequenceNumber != person.SequenceNumber() {
+			utils.NewErrRecordSequenceNumber(person.Type())
+		}
+		sequenceNumber++
+
+		for _, payee := range person.Payees {
+			if sequenceNumber != payee.SequenceNumber() {
+				utils.NewErrRecordSequenceNumber(payee.Type())
+			}
+			sequenceNumber++
+		}
+
+		if sequenceNumber != person.EndPayer.SequenceNumber() {
+			utils.NewErrRecordSequenceNumber(person.EndPayer.Type())
+		}
+		sequenceNumber++
+
+		for _, state := range person.States {
+			if sequenceNumber != state.SequenceNumber() {
+				utils.NewErrRecordSequenceNumber(state.Type())
+			}
+			sequenceNumber++
+		}
+	}
+
+	if sequenceNumber != f.EndTransmitter.SequenceNumber() {
+		utils.NewErrRecordSequenceNumber(f.EndTransmitter.Type())
+	}
+
 	return nil
+}
+
+func (f *fileInstance) integrationCheck() error {
+	for _, person := range f.PaymentPersons {
+		if err := person.integrationCheck(); err != nil {
+			return err
+		}
+	}
+
+	tRecord, fRecord, err := f.getRecords()
+	if err != nil {
+		return err
+	}
+
+	if fRecord.NumberPayerRecords != len(f.PaymentPersons) {
+		return utils.ErrInvalidNumberPayers
+	}
+
+	numberPayees := 0
+	if tRecord.TotalNumberPayees > 0 {
+		numberPayees = tRecord.TotalNumberPayees
+	} else if fRecord.NumberPayerRecords > 0 {
+		numberPayees = fRecord.TotalNumberPayees
+	}
+
+	if numberPayees != f.getNumberPayees() {
+		return utils.ErrInvalidNumberPayees
+	}
+
+	return nil
+}
+
+func (f *fileInstance) getRecords() (*records.TRecord, *records.FRecord, error) {
+	tRecord, ok := f.Transmitter.(*records.TRecord)
+	if !ok {
+		return nil, nil, utils.NewErrUnexpectedRecord("transmitter", f.Transmitter)
+	}
+
+	fRecord, ok := f.EndTransmitter.(*records.FRecord)
+	if !ok {
+		return nil, nil, utils.NewErrUnexpectedRecord("end of transmitter", f.EndTransmitter)
+	}
+
+	return tRecord, fRecord, nil
+}
+
+func (f *fileInstance) getNumberPayees() int {
+	number := 0
+	for _, person := range f.PaymentPersons {
+		number += len(person.Payees)
+	}
+	return number
 }

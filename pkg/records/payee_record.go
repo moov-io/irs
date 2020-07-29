@@ -115,22 +115,22 @@ type BRecord struct {
 	// Negative over punch cannot be used in PC created files.
 	// Payment amounts must be right justified and fill unused
 	// positions with zeros.
-	PaymentAmount1 int `json:"payment_amount_1" validate:"required"`
-	PaymentAmount2 int `json:"payment_amount_2" validate:"required"`
-	PaymentAmount3 int `json:"payment_amount_3" validate:"required"`
-	PaymentAmount4 int `json:"payment_amount_4" validate:"required"`
-	PaymentAmount5 int `json:"payment_amount_5" validate:"required"`
-	PaymentAmount6 int `json:"payment_amount_6" validate:"required"`
-	PaymentAmount7 int `json:"payment_amount_7" validate:"required"`
-	PaymentAmount8 int `json:"payment_amount_8" validate:"required"`
-	PaymentAmount9 int `json:"payment_amount_9" validate:"required"`
-	PaymentAmountA int `json:"payment_amount_A" validate:"required"`
-	PaymentAmountB int `json:"payment_amount_B" validate:"required"`
-	PaymentAmountC int `json:"payment_amount_C" validate:"required"`
-	PaymentAmountD int `json:"payment_amount_D" validate:"required"`
-	PaymentAmountE int `json:"payment_amount_E" validate:"required"`
-	PaymentAmountF int `json:"payment_amount_F" validate:"required"`
-	PaymentAmountG int `json:"payment_amount_G" validate:"required"`
+	PaymentAmount1 int `json:"payment_amount_1"`
+	PaymentAmount2 int `json:"payment_amount_2"`
+	PaymentAmount3 int `json:"payment_amount_3"`
+	PaymentAmount4 int `json:"payment_amount_4"`
+	PaymentAmount5 int `json:"payment_amount_5"`
+	PaymentAmount6 int `json:"payment_amount_6"`
+	PaymentAmount7 int `json:"payment_amount_7"`
+	PaymentAmount8 int `json:"payment_amount_8"`
+	PaymentAmount9 int `json:"payment_amount_9"`
+	PaymentAmountA int `json:"payment_amount_A"`
+	PaymentAmountB int `json:"payment_amount_B"`
+	PaymentAmountC int `json:"payment_amount_C"`
+	PaymentAmountD int `json:"payment_amount_D"`
+	PaymentAmountE int `json:"payment_amount_E"`
+	PaymentAmountF int `json:"payment_amount_F"`
+	PaymentAmountG int `json:"payment_amount_G"`
 
 	// If the address of the payee is in a foreign country, enter a
 	// “1” (one) in this field. Otherwise, enter blank. When filers use
@@ -299,6 +299,28 @@ func (r *BRecord) SetSequenceNumber(number int) {
 func (r *BRecord) SetTypeOfReturn(typeOfReturn string) {
 	r.typeOfReturn = typeOfReturn
 	r.extRecord = subrecords.NewSubRecord(r.typeOfReturn)
+}
+
+// PaymentAmount returns payment amount
+func (r *BRecord) PaymentAmount(index string) (int, error) {
+	value, err := utils.GetField(r, "PaymentAmount"+index)
+	if err != nil {
+		return 0, err
+	}
+	return int(value.Int()), nil
+}
+
+// PaymentAmount returns payment codes
+func (r *BRecord) PaymentCodes() string {
+	codes := ""
+	codeIndexes := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G"}
+	for _, index := range codeIndexes {
+		amount, err := r.PaymentAmount(index)
+		if err == nil && amount > 0 {
+			codes += index
+		}
+	}
+	return codes
 }
 
 // SetTypeOfReturn returns type of return of the record

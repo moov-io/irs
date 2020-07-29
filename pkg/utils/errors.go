@@ -28,6 +28,28 @@ var (
 	ErrInvalidAscii = errors.New("is invalid ascii")
 	// ErrInvalidFile is given when is invalid file
 	ErrInvalidFile = errors.New("is invalid file")
+	// ErrNonExistPayer is given when isn't payer record
+	ErrNonExistPayer = errors.New("should exist payer record")
+	// ErrNonExistEndPayer is given when isn't payer record
+	ErrNonExistEndPayer = errors.New("should exist end of payer record")
+	// ErrNonExistPayee is given when isn't payee record
+	ErrNonExistPayee = errors.New("should exist at least one payee record")
+	// ErrInvalidNumberPayees is given when has incorrect number of payees
+	ErrInvalidNumberPayees = errors.New("has incorrect number of payees")
+	// ErrIncorrectReturnIndicator is given when has incorrect return indicator
+	ErrIncorrectReturnIndicator = errors.New("has incorrect return indicator")
+	// ErrInvalidTotalAmounts is given when have invalid totals of any payment amount fields
+	ErrInvalidTotalAmounts = errors.New("have invalid totals of any payment amount fields")
+	// ErrUnexpectedPaymentAmount is given when has unexpected payment amount in B records
+	ErrUnexpectedPaymentAmount = errors.New("has unexpected payment amount")
+	// ErrUnexpectedTotalAmount is given when has unexpected totals of any payment amount in C,K record
+	ErrUnexpectedTotalAmount = errors.New("has unexpected totals of any payment amount")
+	// ErrInvalidTypeOfReturn is given when has invalid type of return
+	ErrInvalidTypeOfReturn = errors.New("has invalid type of return")
+	// ErrDuplicatedFSCode is given when has duplicated combined fs code in state records
+	ErrDuplicatedFSCode = errors.New("has duplicated combined fs code")
+	// ErrInvalidNumberPayers is given when has incorrect number of payers
+	ErrInvalidNumberPayers = errors.New("has incorrect number of payers")
 )
 
 // NewErrValidValue returns a error that has invalid value
@@ -38,4 +60,14 @@ func NewErrValidValue(field string) error {
 // NewErrFieldRequired returns a error that has empty required field
 func NewErrFieldRequired(field string) error {
 	return fmt.Errorf("is required field (%s)", field)
+}
+
+// NewErrRecordSequenceNumber returns a error that has invalid record sequence number
+func NewErrRecordSequenceNumber(field string) error {
+	return fmt.Errorf("has invalid record sequence number (%s)", field)
+}
+
+// NewErrUnexpectedRecord returns a error that has unexpected record
+func NewErrUnexpectedRecord(name string, record interface{}) error {
+	return fmt.Errorf("unexpected %s record, but got %T", name, record)
 }
