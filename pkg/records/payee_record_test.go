@@ -46,8 +46,7 @@ func (t *RecordTest) TestBRecordWithError(c *check.C) {
 }
 
 func (t *RecordTest) TestBRecordWith1099Int(c *check.C) {
-	r := &BRecord{}
-	r.SetTypeOfReturn(config.Sub1099IntType)
+	r := NewBRecord(config.Sub1099IntType)
 	c.Assert(r.Validate(), check.Not(check.IsNil))
 	err := json.Unmarshal(t.bRecord1099IntJson, r)
 	c.Assert(err, check.IsNil)
