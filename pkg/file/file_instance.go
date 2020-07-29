@@ -23,6 +23,10 @@ func (f *fileInstance) SetTCC(code string) error {
 	if err != nil {
 		return err
 	}
+	if len(code) != 5 {
+		return utils.ErrInvalidTCC
+	}
+
 	tRecord.TCC = code
 	return nil
 }

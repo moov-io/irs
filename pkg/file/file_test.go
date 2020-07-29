@@ -26,6 +26,13 @@ func (t *FileTest) TestParseWithOneTransactionJsonFile(c *check.C) {
 	c.Assert(err, check.IsNil)
 	err = f2.Validate()
 	c.Assert(err, check.IsNil)
+	tcc, err := f1.TCC()
+	c.Assert(err, check.IsNil)
+	c.Assert(tcc, check.NotNil)
+	c.Assert(f1.SetTCC("123456"), check.NotNil)
+	c.Assert(f1.SetTCC("12345"), check.IsNil)
+	p := &paymentPerson{}
+	c.Assert(p.Type(), check.Equals, "Person")
 }
 
 func (t *FileTest) TestValidateWithOneTransactionJsonFile(c *check.C) {

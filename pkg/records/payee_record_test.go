@@ -37,6 +37,10 @@ func (t *RecordTest) TestBRecordWith1099MISC(c *check.C) {
 	r.SetSequenceNumber(-1)
 	c.Assert(r.Validate(), check.NotNil)
 	c.Assert(r.Type(), check.Equals, config.BRecordType)
+	codes := r.PaymentCodes()
+	c.Assert(len(codes), check.Not(check.Equals), 0)
+	_, err = r.PaymentAmount("1")
+	c.Assert(err, check.IsNil)
 }
 
 func (t *RecordTest) TestBRecordWithError(c *check.C) {
