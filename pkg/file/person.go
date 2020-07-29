@@ -3,7 +3,8 @@ package file
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	"sort"
+	"strings"
 
 	"github.com/moov-io/irs/pkg/config"
 	"github.com/moov-io/irs/pkg/records"
@@ -48,30 +49,27 @@ func (p *paymentPerson) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (p *paymentPerson) Validate() error {
-	if p.Payer == nil || p.EndPayer == nil {
-		return utils.ErrInvalidFile
+	var err error
+	if err = p.validateRecords(); err != nil {
+		return err
 	}
 
-	err := p.Payer.Validate()
-	if err != nil {
+	if err = p.Payer.Validate(); err != nil {
 		return err
 	}
 
 	for _, payee := range p.Payees {
-		err = payee.Validate()
-		if err != nil {
+		if err = payee.Validate(); err != nil {
 			return err
 		}
 	}
 
-	err = p.EndPayer.Validate()
-	if err != nil {
+	if err = p.EndPayer.Validate(); err != nil {
 		return err
 	}
 
 	for _, state := range p.States {
-		err = state.Validate()
-		if err != nil {
+		if err = state.Validate(); err != nil {
 			return err
 		}
 	}
@@ -108,13 +106,9 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 	}
 	readPtr += config.RecordLength
 
-	typeOfReturn := ""
-	if p.Payer != nil {
-		if arec, ok := p.Payer.(*records.ARecord); !ok {
-			return -1, fmt.Errorf("unexpected Payer to be an ARecord, but got %T", p.Payer)
-		} else {
-			typeOfReturn = config.TypeOfReturns[arec.TypeOfReturn]
-		}
+	typeOfReturn, err := p.getTypeOfReturn()
+	if err != nil {
+		return readPtr, err
 	}
 
 	p.Payees = []records.Record{}
@@ -163,7 +157,6 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 
 // UnmarshalJSON parses a JSON blob
 func (p *paymentPerson) UnmarshalJSON(data []byte) error {
-
 	dummy := make(map[string]interface{})
 	err := json.Unmarshal(data, &dummy)
 	if err != nil {
@@ -171,23 +164,25 @@ func (p *paymentPerson) UnmarshalJSON(data []byte) error {
 	}
 
 	for name, record := range dummy {
-		if name != "payer" {
-			continue
-		}
-		p.Payer = records.NewARecord()
-		err := readJsonWithRecord(p.Payer, record)
-		if err != nil {
-			return err
+		switch name {
+		case "payer":
+			p.Payer = records.NewARecord()
+			err := readJsonWithRecord(p.Payer, record)
+			if err != nil {
+				return err
+			}
+		case "end_payer":
+			p.EndPayer = records.NewCRecord()
+			err := readJsonWithRecord(p.EndPayer, record)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
-	typeOfReturn := ""
-	if p.Payer != nil {
-		if arec, ok := p.Payer.(*records.ARecord); !ok {
-			return fmt.Errorf("unexpected Payer to be an ARecord, but got %T", p.Payer)
-		} else {
-			typeOfReturn = config.TypeOfReturns[arec.TypeOfReturn]
-		}
+	typeOfReturn, err := p.getTypeOfReturn()
+	if err != nil {
+		return err
 	}
 
 	for name, record := range dummy {
@@ -228,14 +223,180 @@ func (p *paymentPerson) UnmarshalJSON(data []byte) error {
 				}
 				p.States = append(p.States, newRecord)
 			}
-		case "end_payer":
-			p.EndPayer = records.NewCRecord()
-			err := readJsonWithRecord(p.EndPayer, record)
+		}
+	}
+
+	// sort by record sequence number
+	if p.Payees != nil {
+		sort.SliceStable(p.Payees, func(i, j int) bool {
+			return p.Payees[i].SequenceNumber() < p.Payees[j].SequenceNumber()
+		})
+	}
+	if p.States != nil {
+		sort.SliceStable(p.States, func(i, j int) bool {
+			return p.States[i].SequenceNumber() < p.States[j].SequenceNumber()
+		})
+	}
+
+	return nil
+}
+
+func (p *paymentPerson) integrationCheck() error {
+	if err := p.validateRecords(); err != nil {
+		return err
+	}
+	_, cRecord, err := p.getRecords()
+	if err != nil {
+		return err
+	}
+
+	// 1. verify corrected return indicator
+	existed := make(map[string]interface{})
+	for _, payee := range p.Payees {
+		bRecord, ok := payee.(*records.BRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("payee", payee)
+		}
+		indicator := bRecord.CorrectedReturnIndicator
+		if len(indicator) == 0 {
+			indicator = "N"
+		}
+		existed[indicator] = bRecord
+		if len(existed) > 1 {
+			return utils.ErrIncorrectReturnIndicator
+		}
+	}
+
+	// 2. verify number of payees
+	if len(p.Payees) != cRecord.NumberPayees {
+		return utils.ErrInvalidNumberPayees
+	}
+
+	// 3. verify payment codes
+	err = p.validatePaymentCodes()
+	if err != nil {
+		return err
+	}
+
+	// 4. verify combined federal/state code in K records
+	existed = make(map[string]interface{})
+	for _, state := range p.States {
+		kRecord, ok := state.(*records.KRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("state", state)
+		}
+		_, ok = existed[kRecord.CombinedFederalStateCode]
+		if ok {
+			return utils.ErrDuplicatedFSCode
+		}
+		existed[kRecord.CombinedFederalStateCode] = kRecord
+	}
+
+	return nil
+}
+
+func (p *paymentPerson) validatePaymentCodes() error {
+	aRecord, cRecord, err := p.getRecords()
+	if err != nil {
+		return err
+	}
+	amountCodes := strings.Split(aRecord.AmountCodes, "")
+
+	existedCodes := make(map[string]bool)
+	for _, payee := range p.Payees {
+		bRecord, ok := payee.(*records.BRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("payee", payee)
+		}
+		for _, existed := range strings.Split(bRecord.PaymentCodes(), "") {
+			existedCodes[existed] = true
+		}
+	}
+	if len(existedCodes) != len(amountCodes) {
+		return utils.ErrUnexpectedPaymentAmount
+	}
+
+	if cRecord.TotalCodes() != aRecord.AmountCodes {
+		return utils.ErrUnexpectedTotalAmount
+	}
+
+	existedCodes = make(map[string]bool)
+	for _, state := range p.States {
+		kRecord, ok := state.(*records.KRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("state", state)
+		}
+		for _, existed := range strings.Split(kRecord.PaymentCodes(), "") {
+			existedCodes[existed] = true
+		}
+	}
+	if len(existedCodes) != len(amountCodes) {
+		return utils.ErrUnexpectedTotalAmount
+	}
+
+	for _, amountCode := range amountCodes {
+		control, err := cRecord.ControlTotal(amountCode)
+		if err != nil {
+			return err
+		}
+
+		total := 0
+		for _, payee := range p.Payees {
+			bRecord, _ := payee.(*records.BRecord)
+			amount, err := bRecord.PaymentAmount(amountCode)
 			if err != nil {
 				return err
 			}
+			total += amount
+		}
+
+		if total != control {
+			return utils.ErrInvalidTotalAmounts
 		}
 	}
 
 	return nil
+}
+
+func (p *paymentPerson) validateRecords() error {
+	if p.Payer == nil {
+		return utils.ErrNonExistPayer
+	}
+	if p.EndPayer == nil {
+		return utils.ErrNonExistEndPayer
+	}
+	if p.Payees == nil {
+		return utils.ErrNonExistPayee
+	}
+	return nil
+}
+
+func (p *paymentPerson) getRecords() (*records.ARecord, *records.CRecord, error) {
+	aRecord, ok := p.Payer.(*records.ARecord)
+	if !ok {
+		return nil, nil, utils.NewErrUnexpectedRecord("payer", p.Payer)
+	}
+
+	cRecord, ok := p.EndPayer.(*records.CRecord)
+	if !ok {
+		return nil, nil, utils.NewErrUnexpectedRecord("end of payer", p.EndPayer)
+	}
+
+	return aRecord, cRecord, nil
+}
+
+func (p *paymentPerson) getTypeOfReturn() (string, error) {
+	typeOfReturn := ""
+	if p.Payer == nil {
+		return typeOfReturn, utils.ErrNonExistPayer
+	}
+	aRecord, ok := p.Payer.(*records.ARecord)
+	if !ok {
+		return typeOfReturn, utils.NewErrUnexpectedRecord("payer", p.Payer)
+	}
+	typeOfReturn, ok = config.TypeOfReturns[aRecord.TypeOfReturn]
+	if !ok {
+		return typeOfReturn, utils.ErrInvalidTypeOfReturn
+	}
+	return typeOfReturn, nil
 }
