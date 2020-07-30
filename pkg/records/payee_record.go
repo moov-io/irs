@@ -381,7 +381,7 @@ func (r *BRecord) UnmarshalJSON(data []byte) error {
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *BRecord) ValidateSequenceNumber() error {
+func (r *BRecord) ValidateRecordSequenceNumber() error {
 	if r.RecordSequenceNumber < 1 {
 		return utils.NewErrValidValue("sequence number")
 	}

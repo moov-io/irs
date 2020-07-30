@@ -302,6 +302,7 @@ func (p *paymentPerson) validatePaymentCodes() error {
 	}
 	amountCodes := strings.Split(aRecord.AmountCodes, "")
 
+	// check amount codes between a record and b records
 	existedCodes := make(map[string]bool)
 	for _, payee := range p.Payees {
 		bRecord, ok := payee.(*records.BRecord)
@@ -316,42 +317,67 @@ func (p *paymentPerson) validatePaymentCodes() error {
 		return utils.ErrUnexpectedPaymentAmount
 	}
 
+	// check amount codes between a record and c record
 	if cRecord.TotalCodes() != aRecord.AmountCodes {
 		return utils.ErrUnexpectedTotalAmount
 	}
 
-	existedCodes = make(map[string]bool)
-	for _, state := range p.States {
-		kRecord, ok := state.(*records.KRecord)
-		if !ok {
-			return utils.NewErrUnexpectedRecord("state", state)
-		}
-		for _, existed := range strings.Split(kRecord.PaymentCodes(), "") {
-			existedCodes[existed] = true
-		}
-	}
-	if len(existedCodes) != len(amountCodes) {
-		return utils.ErrUnexpectedTotalAmount
-	}
-
+	// check amounts between c record and b records
 	for _, amountCode := range amountCodes {
 		control, err := cRecord.ControlTotal(amountCode)
 		if err != nil {
 			return err
 		}
 
-		total := 0
 		for _, payee := range p.Payees {
 			bRecord, _ := payee.(*records.BRecord)
 			amount, err := bRecord.PaymentAmount(amountCode)
 			if err != nil {
 				return err
 			}
-			total += amount
+			control -= amount
 		}
 
-		if total != control {
+		if control != 0 {
 			return utils.ErrInvalidTotalAmounts
+		}
+	}
+
+	if p.States != nil {
+		// check amount codes between a record and k records
+		existedCodes = make(map[string]bool)
+		for _, state := range p.States {
+			kRecord, ok := state.(*records.KRecord)
+			if !ok {
+				return utils.NewErrUnexpectedRecord("state", state)
+			}
+			for _, existed := range strings.Split(kRecord.PaymentCodes(), "") {
+				existedCodes[existed] = true
+			}
+		}
+		if len(existedCodes) != len(amountCodes) {
+			return utils.ErrUnexpectedTotalAmount
+		}
+
+		// check amounts between c record and k records
+		for _, amountCode := range amountCodes {
+			control, err := cRecord.ControlTotal(amountCode)
+			if err != nil {
+				return err
+			}
+
+			for _, state := range p.States {
+				kRecord, _ := state.(*records.KRecord)
+				amount, err := kRecord.ControlTotal(amountCode)
+				if err != nil {
+					return err
+				}
+				control -= amount
+			}
+
+			if control != 0 {
+				return utils.ErrInvalidTotalAmounts
+			}
 		}
 	}
 

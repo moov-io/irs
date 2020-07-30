@@ -11,6 +11,8 @@ type File interface {
 	Parse([]byte) error
 	Ascii() []byte
 	Validate() error
+	SetTCC(string) error
+	TCC() (*string, error)
 }
 
 // NewFile constructs a file template.

@@ -10,8 +10,10 @@ import (
 func Test(t *testing.T) { check.TestingT(t) }
 
 type FileTest struct {
-	oneTransactionJson  []byte
-	oneTransactionAscii []byte
+	oneTransactionJson     []byte
+	oneTransactionAscii    []byte
+	jsonWithInvalidPayment []byte
+	jsonWithoutCRecord     []byte
 }
 
 var _ = check.Suite(&FileTest{})
@@ -23,5 +25,11 @@ func (t *FileTest) SetUpSuite(c *check.C) {
 	c.Assert(err, check.IsNil)
 
 	t.oneTransactionAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.jsonWithInvalidPayment, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithInvalidPayment.json"))
+	c.Assert(err, check.IsNil)
+
+	t.jsonWithoutCRecord, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithoutCRecord.json"))
 	c.Assert(err, check.IsNil)
 }

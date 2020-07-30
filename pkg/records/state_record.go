@@ -159,7 +159,7 @@ func (r *KRecord) PaymentCodes() string {
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *KRecord) ValidateSequenceNumber() error {
+func (r *KRecord) ValidateRecordSequenceNumber() error {
 	if r.RecordSequenceNumber < 1 {
 		return utils.NewErrValidValue("sequence number")
 	}
