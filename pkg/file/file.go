@@ -23,7 +23,7 @@ func NewFile() File {
 	}
 }
 
-// CreateFile attempts to parse raw metro2 file contents
+// CreateFile attempts to parse raw irs file contents
 func CreateFile(buf []byte) (File, error) {
 	var err error
 	f := NewFile()

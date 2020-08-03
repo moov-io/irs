@@ -66,3 +66,10 @@ func (t *FileTest) TestFileWithoutCRecord(c *check.C) {
 	c.Assert(err, check.NotNil)
 	c.Assert(err.Error(), check.Equals, "should exist end of payer record")
 }
+
+func (t *FileTest) TestFileWithTestOption(c *check.C) {
+	f, err := CreateFile(t.fileWithTestOptionJson)
+	c.Assert(err, check.IsNil)
+	err = f.Validate()
+	c.Assert(err, check.NotNil)
+}
