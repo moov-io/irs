@@ -14,6 +14,7 @@ type FileTest struct {
 	oneTransactionAscii    []byte
 	jsonWithInvalidPayment []byte
 	jsonWithoutCRecord     []byte
+	fileWithTestOptionJson []byte
 }
 
 var _ = check.Suite(&FileTest{})
@@ -31,5 +32,8 @@ func (t *FileTest) SetUpSuite(c *check.C) {
 	c.Assert(err, check.IsNil)
 
 	t.jsonWithoutCRecord, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithoutCRecord.json"))
+	c.Assert(err, check.IsNil)
+
+	t.fileWithTestOptionJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithTestOption.json"))
 	c.Assert(err, check.IsNil)
 }
