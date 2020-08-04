@@ -3,7 +3,9 @@ package file
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/moov-io/irs/pkg/records"
 	"gopkg.in/check.v1"
+	"strings"
 )
 
 func (t *FileTest) TestParseWithOneTransactionJsonFile(c *check.C) {
@@ -48,6 +50,79 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	err := json.Unmarshal(t.oneTransactionAscii, f)
 	c.Assert(err, check.NotNil)
 	err = f.Parse(t.oneTransactionJson)
+	c.Assert(err, check.NotNil)
+	r := records.NewARecord()
+	err = readJsonWithRecord(r, t.fileWithTestOptionJson)
+	c.Assert(err, check.NotNil)
+	p := &paymentPerson{}
+	err = readJsonWithPerson(p, t.fileWithTestOptionJson)
+	c.Assert(err, check.NotNil)
+
+	f1, err := CreateFile(t.oneTransactionJson)
+	c.Assert(err, check.IsNil)
+	err = f1.Validate()
+	c.Assert(err, check.IsNil)
+	file1, ok := f1.(*fileInstance)
+	c.Assert(ok, check.Equals, true)
+	person := file1.PaymentPersons[0]
+	err = person.Validate()
+	c.Assert(err, check.IsNil)
+	person = file1.PaymentPersons[0]
+	person.States = append(person.States, records.NewKRecord())
+	c.Assert(person.Validate(), check.NotNil)
+	person.EndPayer = records.NewCRecord()
+	c.Assert(person.Validate(), check.NotNil)
+	person.Payees = append(person.Payees, records.NewBRecord("A"))
+	c.Assert(person.Validate(), check.NotNil)
+	person.SetSequenceNumber(0)
+	person.Payer = nil
+	c.Assert(person.SequenceNumber(), check.Equals, 0)
+
+	_, err = person.Parse(t.oneTransactionAscii)
+	c.Assert(err, check.NotNil)
+	_, err = person.Parse(t.oneTransactionAscii[750 : 750+749])
+	c.Assert(err, check.NotNil)
+	payerStr := string(t.oneTransactionAscii[750 : 750+750])
+	payerStr = strings.ReplaceAll(payerStr, "ASDF1A 7", "ASDF1_ 7")
+	_, err = person.Parse([]byte(payerStr))
+	c.Assert(err, check.NotNil)
+	payerStr = strings.ReplaceAll(payerStr, "A20171", "A_0171")
+	_, err = person.Parse([]byte(payerStr))
+	c.Assert(err, check.NotNil)
+	_, err = person.Parse(t.oneTransactionAscii[750 : 750+750+749])
+	c.Assert(err, check.NotNil)
+	_, err = person.Parse(t.oneTransactionAscii[750 : 750+750+750])
+	c.Assert(err, check.NotNil)
+	payeeStr := string(t.oneTransactionAscii[750 : 750+750+750])
+	payeeStr = strings.ReplaceAll(payeeStr, "B2017", "B_017")
+	_, err = person.Parse([]byte(payeeStr))
+	c.Assert(err, check.NotNil)
+	endPayerStr := string(t.oneTransactionAscii[750:])
+	endPayerStr = strings.ReplaceAll(endPayerStr, "K00000002", "K        ")
+	_, err = person.Parse([]byte(endPayerStr))
+	c.Assert(err, check.NotNil)
+	endPayerStr = strings.ReplaceAll(endPayerStr, "C00000002", "C        ")
+	_, err = person.Parse([]byte(endPayerStr))
+	c.Assert(err, check.NotNil)
+	endPayerStr = strings.ReplaceAll(endPayerStr, "C2017", "C_017")
+	_, err = person.Parse([]byte(endPayerStr))
+	c.Assert(err, check.NotNil)
+
+	person = &paymentPerson{}
+	c.Assert(person.validateRecords(), check.NotNil)
+	_, err = person.getTypeOfReturn()
+	c.Assert(err, check.NotNil)
+	person.Payer = records.NewKRecord()
+	_, err = person.getTypeOfReturn()
+	c.Assert(err, check.NotNil)
+	_, _, err = person.getRecords()
+	c.Assert(err, check.NotNil)
+	person.Payer = records.NewARecord()
+	_, err = person.getTypeOfReturn()
+	c.Assert(err, check.NotNil)
+	person.EndPayer = records.NewKRecord()
+	c.Assert(person.validateRecords(), check.NotNil)
+	_, _, err = person.getRecords()
 	c.Assert(err, check.NotNil)
 }
 

@@ -34,4 +34,19 @@ func (t *RecordTest) TestARecordWithError(c *check.C) {
 	r := &ARecord{}
 	err := r.Parse(t.aRecordAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+	err = r.Parse(t.aRecordAscii)
+	c.Assert(err, check.IsNil)
+	r.CombinedFSFilingProgram = "ERR"
+	c.Assert(r.ValidateCombinedFSFilingProgram(), check.Not(check.IsNil))
+	r.LastFilingIndicator = "ERR"
+	c.Assert(r.ValidateLastFilingIndicator(), check.Not(check.IsNil))
+	r.TypeOfReturn = "ERR"
+	c.Assert(r.ValidateTypeOfReturn(), check.Not(check.IsNil))
+	r.ForeignEntityIndicator = "ERR"
+	c.Assert(r.ValidateForeignEntityIndicator(), check.Not(check.IsNil))
+	r.TransferAgentIndicator = "ERR"
+	c.Assert(r.ValidateTransferAgentIndicator(), check.Not(check.IsNil))
+	r.PayerState = "ERR"
+	c.Assert(r.ValidatePayerState(), check.Not(check.IsNil))
+	c.Assert(r.ValidateAmountCodes(), check.Not(check.IsNil))
 }

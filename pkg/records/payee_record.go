@@ -334,7 +334,7 @@ func (r *BRecord) MarshalJSON() ([]byte, error) {
 	vRecord := recordJson{}
 	utils.CopyStruct(r, &vRecord)
 	buf, err := json.Marshal(vRecord)
-	if r.extRecord == nil || err != nil {
+	if err != nil {
 		return buf, err
 	}
 

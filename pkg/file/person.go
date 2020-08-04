@@ -112,7 +112,7 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 	}
 
 	p.Payees = []records.Record{}
-	for string(buf[readPtr]) == config.BRecordType {
+	for bufSize > readPtr && string(buf[readPtr]) == config.BRecordType {
 		if bufSize < readPtr+config.RecordLength {
 			return readPtr, utils.ErrInvalidAscii
 		}
@@ -124,6 +124,10 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 
 		readPtr += config.RecordLength
 		p.Payees = append(p.Payees, newPayee)
+	}
+
+	if bufSize <= readPtr {
+		return readPtr, utils.ErrInvalidAscii
 	}
 
 	if string(buf[readPtr]) == config.CRecordType || bufSize < readPtr+config.RecordLength {
@@ -138,7 +142,7 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 	}
 
 	p.States = []records.Record{}
-	for string(buf[readPtr]) == config.KRecordType {
+	for bufSize > readPtr && string(buf[readPtr]) == config.KRecordType {
 		if bufSize < readPtr+config.RecordLength {
 			return readPtr, utils.ErrInvalidAscii
 		}

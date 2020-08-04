@@ -34,4 +34,20 @@ func (t *RecordTest) TestTRecordWithError(c *check.C) {
 	r := &TRecord{}
 	err := r.Parse(t.tRecordAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+	err = r.Parse(t.tRecordAscii)
+	c.Assert(err, check.IsNil)
+	r.VendorForeignEntityIndicator = "ERR"
+	c.Assert(r.ValidateVendorForeignEntityIndicator(), check.Not(check.IsNil))
+	r.VendorState = "ERR"
+	c.Assert(r.ValidateVendorState(), check.Not(check.IsNil))
+	r.VendorIndicator = "ERR"
+	c.Assert(r.ValidateVendorIndicator(), check.Not(check.IsNil))
+	r.CompanyState = "ERR"
+	c.Assert(r.ValidateCompanyState(), check.Not(check.IsNil))
+	r.ForeignEntityIndicator = "ERR"
+	c.Assert(r.ValidateForeignEntityIndicator(), check.Not(check.IsNil))
+	r.TestFileIndicator = "ERR"
+	c.Assert(r.ValidateTestFileIndicator(), check.Not(check.IsNil))
+	r.PriorYearDataIndicator = "ERR"
+	c.Assert(r.ValidatePriorYearDataIndicator(), check.Not(check.IsNil))
 }
