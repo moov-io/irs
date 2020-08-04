@@ -39,4 +39,8 @@ func (t *RecordTest) TestCRecordWithError(c *check.C) {
 	r := &CRecord{}
 	err := r.Parse(t.cRecordAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+	err = r.Parse(t.cRecordAscii)
+	c.Assert(err, check.IsNil)
+	_, err = r.ControlTotal("K")
+	c.Assert(err, check.Not(check.IsNil))
 }

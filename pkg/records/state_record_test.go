@@ -39,4 +39,11 @@ func (t *RecordTest) TestKRecordWithError(c *check.C) {
 	r := &KRecord{}
 	err := r.Parse(t.kRecordAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+	err = r.Parse(t.kRecordAscii)
+	c.Assert(err, check.IsNil)
+	_, err = r.ControlTotal("k")
+	c.Assert(err, check.Not(check.IsNil))
+	r.CombinedFederalStateCode = "err"
+	err = r.ValidateCombinedFederalStateCode()
+	c.Assert(err, check.Not(check.IsNil))
 }

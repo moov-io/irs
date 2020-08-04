@@ -47,6 +47,29 @@ func (t *RecordTest) TestBRecordWithError(c *check.C) {
 	r := &BRecord{}
 	err := r.Parse(t.bRecord1099MiscAscii[1:])
 	c.Assert(err, check.Not(check.IsNil))
+	err = r.Parse(t.bRecord1099MiscAscii)
+	c.Assert(err, check.IsNil)
+	err = r.Validate()
+	c.Assert(err.Error(), check.Equals, "should exist extension block")
+	_, err = r.PaymentAmount("K")
+	c.Assert(err.Error(), check.Equals, "is an invalid field")
+	c.Assert("", check.Equals, r.TypeOfReturn())
+	_, err = json.Marshal(r)
+	c.Assert(err, check.IsNil)
+	r.CorrectedReturnIndicator = "K"
+	err = r.ValidateCorrectedReturnIndicator()
+	c.Assert(err, check.Not(check.IsNil))
+	r.TypeOfTIN = "3"
+	err = r.ValidateTypeOfTIN()
+	c.Assert(err, check.Not(check.IsNil))
+	r.ForeignCountryIndicator = "3"
+	err = r.ValidateForeignCountryIndicator()
+	c.Assert(err, check.Not(check.IsNil))
+	r.PayeeState = "3"
+	err = r.ValidatePayeeState()
+	c.Assert(err, check.Not(check.IsNil))
+	err = json.Unmarshal([]byte("error string"), r)
+	c.Assert(err, check.Not(check.IsNil))
 }
 
 func (t *RecordTest) TestBRecordWith1099Int(c *check.C) {
