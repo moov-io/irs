@@ -34,3 +34,5 @@ coverage.txt
 pkger*
 pkged.go
 cover.out
+
+/cmd/irs/output

@@ -72,6 +72,9 @@ func NewEnvironment(env *Environment) (*Environment, error) {
 
 	env.PublicRouter.Use(GatewayMiddleware.Handler)
 
+	// configure custom handlers
+	ConfigureHandlers(env.PublicRouter)
+
 	env.Shutdown = func() {
 		close()
 	}
