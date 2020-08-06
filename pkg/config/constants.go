@@ -508,3 +508,8 @@ var AmountCodes = map[string]map[string]string{
 		"7": "Winnings from identical wagers",
 	},
 }
+
+const (
+	OutputJsonFormat = "json"
+	OutputIrsFormat  = "irs"
+)

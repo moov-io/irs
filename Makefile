@@ -15,6 +15,7 @@ run: irs
 
 test: services build
 	go test -cover ./...
+	rm -rf cmd/irs/output
 
 services:
 	-docker-compose up -d --force-recreate
@@ -31,6 +32,7 @@ else
 	@wget -O lint-project.sh https://raw.githubusercontent.com/moov-io/infra/master/go/lint-project.sh
 	@chmod +x ./lint-project.sh
 	./lint-project.sh
+	@rm -rf cmd/irs/output
 endif
 
 docker: install
