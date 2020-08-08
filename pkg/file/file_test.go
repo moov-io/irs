@@ -150,7 +150,7 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	_, _, err = instance.getRecords()
 	c.Assert(err, check.NotNil)
 
-	err = json.Unmarshal(t.oneTransactionAscii, instance)
+	err = instance.Parse(t.oneTransactionAscii)
 	c.Assert(err, check.NotNil)
 	instance.EndTransmitter.SetSequenceNumber(1)
 	err = instance.Validate()
