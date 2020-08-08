@@ -19,109 +19,155 @@ servers:
     description: Local Testing
   - url: https://api.moov.io/
     description: Production
-paths: {}
-
-  # DELETE WHEN NO LONGER NEEDED
-  # Below are examples/stubs for a full CRUD endpoint
-  # 
-  # /examples:
-  #   get:
-  #     operationId: ListExamples
-  #     summary: List outstanding examples
-  #     tags:
-  #     - examples
-  #     security:
-  #     - GatewayAuth: []
-  #     responses:
-  #       '200':
-  #         description: Examples that are outstanding
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: array
-  #               maxItems: 300
-  #               items:
-  #                 $ref: '#/components/schemas/Example'
-  #       default:
-  #         $ref: '#/components/responses/Empty'
-  #   post:
-  #     operationId: CreateExample
-  #     summary: Create an Example
-  #     tags:
-  #     - examples
-  #     security:
-  #     - GatewayAuth: []
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/Example'
-  #     responses:
-  #       '200':
-  #         description: Example Created
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Example'
-  #       default:
-  #         $ref: '#/components/responses/Empty'
-
-  # /examples/{exampleID}:
-  #   put:
-  #     operationId: UpdateExample
-  #     summary: Update a specific Example
-  #     tags:
-  #     - examples
-  #     security:
-  #     - GatewayAuth: []
-  #     parameters:
-  #     - in: path
-  #       name: exampleID
-  #       description: ID of the example to update
-  #       required: true
-  #       schema:
-  #         $ref: '#/components/schemas/UUID'
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/Example'
-  #     responses:
-  #       '200':
-  #         description: Example was updated.
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/Example'
-  #       '404':
-  #         description: Example was not found
-  #         $ref: '#/components/responses/Empty'
-  #       default:
-  #         $ref: '#/components/responses/Empty'
-  #   delete:
-  #     operationId: DisableExample
-  #     summary: Disable and tombstone an example.
-  #     tags:
-  #     - examples
-  #     parameters:
-  #     - in: path
-  #       name: exampleID
-  #       description: ID of the example to delete
-  #       required: true
-  #       schema:
-  #         $ref: '#/components/schemas/UUID'
-  #     security:
-  #     - GatewayAuth: []
-  #     responses:
-  #       '204':
-  #         description: Example was removed.
-  #       '404':
-  #         description: Example was not found.
-  #         $ref: '#/components/responses/Empty'
-  #       default:
-  #         $ref: '#/components/responses/Empty'
+    
+tags:
+  - name: 'irs files'
+    description: |
+      File contains the structures of a irs file. It contains one header record block, one trailer record block, multiple data blocks.
+      File have 2 types such as json and irs.
+      
+paths:
+  /health:
+    get:
+      tags: ['irs files']
+      summary: health irs service
+      description: Check the irs service to check if running
+      operationId: health
+      responses:
+        '200':
+          description: successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'health: true'
+  /print:
+    post:
+      tags: ['irs files']
+      summary: Print irs file with specific format
+      description: Print irs file with requested file format.
+      operationId: print
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                format:
+                  type: string
+                  description: print irs file type
+                  default: json
+                  enum:
+                    - json
+                    - irs
+                file:
+                  type: string
+                  description: irs file to upload
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'T2017P12345678955AA5       T1ASDF GLOBAL INC                                                                 ASDF GLOBAL INC                                                                 123 ASDF STREET                         NEW YORK                                NY10001                   00000002RONALD SWANSON                          5555555555     ronald@swanson.com                                                                                                                           00000001          VGSG CORP                                1234 POIU ST                            TAXVILLE                                TX10991    BLERD FLERPLERMERD                      5557776666                                        1          A20171     123456789ASDF1A 7                       1ASDF GLOBAL INC                                                                 1123 ASDF STREET                         NEW YORK                                NY10001    5555555555                                                                                                                                                                                                                                                                         00000002                                                                                                                                                                                                                                                   B2017 SPAC1987654321                                  000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 SPACELEY SPROCKETS                                                                                                      5678 INDUSTRY PLACE                                                             MOON                                    CA22222     00000004                                    2  11                                                                                                                                                                              00000000000400000000000201  B2017 SPAC1987654321                                  000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 SPACELEY SPROCKETS                                                                                                      5678 INDUSTRY PLACE                                                             MOON                                    CA22222     00000004                                                                                                                                                                                                                       00000000000000000000000101  C00000002      000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                                                                                                                    00000005                                                                                                                                                                                                                                                   K00000002      000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                                                                                                                    00000006                                                                                                                                                                                                       2                 3                     AL  F00000001000000000000000000000                   00000002                                                                                                                                                                                                                                                                                                                                                                                                                                                          00000007                                                                                                                                                                                                                                                   '
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '400':
+          description: request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: invalid irs file
+  /validator:
+    post:
+      tags: ['irs files']
+      summary: Validate irs file
+      description: Validation of irs file.
+      operationId: validator
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: string
+                  description: irs file to upload
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: valid file
+        '400':
+          description: bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: bad request
+        '501':
+          description: failed operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: invalid irs file
+  /convert:
+    post:
+      tags: ['irs files']
+      summary: Convert irs file
+      description: Convert from original irs file to new irs file
+      operationId: convert
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                format:
+                  type: string
+                  description: print irs file type
+                  default: json
+                  enum:
+                    - json
+                    - irs
+                generate:
+                  type: boolean
+                  description: generate new trailer record
+                  default: false
+                file:
+                  type: string
+                  description: irs file to upload
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                description: new irs file
+                format: binary
+                example: 'T2017P12345678955AA5       T1ASDF GLOBAL INC                                                                 ASDF GLOBAL INC                                                                 123 ASDF STREET                         NEW YORK                                NY10001                   00000002RONALD SWANSON                          5555555555     ronald@swanson.com                                                                                                                           00000001          VGSG CORP                                1234 POIU ST                            TAXVILLE                                TX10991    BLERD FLERPLERMERD                      5557776666                                        1          A20171     123456789ASDF1A 7                       1ASDF GLOBAL INC                                                                 1123 ASDF STREET                         NEW YORK                                NY10001    5555555555                                                                                                                                                                                                                                                                         00000002                                                                                                                                                                                                                                                   B2017 SPAC1987654321                                  000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 SPACELEY SPROCKETS                                                                                                      5678 INDUSTRY PLACE                                                             MOON                                    CA22222     00000004                                    2  11                                                                                                                                                                              00000000000400000000000201  B2017 SPAC1987654321                                  000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 SPACELEY SPROCKETS                                                                                                      5678 INDUSTRY PLACE                                                             MOON                                    CA22222     00000004                                                                                                                                                                                                                       00000000000000000000000101  C00000002      000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                                                                                                                    00000005                                                                                                                                                                                                                                                   K00000002      000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                                                                                                                                                                    00000006                                                                                                                                                                                                       2                 3                     AL  F00000001000000000000000000000                   00000002                                                                                                                                                                                                                                                                                                                                                                                                                                                          00000007                                                                                                                                                                                                                                                   '
+        '400':
+          description: bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: bad request
+        '501':
+          description: failed operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: failed irs convert
 
 components:
   responses:
@@ -149,12 +195,889 @@ components:
       format: uuid
       maxLength: 36
       pattern: ^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$
-
-    # Example:
-    #   description: Describes an example.
-    #   type: object
-    #   additionalProperties: false
-    #   properties:
-    #     exampleID:
-    #       $ref: '#/components/schemas/UUID'
-    #       readOnly: true
+    File:
+      properties:
+        transmitter:
+          $ref: '#/components/schemas/TRecord'
+        payment_persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPerson'
+        end_transmitter:
+          $ref: '#/components/schemas/FRecord'
+      required:
+        - transmitter
+        - end_transmitter
+    PaymentPerson:
+      properties:
+        payer:
+          $ref: '#/components/schemas/ARecord'
+        payees:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/BRecordWith1097Btc'
+            - $ref: '#/components/schemas/BRecordWith1099Int'
+            - $ref: '#/components/schemas/BRecordWith1099Misc'
+            - $ref: '#/components/schemas/BRecordWith1099Oid'
+            - $ref: '#/components/schemas/BRecordWith1099Patr'
+        end_payer:
+          $ref: '#/components/schemas/CRecord'
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/KRecord'
+      required:
+        - payer
+        - end_payer
+    TRecord:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - T
+        payment_year:
+          type: integer
+          format: int32
+        prior_year_data_indicator:
+          type: string
+        transmitter_tin:
+          type: string
+        transmitter_control_code:
+          type: string
+        test_file_indicator:
+          type: string
+        foreign_entity_indicator:
+          type: string
+        transmitter_name:
+          type: string
+        transmitter_name_contd:
+          type: string
+        company_name:
+          type: string
+        company_name_contd:
+          type: string
+        company_mailing_address:
+          type: string
+        company_city:
+          type: string
+        company_state:
+          type: string
+        company_zip_code:
+          type: string
+        total_number_of_payees:
+          type: integer
+          format: int32
+        contact_name:
+          type: string
+        contact_telephone_number_and_ext:
+          type: string
+        contact_email_address:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        vendor_indicator:
+          type: string
+        vendor_name:
+          type: string
+        vendor_mailing_address:
+          type: string
+        vendor_city:
+          type: string
+        vendor_state:
+          type: string
+        vendor_zip_code:
+          type: string
+        vendor_contact_name:
+          type: string
+        vendor_contact_telephone_and_ext:
+          type: string
+        vendor_foreign_entity_indicator:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - prior_year_data_indicator
+        - transmitter_tin
+        - transmitter_control_code
+        - transmitter_name
+        - company_name
+        - company_mailing_address
+        - company_city
+        - company_state
+        - company_zip_code
+        - contact_name
+        - contact_telephone_number_and_ext
+        - record_sequence_number
+        - vendor_indicator
+        - vendor_name
+        - vendor_mailing_address
+        - vendor_city
+        - vendor_state
+        - vendor_zip_code
+        - vendor_contact_name
+        - vendor_contact_telephone_and_ext
+        - vendor_foreign_entity_indicator
+    ARecord:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - A
+        payment_year:
+          type: integer
+          format: int32
+        combined_fs_filing_program:
+          type: string
+        payer_tin:
+          type: string
+        payer_name_control:
+          type: string
+        last_filing_indicator:
+          type: string
+        type_of_return:
+          type: string
+        amount_codes:
+          type: string
+        foreign_entity_indicator:
+          type: string
+        first_payer_name:
+          type: string
+        second_payer_name:
+          type: string
+        transfer_agent_control:
+          type: string
+        payer_shipping_address:
+          type: string
+        payer_city:
+          type: string
+        payer_state:
+          type: string
+        payer_zip_code:
+          type: string
+        payer_telephone_number_and_ext:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payer_tin
+        - type_of_return
+        - amount_codes
+        - first_payer_name
+        - transfer_agent_control
+        - payer_shipping_address
+        - payer_city
+        - payer_state
+        - payer_zip_code
+        - record_sequence_number
+    BRecordWith1097Btc:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        issuer_indicator:
+          type: string
+        code:
+          type: string
+        unique_identifier:
+          type: string
+        bond_type:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Int:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        foreign_country:
+          type: string
+        cusip_number:
+          type: string
+        fatca_requirement_indicator:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Misc:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        direct_sales_indicator:
+          type: string
+        fatca_requirement_indicator:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Oid:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        direct_sales_indicator:
+          type: string
+        fatca_requirement_indicator:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Patr:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    CRecord:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - C
+        number_of_payees:
+          type: integer
+          format: int32
+        control_total_1:
+          type: integer
+          format: int32
+        control_total_2:
+          type: integer
+          format: int32
+        control_total_3:
+          type: integer
+          format: int32
+        control_total_4:
+          type: integer
+          format: int32
+        control_total_5:
+          type: integer
+          format: int32
+        control_total_6:
+          type: integer
+          format: int32
+        control_total_7:
+          type: integer
+          format: int32
+        control_total_8:
+          type: integer
+          format: int32
+        control_total_9:
+          type: integer
+          format: int32
+        control_total_A:
+          type: integer
+          format: int32
+        control_total_B:
+          type: integer
+          format: int32
+        control_total_C:
+          type: integer
+          format: int32
+        control_total_D:
+          type: integer
+          format: int32
+        control_total_E:
+          type: integer
+          format: int32
+        control_total_F:
+          type: integer
+          format: int32
+        control_total_G:
+          type: integer
+          format: int32
+        record_sequence_number:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - record_sequence_number
+    KRecord:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - K
+        number_of_payees:
+          type: integer
+          format: int32
+        control_total_1:
+          type: integer
+          format: int32
+        control_total_2:
+          type: integer
+          format: int32
+        control_total_3:
+          type: integer
+          format: int32
+        control_total_4:
+          type: integer
+          format: int32
+        control_total_5:
+          type: integer
+          format: int32
+        control_total_6:
+          type: integer
+          format: int32
+        control_total_7:
+          type: integer
+          format: int32
+        control_total_8:
+          type: integer
+          format: int32
+        control_total_9:
+          type: integer
+          format: int32
+        control_total_A:
+          type: integer
+          format: int32
+        control_total_B:
+          type: integer
+          format: int32
+        control_total_C:
+          type: integer
+          format: int32
+        control_total_D:
+          type: integer
+          format: int32
+        control_total_E:
+          type: integer
+          format: int32
+        control_total_F:
+          type: integer
+          format: int32
+        control_total_G:
+          type: integer
+          format: int32
+        record_sequence_number:
+          type: integer
+          format: int32
+        state_income_tax_withheld_total:
+          type: string
+        local_income_tax_withheld_total:
+          type: string
+        combined_federal_state_code:
+          type: string
+      required:
+        - record_type
+        - record_sequence_number
+        - combined_federal_state_code
+    FRecord:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - F
+        number_of_payer_records:
+          type: integer
+          format: int32
+        total_number_of_payees:
+          type: integer
+          format: int32
+        record_sequence_number:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - record_sequence_number

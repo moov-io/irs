@@ -126,6 +126,38 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	c.Assert(err, check.NotNil)
 }
 
+func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
+	instance := &fileInstance{}
+	_, _, err := instance.getRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.SetTCC("test-tcc")
+	c.Assert(err, check.NotNil)
+	_, err = instance.TCC()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter = records.NewARecord()
+	instance.EndTransmitter = records.NewARecord()
+	_, _, err = instance.getRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter = records.NewTRecord()
+	_, _, err = instance.getRecords()
+	c.Assert(err, check.NotNil)
+
+	err = json.Unmarshal(t.oneTransactionAscii, instance)
+	c.Assert(err, check.NotNil)
+	instance.EndTransmitter.SetSequenceNumber(1)
+	err = instance.Validate()
+	c.Assert(err, check.NotNil)
+
+}
+
 func (t *FileTest) TestFileWithInvalidPayment(c *check.C) {
 	f, err := CreateFile(t.jsonWithInvalidPayment)
 	c.Assert(err, check.IsNil)
