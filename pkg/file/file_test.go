@@ -191,6 +191,31 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	c.Assert(err, check.NotNil)
 }
 
+func (t *FileTest) TestPersonErrorCases(c *check.C) {
+	f1, err := CreateFile(t.oneTransactionJson)
+	c.Assert(err, check.IsNil)
+	file1, ok := f1.(*fileInstance)
+	c.Assert(ok, check.Equals, true)
+	person := file1.PaymentPersons[0]
+	err = person.Validate()
+	c.Assert(err, check.IsNil)
+	kRecord, ok := person.States[0].(*records.KRecord)
+	c.Assert(ok, check.Equals, true)
+	kRecord.ControlTotal7 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	kRecord.ControlTotal8 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	person.States = append(person.States, records.NewCRecord())
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	bRecord, ok := person.Payees[0].(*records.BRecord)
+	c.Assert(ok, check.Equals, true)
+	bRecord.PaymentAmount2 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	person.Payees = append(person.Payees, records.NewCRecord())
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.integrationCheck(), check.NotNil)
+}
+
 func (t *FileTest) TestFileWithInvalidPayment(c *check.C) {
 	f, err := CreateFile(t.jsonWithInvalidPayment)
 	c.Assert(err, check.IsNil)
