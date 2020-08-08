@@ -110,6 +110,8 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 
 	person = &paymentPerson{}
 	c.Assert(person.validateRecords(), check.NotNil)
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.integrationCheck(), check.NotNil)
 	_, err = person.getTypeOfReturn()
 	c.Assert(err, check.NotNil)
 	person.Payer = records.NewKRecord()
@@ -150,12 +152,14 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	_, _, err = instance.getRecords()
 	c.Assert(err, check.NotNil)
 
+	instance.Transmitter = nil
+	instance.EndTransmitter = nil
 	err = instance.Parse(t.oneTransactionAscii)
-	c.Assert(err, check.NotNil)
+	c.Assert(err, check.IsNil)
 	instance.EndTransmitter.SetSequenceNumber(1)
 	err = instance.Validate()
 	c.Assert(err, check.NotNil)
-	err = instance.validateRecords()
+	err = instance.Validate()
 	c.Assert(err, check.NotNil)
 	err = instance.validateRecordSequenceNumber()
 	c.Assert(err, check.NotNil)
@@ -173,6 +177,17 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	c.Assert(err, check.NotNil)
 	instance.Transmitter.SetSequenceNumber(0)
 	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	fRecord, ok := instance.EndTransmitter.(*records.FRecord)
+	c.Assert(ok, check.Equals, true)
+	tRecord, ok := instance.Transmitter.(*records.TRecord)
+	c.Assert(ok, check.Equals, true)
+	fRecord.TotalNumberPayees = tRecord.TotalNumberPayees - 1
+	tRecord.TotalNumberPayees = 0
+	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+	fRecord.NumberPayerRecords -= 1
+	err = instance.integrationCheck()
 	c.Assert(err, check.NotNil)
 }
 
