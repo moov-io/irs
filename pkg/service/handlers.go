@@ -44,14 +44,7 @@ func outputJson(w http.ResponseWriter, output interface{}) {
 	json.NewEncoder(w).Encode(output)
 }
 
-// title: validate irs file
-// path: /validator
-// method: POST
-// produce: multipart/form-data
-// responses:
-//   200: OK
-//   400: Bad Request
-//   501: Not Implemented
+// validator - validate the file based on publication 1220
 func validator(w http.ResponseWriter, r *http.Request) {
 	mf, err := parseInputFromRequest(r)
 	if err != nil {
@@ -68,14 +61,7 @@ func validator(w http.ResponseWriter, r *http.Request) {
 	outputString(w, "valid file")
 }
 
-// title: print irs file
-// path: /print
-// method: POST
-// produce: multipart/form-data
-// responses:
-//   200: OK
-//   400: Bad Request
-//   501: Not Implemented
+// validator - print file with ascii or json format
 func print(w http.ResponseWriter, r *http.Request) {
 	mf, err := parseInputFromRequest(r)
 	if err != nil {
@@ -93,14 +79,7 @@ func print(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// title: convert irs file
-// path: /convert
-// method: POST
-// produce: multipart/form-data
-// responses:
-//   200: OK
-//   400: Bad Request
-//   501: Not Implemented
+// convert - convert file with ascii or json format
 func convert(w http.ResponseWriter, r *http.Request) {
 	mf, err := parseInputFromRequest(r)
 	if err != nil {
@@ -130,11 +109,7 @@ func convert(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(output))
 }
 
-// title: health server
-// path: /health
-// method: GET
-// responses:
-//   200: OK
+// health - health check
 func health(w http.ResponseWriter, r *http.Request) {
 	outputJson(w, map[string]bool{"health": true})
 }
