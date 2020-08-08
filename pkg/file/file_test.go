@@ -155,7 +155,25 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	instance.EndTransmitter.SetSequenceNumber(1)
 	err = instance.Validate()
 	c.Assert(err, check.NotNil)
-
+	err = instance.validateRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].States[0].SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].EndPayer.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payees[0].SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payer.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
 }
 
 func (t *FileTest) TestFileWithInvalidPayment(c *check.C) {
