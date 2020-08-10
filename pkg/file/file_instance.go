@@ -213,38 +213,38 @@ func (f *fileInstance) validateRecords() error {
 func (f *fileInstance) validateRecordSequenceNumber() error {
 	sequenceNumber := 1
 	if sequenceNumber != f.Transmitter.SequenceNumber() {
-		utils.NewErrRecordSequenceNumber(f.Transmitter.Type())
+		return utils.NewErrRecordSequenceNumber(f.Transmitter.Type())
 	}
 	sequenceNumber++
 
 	for _, person := range f.PaymentPersons {
 		if sequenceNumber != person.SequenceNumber() {
-			utils.NewErrRecordSequenceNumber(person.Type())
+			return utils.NewErrRecordSequenceNumber(person.Type())
 		}
 		sequenceNumber++
 
 		for _, payee := range person.Payees {
 			if sequenceNumber != payee.SequenceNumber() {
-				utils.NewErrRecordSequenceNumber(payee.Type())
+				return utils.NewErrRecordSequenceNumber(payee.Type())
 			}
 			sequenceNumber++
 		}
 
 		if sequenceNumber != person.EndPayer.SequenceNumber() {
-			utils.NewErrRecordSequenceNumber(person.EndPayer.Type())
+			return utils.NewErrRecordSequenceNumber(person.EndPayer.Type())
 		}
 		sequenceNumber++
 
 		for _, state := range person.States {
 			if sequenceNumber != state.SequenceNumber() {
-				utils.NewErrRecordSequenceNumber(state.Type())
+				return utils.NewErrRecordSequenceNumber(state.Type())
 			}
 			sequenceNumber++
 		}
 	}
 
 	if sequenceNumber != f.EndTransmitter.SequenceNumber() {
-		utils.NewErrRecordSequenceNumber(f.EndTransmitter.Type())
+		return utils.NewErrRecordSequenceNumber(f.EndTransmitter.Type())
 	}
 
 	return nil

@@ -110,6 +110,8 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 
 	person = &paymentPerson{}
 	c.Assert(person.validateRecords(), check.NotNil)
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.integrationCheck(), check.NotNil)
 	_, err = person.getTypeOfReturn()
 	c.Assert(err, check.NotNil)
 	person.Payer = records.NewKRecord()
@@ -124,6 +126,94 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	c.Assert(person.validateRecords(), check.NotNil)
 	_, _, err = person.getRecords()
 	c.Assert(err, check.NotNil)
+}
+
+func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
+	instance := &fileInstance{}
+	_, _, err := instance.getRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.SetTCC("test-tcc")
+	c.Assert(err, check.NotNil)
+	_, err = instance.TCC()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter = records.NewARecord()
+	instance.EndTransmitter = records.NewARecord()
+	_, _, err = instance.getRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecords()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter = records.NewTRecord()
+	_, _, err = instance.getRecords()
+	c.Assert(err, check.NotNil)
+
+	instance.Transmitter = nil
+	instance.EndTransmitter = nil
+	err = instance.Parse(t.oneTransactionAscii)
+	c.Assert(err, check.IsNil)
+	instance.EndTransmitter.SetSequenceNumber(1)
+	err = instance.Validate()
+	c.Assert(err, check.NotNil)
+	err = instance.Validate()
+	c.Assert(err, check.NotNil)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].States[0].SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].EndPayer.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payees[0].SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payer.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	instance.Transmitter.SetSequenceNumber(0)
+	err = instance.validateRecordSequenceNumber()
+	c.Assert(err, check.NotNil)
+	fRecord, ok := instance.EndTransmitter.(*records.FRecord)
+	c.Assert(ok, check.Equals, true)
+	tRecord, ok := instance.Transmitter.(*records.TRecord)
+	c.Assert(ok, check.Equals, true)
+	fRecord.TotalNumberPayees = tRecord.TotalNumberPayees - 1
+	tRecord.TotalNumberPayees = 0
+	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+	fRecord.NumberPayerRecords -= 1
+	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+}
+
+func (t *FileTest) TestPersonErrorCases(c *check.C) {
+	f1, err := CreateFile(t.oneTransactionJson)
+	c.Assert(err, check.IsNil)
+	file1, ok := f1.(*fileInstance)
+	c.Assert(ok, check.Equals, true)
+	person := file1.PaymentPersons[0]
+	err = person.Validate()
+	c.Assert(err, check.IsNil)
+	kRecord, ok := person.States[0].(*records.KRecord)
+	c.Assert(ok, check.Equals, true)
+	kRecord.ControlTotal7 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	kRecord.ControlTotal8 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	person.States = append(person.States, records.NewCRecord())
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	bRecord, ok := person.Payees[0].(*records.BRecord)
+	c.Assert(ok, check.Equals, true)
+	bRecord.PaymentAmount2 = 1
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	person.Payees = append(person.Payees, records.NewCRecord())
+	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.integrationCheck(), check.NotNil)
 }
 
 func (t *FileTest) TestFileWithInvalidPayment(c *check.C) {

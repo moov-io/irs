@@ -85,7 +85,7 @@
 					"payee_city": "MOON",
 					"payee_state": "CA",
 					"payee_zip_code": "22222",
-					"record_sequence_number": 4,
+					"record_sequence_number": 3,
 					"second_tin_notice": "2",
 					"direct_sales_indicator": "1",
 					"fatca_requirement_indicator": "1",
@@ -163,6 +163,6 @@
 		"record_type": "F",
 		"number_of_payer_records": 1,
 		"total_number_of_payees": 2,
-		"record_sequence_number": 7
+		"record_sequence_number": 6
 	}
 }
