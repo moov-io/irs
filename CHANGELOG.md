@@ -1,4 +1,4 @@
-## v0.1.0 (Released 2020-08-10)
+## v0.1.1 (Released 2020-08-10)
 
 This is the initial release of Metro2 for credit history parsing and creation. Included is a Go library and command-line utility.
 
