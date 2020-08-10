@@ -21,7 +21,7 @@ services:
 	-docker-compose up -d --force-recreate
 
 install:
-	go get github.com/markbates/pkger/cmd/pkger
+	go install github.com/markbates/pkger/cmd/pkger
 	git checkout LICENSE
 
 .PHONY: check
