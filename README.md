@@ -157,7 +157,7 @@ Global Flags:
 
 The port parameter is port number of web service.
 ```
-irs web --port=8208
+irs web
 ```
 
 Web server have some endpoints to manage irs file

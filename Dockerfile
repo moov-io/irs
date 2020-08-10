@@ -14,3 +14,4 @@ EXPOSE 8209/tcp
 VOLUME [ "/data", "/configs" ]
 
 ENTRYPOINT ["/app/irs"]
+CMD ["web"]
