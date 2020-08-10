@@ -35,6 +35,13 @@ else
 	@rm -rf cmd/irs/output
 endif
 
+dist: clean build
+ifeq ($(OS),Windows_NT)
+	CGO_ENABLED=1 GOOS=windows go build -o bin/irs.exe github.com/moov-io/irs/cmd/irs
+else
+	CGO_ENABLED=1 GOOS=$(PLATFORM) go build -o bin/irs-$(PLATFORM)-amd64 github.com/moov-io/irs/cmd/irs
+endif
+
 docker: install
 	pkger
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -o ${PWD}/bin/.docker/irs cmd/irs/*
@@ -42,10 +49,16 @@ docker: install
 	docker tag moov/irs:$(VERSION) moov/irs:latest
 
 docker-run:
-	docker run -v ${PWD}/data:/data -v ${PWD}/configs:/configs --env APP_CONFIG="/configs/config.yml" -it --rm moov/irs:$(VERSION)
+	docker run -v ${PWD}/configs:/configs --env APP_CONFIG="/configs/config.yml" -it --rm moov/irs:$(VERSION)
 
+.PHONY: clean
 clean:
-	rm ./data/*
+ifeq ($(OS),Windows_NT)
+	@echo "Skipping cleanup on Windows, currently unsupported."
+else
+	@rm -rf cover.out coverage.txt misspell* staticcheck*
+	@rm -rf ./bin/ openapi-generator-cli-*.jar irs.db ./storage/ lint-project.sh
+endif
 
 .PHONY: cover-test cover-web
 cover-test:
