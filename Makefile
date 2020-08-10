@@ -51,6 +51,10 @@ docker: install
 docker-run:
 	docker run -v ${PWD}/configs:/configs --env APP_CONFIG="/configs/config.yml" -it --rm moov/irs:$(VERSION)
 
+docker-push:
+	docker push moov/irs:$(VERSION)
+	docker push moov/irs:latest
+
 .PHONY: clean
 clean:
 ifeq ($(OS),Windows_NT)
