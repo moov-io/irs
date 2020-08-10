@@ -9,12 +9,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/moov-io/identity/pkg/logging"
-	"github.com/moov-io/irs/pkg/service"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/moov-io/identity/pkg/logging"
+	"github.com/moov-io/irs/pkg/service"
 
 	"github.com/moov-io/irs/pkg/config"
 	"github.com/moov-io/irs/pkg/file"

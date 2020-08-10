@@ -7,9 +7,9 @@ moov-io/irs
 [![Go Report Card](https://goreportcard.com/badge/github.com/moov-io/irs)](https://goreportcard.com/report/github.com/moov-io/irs)
 [![Apache 2 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://raw.githubusercontent.com/moov-io/irs/master/LICENSE)
 
-Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and 
-CLI for creating, parsing, validating, and transforming IRS electronic Filing Information Returns 
-Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and 
+Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and
+CLI for creating, parsing, validating, and transforming IRS electronic Filing Information Returns
+Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and
 CSV/TEXT file formats.
 
 | Input      | Output     |
@@ -24,12 +24,12 @@ Docs: [docs](docs/README.md) | [open api specification](api/api.yml)
 
 ## Project Status
 
-We are just getting started! 
+We are just getting started!
 
 - [ ] 1099-MISC [About Form 1099-MISC](https://www.irs.gov/forms-pubs/about-form-1099-misc)
-- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)  
+- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)
 
-... more to come 
+... more to come
 
 ## Commands
 
@@ -37,7 +37,8 @@ Irs has command line interface to manage irs files and to lunch web service.
 
 ```
 irs --help
-
+```
+```
 Usage:
    [command]
 
@@ -68,7 +69,8 @@ Each interaction that the library supports is exposed in a command-line option:
 
 ```
 irs convert --help
-
+```
+```
 Usage:
    convert [output] [flags]
 
@@ -94,7 +96,8 @@ irs convert output/output.json --input testdata/packed_file.json --format json
 
 ```
 irs print --help
-
+```
+```
 Usage:
    print [flags]
 
@@ -113,7 +116,8 @@ The input parameter is source irs file, supported raw type file and json type fi
 
 ```
 irs validator --help
-
+```
+```
 Usage:
    validator [flags]
 
@@ -138,13 +142,13 @@ irs validator --input testdata/packed_file.json
 
 ```
 irs web --help
-
+```
+```
 Usage:
    web [flags]
 
 Flags:
   -h, --help          help for web
-      --port string   port of the web server (default "8080")
   -t, --test          test server
 
 Global Flags:
@@ -152,10 +156,8 @@ Global Flags:
 ```
 
 The port parameter is port number of web service.
-
-example:
 ```
-irs web
+irs web --port=8208
 ```
 
 Web server have some endpoints to manage irs file
@@ -179,7 +181,7 @@ web page example to use irs web server:
 <body>
 <h1>Upload single file with fields</h1>
 
-<form action="http://localhost:8080/convert" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8208/convert" method="post" enctype="multipart/form-data">
     Format: <input type="text" name="format"><br>
     Files: <input type="file" name="file"><br><br>
     <input type="submit" value="Submit">
@@ -190,17 +192,16 @@ web page example to use irs web server:
 
 ## Getting Started
 
-Read through the [project docs](docs/README.md) over here to get an understanding of the purpose of this project and how to run it. 
+Read through the [project docs](docs/README.md) over here to get an understanding of the purpose of this project and how to run it.
 
 ## Getting Help
 
  channel | info
  ------- | -------
  [Project Documentation](https://docs.moov.io/) | Our project documentation available online.
- Google Group [moov-users](https://groups.google.com/forum/#!forum/moov-users)| The Moov users Google group is for contributors other people contributing to the Moov project. You can join them without a google account by sending an email to [moov-users+subscribe@googlegroups.com](mailto:moov-users+subscribe@googlegroups.com). After receiving the join-request message, you can simply reply to that to confirm the subscription.
-Twitter [@moov_io](https://twitter.com/moov_io)	| You can follow Moov.IO's Twitter feed to get updates on our project(s). You can also tweet us questions or just share blogs or stories.
-[GitHub Issue](https://github.com/moov-io) | If you are able to reproduce a problem please open a GitHub Issue under the specific project that caused the error.
-[moov-io slack](https://slack.moov.io/) | Join our slack channel to have an interactive discussion about the development of the project.
+ Twitter [@moov_io](https://twitter.com/moov_io)	| You can follow Moov.IO's Twitter feed to get updates on our project(s). You can also tweet us questions or just share blogs or stories.
+ [GitHub Issue](https://github.com/moov-io) | If you are able to reproduce a problem please open a GitHub Issue under the specific project that caused the error.
+ [moov-io slack](https://slack.moov.io/) | Join our slack channel to have an interactive discussion about the development of the project.
 
 ## Supported and Tested Platforms
 
