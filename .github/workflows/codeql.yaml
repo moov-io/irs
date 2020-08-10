@@ -20,6 +20,9 @@ jobs:
         with:
           languages: go
 
+      - name: Install
+        run: make install
+
       - run: make
 
       - name: Perform CodeQL Analysis
