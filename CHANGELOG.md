@@ -1,6 +1,6 @@
-## v0.1.1 (Released 2020-08-10)
+## v0.1.2 (Released 2020-08-10)
 
-This is the initial release of Metro2 for credit history parsing and creation. Included is a Go library and command-line utility.
+This is the initial release of IRS which is a  CLI and HTTP server for creating, parsing, validating, and transforming IRS electronic Filing Information Returns Electronically (FIRE).
 
 ADDITIONS
 
