@@ -190,6 +190,14 @@ web page example to use irs web server:
 </html>
 ```
 
+## Docker
+
+You can run the [moov/irs Docker image](https://hub.docker.com/r/moov/irs) which defaults to starting the HTTP server.
+
+```
+docker run -p 8208:8208 moov/irs:latest
+```
+
 ## Getting Started
 
 Read through the [project docs](docs/README.md) over here to get an understanding of the purpose of this project and how to run it.
