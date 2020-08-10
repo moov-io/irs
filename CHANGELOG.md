@@ -1,3 +1,9 @@
+## v0.1.3 (Released 2020-08-10)
+
+BUG FIXES
+
+- Fix docker crash on image startup
+
 ## v0.1.2 (Released 2020-08-10)
 
 This is the initial release of IRS which is a  CLI and HTTP server for creating, parsing, validating, and transforming IRS electronic Filing Information Returns Electronically (FIRE).
