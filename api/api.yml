@@ -215,12 +215,7 @@ components:
         payees:
           type: array
           items:
-            oneOf:
-            - $ref: '#/components/schemas/BRecordWith1097Btc'
-            - $ref: '#/components/schemas/BRecordWith1099Int'
-            - $ref: '#/components/schemas/BRecordWith1099Misc'
-            - $ref: '#/components/schemas/BRecordWith1099Oid'
-            - $ref: '#/components/schemas/BRecordWith1099Patr'
+            type: object
         end_payer:
           $ref: '#/components/schemas/CRecord'
         states:
