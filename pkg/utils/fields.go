@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -14,6 +16,7 @@ import (
 var (
 	upperAlphanumericRegex = regexp.MustCompile(`[^ A-Z0-9!"#$%&'()*+,-.\\/:;<>=?@\[\]^_{}|~]+`)
 	numericRegex           = regexp.MustCompile(`^[0-9]+$`)
+	dateRegex              = regexp.MustCompile(`^(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])`)
 	yearRegex              = regexp.MustCompile(`((19|20)\d\d)`)
 	emailRegex             = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	minPhoneNumberLength   = 10
@@ -61,15 +64,24 @@ func ToString(elm config.SpecField, data reflect.Value) string {
 	}
 
 	sizeStr := strconv.Itoa(elm.Length)
+
 	switch elm.Type {
 	case config.Alphanumeric, config.Email, config.Numeric, config.TelephoneNumber:
 		return fmt.Sprintf("%-"+sizeStr+"s", data)
 	case config.AlphanumericRightAlign:
 		return fmt.Sprintf("%"+sizeStr+"s", data)
 	case config.ZeroNumeric:
+		if elm.Required == config.Omitted && data.Interface().(int) == 0 {
+			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
+		}
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
 	case config.DateYear:
 		return fmt.Sprintf("%-"+sizeStr+"d", data)
+	case config.Date:
+		if datetime, ok := data.Interface().(time.Time); ok && !datetime.IsZero() {
+			return datetime.Format(config.DateFormat)
+		}
+		return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
 	}
 
 	return fillString(elm)
@@ -142,6 +154,32 @@ func CopyStruct(from interface{}, to interface{}) {
 	}
 }
 
+// to check amount codes
+func CheckAvailableCodes(codes string, codeMap map[string]string) bool {
+	codes = strings.TrimRight(codes, config.BlankString)
+	codeList := strings.Split(codes, "")
+	sort.Strings(codeList)
+	if strings.Join(codeList, "") != codes {
+		return false
+	}
+
+	repeated := map[string]int{}
+	for i := 0; i < len(codeList); i++ {
+		repeated[codeList[i]]++
+	}
+
+	for code, v := range repeated {
+		if v > 1 {
+			return false
+		}
+		if _, ok := codeMap[code]; !ok {
+			return false
+		}
+	}
+
+	return true
+}
+
 func isValidType(fieldName string, elm config.SpecField, data string) error {
 	if elm.Required == config.Required {
 		if isBlank(data) {
@@ -158,16 +196,21 @@ func isValidType(fieldName string, elm config.SpecField, data string) error {
 	case config.Alphanumeric, config.AlphanumericRightAlign:
 		return isAlphanumeric(data)
 	case config.Numeric, config.ZeroNumeric:
-		return isNumeric(data)
+		return IsNumeric(data)
 	case config.TelephoneNumber:
 		if len(data) < minPhoneNumberLength {
 			break
 		}
-		return isNumeric(data)
+		return IsNumeric(data)
 	case config.Email:
 		return isEmail(data)
 	case config.DateYear:
 		return isDateYear(data)
+	case config.Date:
+		if isBlank(data) {
+			return nil
+		}
+		return isDate(data)
 	}
 
 	return NewErrValidValue(fieldName)
@@ -180,7 +223,7 @@ func isBlank(data string) bool {
 	return strings.Count(data, config.BlankString) == len(data)
 }
 
-func isNumeric(data string) error {
+func IsNumeric(data string) error {
 	data = strings.TrimRight(data, config.BlankString)
 	if !numericRegex.MatchString(data) {
 		return ErrNumeric
@@ -197,6 +240,13 @@ func isAlphanumeric(data string) error {
 
 func isDateYear(data string) error {
 	if !yearRegex.MatchString(data) {
+		return ErrValidDate
+	}
+	return nil
+}
+
+func isDate(data string) error {
+	if !dateRegex.MatchString(data) {
 		return ErrValidDate
 	}
 	return nil
@@ -224,11 +274,26 @@ func parseValue(elm config.SpecField, field reflect.Value, data string) error {
 		field.SetString(data)
 		return nil
 	case config.ZeroNumeric, config.DateYear:
+		data = strings.Trim(data, config.BlankString)
+		if len(data) == 0 {
+			field.SetInt(0)
+			return nil
+		}
 		value, err := strconv.ParseInt(data, 10, 64)
 		if err != nil {
 			return err
 		}
 		field.SetInt(value)
+		return nil
+	case config.Date:
+		if isBlank(data) {
+			return nil
+		}
+		_date, err := time.Parse(config.DateFormat, data)
+		if err != nil {
+			return err
+		}
+		field.Set(reflect.ValueOf(_date))
 		return nil
 	}
 	return ErrValidField

@@ -7,8 +7,6 @@ package records
 import (
 	"bytes"
 	"reflect"
-	"sort"
-	"strings"
 	"unicode/utf8"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -268,34 +266,16 @@ func (r *ARecord) ValidateAmountCodes() error {
 	if !exist {
 		return utils.NewErrValidValue("amount codes")
 	}
-	if !checkAvailableCodes(r.AmountCodes, codeMap) {
+	if !utils.CheckAvailableCodes(r.AmountCodes, codeMap) {
 		return utils.NewErrValidValue("amount codes")
 	}
 
 	return nil
 }
 
-func checkAvailableCodes(codes string, codeMap map[string]string) bool {
-	codes = strings.TrimRight(codes, config.BlankString)
-	codeList := strings.Split(codes, "")
-	sort.Strings(codeList)
-	if strings.Join(codeList, "") != codes {
-		return false
+func (r *ARecord) ValidatePayerZipCode() error {
+	if len(r.PayerZipCode) >= 0 {
+		return utils.IsNumeric(r.PayerZipCode)
 	}
-
-	repeated := map[string]int{}
-	for i := 0; i < len(codeList); i++ {
-		repeated[codeList[i]]++
-	}
-
-	for code, v := range repeated {
-		if v > 1 {
-			return false
-		}
-		if _, ok := codeMap[code]; !ok {
-			return false
-		}
-	}
-
-	return true
+	return utils.NewErrValidValue("payer zip code")
 }

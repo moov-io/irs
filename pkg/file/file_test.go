@@ -72,7 +72,9 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	c.Assert(person.Validate(), check.NotNil)
 	person.EndPayer = records.NewCRecord()
 	c.Assert(person.Validate(), check.NotNil)
-	person.Payees = append(person.Payees, records.NewBRecord("A"))
+	_r, err := records.NewBRecord("1099-MISC")
+	c.Assert(err, check.IsNil)
+	person.Payees = append(person.Payees, _r)
 	c.Assert(person.Validate(), check.NotNil)
 	person.SetSequenceNumber(0)
 	person.Payer = nil
