@@ -21,6 +21,7 @@ const (
 	Required   = "Y"
 	Applicable = "A"
 	Expandable = "E"
+	Omitted    = "O"
 )
 
 // field types
@@ -32,6 +33,7 @@ const (
 	TelephoneNumber
 	Email
 	DateYear
+	Date
 )
 
 var (
@@ -225,6 +227,96 @@ var (
 		"SpecialDataEntries": {119, 60, Alphanumeric, Applicable},
 		"Blank5":             {179, 26, Alphanumeric, Nullable},
 		"Blank6":             {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098
+	Sub1098Layout = map[string]SpecField{
+		"MortgageOriginationDate":           {0, 8, Date, Applicable},
+		"PropertySecuringMortgageIndicator": {8, 1, Alphanumeric, Applicable},
+		"PropertyADSecuringMortgage":        {9, 39, Alphanumeric, Applicable},
+		"Other":                             {48, 39, Alphanumeric, Applicable},
+		"Blank1":                            {87, 39, Alphanumeric, Nullable},
+		"NumberMortgagedProperties":         {126, 4, ZeroNumeric, Applicable},
+		"SpecialDataEntries":                {130, 49, Alphanumeric, Applicable},
+		"MortgageAcquisitionDate":           {179, 8, Date, Applicable},
+		"Blank2":                            {187, 18, Alphanumeric, Nullable},
+		"Blank3":                            {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098-C
+	Sub1098CLayout = map[string]SpecField{
+		"Blank1":                               {0, 2, Alphanumeric, Nullable},
+		"TransactionIndicator":                 {2, 1, Alphanumeric, Applicable},
+		"TransferAfterImprovementsIndicator":   {3, 1, Alphanumeric, Applicable},
+		"TransferMarketValueIndicator":         {4, 1, Alphanumeric, Applicable},
+		"Year":                                 {5, 4, DateYear, Applicable},
+		"Make":                                 {9, 13, Alphanumeric, Applicable},
+		"Model":                                {22, 22, Alphanumeric, Applicable},
+		"VehicleIdentificationNumber":          {44, 25, Alphanumeric, Applicable},
+		"VehicleDescription":                   {69, 39, Alphanumeric, Applicable},
+		"DateContribution":                     {108, 8, Date, Applicable},
+		"DoneeIndicator":                       {116, 1, Alphanumeric, Applicable},
+		"IntangibleReligiousBenefitsIndicator": {117, 1, Alphanumeric, Applicable},
+		"DeductionLessIndicator":               {118, 1, Alphanumeric, Applicable},
+		"SpecialDataEntries":                   {119, 60, Alphanumeric, Applicable},
+		"DateSale":                             {179, 8, Date, Applicable},
+		"GoodsServices":                        {187, 16, Alphanumeric, Applicable},
+		"Blank2":                               {203, 2, Alphanumeric, Nullable},
+		"Blank3":                               {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098-E
+	Sub1098ELayout = map[string]SpecField{
+		"Blank1":                       {0, 3, Alphanumeric, Nullable},
+		"OriginationInterestIndicator": {3, 1, Alphanumeric, Applicable},
+		"Blank2":                       {4, 115, Alphanumeric, Nullable},
+		"SpecialDataEntries":           {119, 60, Alphanumeric, Applicable},
+		"Blank3":                       {179, 26, Alphanumeric, Nullable},
+		"Blank4":                       {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098-F
+	Sub1098FLayout = map[string]SpecField{
+		"DateOrderAgreement":  {0, 8, Date, Applicable},
+		"Jurisdiction":        {8, 39, Alphanumeric, Applicable},
+		"CaseNumber":          {47, 39, Alphanumeric, Applicable},
+		"MatterSuitAgreement": {86, 39, Alphanumeric, Applicable},
+		"PaymentCode":         {125, 6, Alphanumeric, Applicable},
+		"SpecialDataEntries":  {131, 60, Alphanumeric, Applicable},
+		"Blank1":              {191, 16, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098-Q
+	Sub1098QLayout = map[string]SpecField{
+		"Blank1":                       {0, 2, Alphanumeric, Nullable},
+		"AnnuityStartDate":             {2, 8, Date, Applicable},
+		"AcceleratedIndicator":         {10, 1, Alphanumeric, Applicable},
+		"January":                      {11, 2, ZeroNumeric, Omitted},
+		"February":                     {13, 2, ZeroNumeric, Omitted},
+		"March":                        {15, 2, ZeroNumeric, Omitted},
+		"April":                        {17, 2, ZeroNumeric, Omitted},
+		"May":                          {19, 2, ZeroNumeric, Omitted},
+		"June":                         {21, 2, ZeroNumeric, Omitted},
+		"July":                         {23, 2, ZeroNumeric, Omitted},
+		"August":                       {25, 2, ZeroNumeric, Omitted},
+		"September":                    {27, 2, ZeroNumeric, Omitted},
+		"October":                      {29, 2, ZeroNumeric, Omitted},
+		"November":                     {31, 2, ZeroNumeric, Omitted},
+		"December":                     {33, 2, ZeroNumeric, Omitted},
+		"Blank2":                       {35, 1, Alphanumeric, Nullable},
+		"NamePlan":                     {36, 39, Alphanumeric, Applicable},
+		"PlanNumber":                   {75, 20, Alphanumeric, Applicable},
+		"EmployerIdentificationNumber": {95, 9, Alphanumeric, Applicable},
+		"Blank3":                       {104, 101, Alphanumeric, Nullable},
+		"Blank4":                       {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1098-T
+	Sub1098TLayout = map[string]SpecField{
+		"IdentificationNumber":     {0, 1, Alphanumeric, Applicable},
+		"Blank1":                   {1, 2, Alphanumeric, Nullable},
+		"HalfTimeStudentIndicator": {3, 1, Alphanumeric, Applicable},
+		"GraduateStudentIndicator": {4, 1, Numeric, Applicable},
+		"AcademicPeriodIndicator":  {5, 1, Numeric, Applicable},
+		"Blank2":                   {6, 1, Alphanumeric, Nullable},
+		"Blank3":                   {7, 112, Alphanumeric, Nullable},
+		"SpecialDataEntries":       {119, 60, Alphanumeric, Applicable},
+		"Blank4":                   {179, 26, Alphanumeric, Nullable},
+		"Blank5":                   {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-INT
 	Sub1099INTLayout = map[string]SpecField{

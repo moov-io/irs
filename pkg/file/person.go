@@ -117,7 +117,10 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 			return readPtr, utils.ErrInvalidAscii
 		}
 
-		newPayee := records.NewBRecord(typeOfReturn)
+		newPayee, err := records.NewBRecord(typeOfReturn)
+		if err != nil {
+			return readPtr, err
+		}
 		if err = newPayee.Parse(buf[readPtr : readPtr+config.RecordLength]); err != nil {
 			return readPtr, err
 		}
@@ -205,8 +208,11 @@ func (p *paymentPerson) UnmarshalJSON(data []byte) error {
 
 			p.Payees = make([]records.Record, 0)
 			for _, data := range list {
-				newRecord := records.NewBRecord(typeOfReturn)
-				err := readJsonWithRecord(newRecord, data)
+				newRecord, err := records.NewBRecord(typeOfReturn)
+				if err != nil {
+					return err
+				}
+				err = readJsonWithRecord(newRecord, data)
 				if err != nil {
 					return err
 				}

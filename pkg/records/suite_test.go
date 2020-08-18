@@ -29,6 +29,18 @@ type RecordTest struct {
 	bRecord1099PatrAscii []byte
 	bRecord1097BtcJson   []byte
 	bRecord1097BtcAscii  []byte
+	bRecord1098Json      []byte
+	bRecord1098Ascii     []byte
+	bRecord1098CJson     []byte
+	bRecord1098CAscii    []byte
+	bRecord1098EJson     []byte
+	bRecord1098EAscii    []byte
+	bRecord1098FJson     []byte
+	bRecord1098FAscii    []byte
+	bRecord1098QJson     []byte
+	bRecord1098QAscii    []byte
+	bRecord1098TJson     []byte
+	bRecord1098TAscii    []byte
 	cRecordJson          []byte
 	cRecordAscii         []byte
 	kRecordJson          []byte
@@ -82,6 +94,42 @@ func (t *RecordTest) SetUpSuite(c *check.C) {
 	c.Assert(err, check.IsNil)
 
 	t.bRecord1097BtcAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1097Btc.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098Json, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098Ascii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098CJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098C.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098CAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098C.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098EJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098E.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098EAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098E.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098FJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098F.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098FAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098F.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098QJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098Q.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098QAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098Q.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098TJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098T.json"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1098TAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1098T.ascii"))
 	c.Assert(err, check.IsNil)
 
 	t.cRecordJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "endPayerRecord.json"))

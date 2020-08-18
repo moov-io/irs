@@ -52,6 +52,8 @@ var (
 	ErrInvalidNumberPayers = errors.New("has incorrect number of payers")
 	// ErrInvalidTCC is given when is invalid transmitter control code
 	ErrInvalidTCC = errors.New("is invalid transmitter control code")
+	// ErrUnsupportedBlock is given when is not supported extension block of B record
+	ErrUnsupportedBlock = errors.New("is not supported extension block of B record")
 )
 
 // NewErrValidValue returns a error that has invalid value

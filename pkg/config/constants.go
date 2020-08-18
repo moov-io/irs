@@ -17,15 +17,27 @@ const (
 	KRecordType = "K"
 	// FRecordType indicates name of transmission “F” record
 	FRecordType = "F"
-	// Sub1097BtcType indicates type of payee “B” record for form 1097-BTC
+	// Sub1097BtcType indicates extension block type of payee “B” record for form 1097-BTC
 	Sub1097BtcType = "1097-BTC"
-	// Sub1099IntType indicates type of payee “B” record for form 1099-INT
+	// Sub1098Type indicates extension block type of payee “B” record for form 1098
+	Sub1098Type = "1098"
+	// Sub1098CType indicates extension block type of payee “B” record for form 1098-C
+	Sub1098CType = "1098-C"
+	// Sub1098EType indicates extension block type of payee “B” record for form 1098-E
+	Sub1098EType = "1098-E"
+	// Sub1098FType indicates extension block type of payee “B” record for form 1098-F
+	Sub1098FType = "1098-F"
+	// Sub1098QType indicates extension block type of payee “B” record for form 1098-Q
+	Sub1098QType = "1098-Q"
+	// Sub1098TType indicates extension block type of payee “B” record for form 1098-Q
+	Sub1098TType = "1098-T"
+	// Sub1099IntType indicates extension block type of payee “B” record for form 1099-INT
 	Sub1099IntType = "1099-INT"
-	// Sub1099MiscType indicates type of payee “B” record for form 1099-MISC
+	// Sub1099MiscType indicates extension block type of payee “B” record for form 1099-MISC
 	Sub1099MiscType = "1099-MISC"
-	// Sub1099OidType indicates type of payee “B” record for form 1099-OID
+	// Sub1099OidType indicates extension block type of payee “B” record for form 1099-OID
 	Sub1099OidType = "1099-OID"
-	// Sub1099PatrType indicates type of payee “B” record for form 1099-PATR
+	// Sub1099PatrType indicates extension block type of payee “B” record for form 1099-PATR
 	Sub1099PatrType = "1099-PATR"
 )
 
@@ -41,6 +53,8 @@ const (
 	BlankString = " "
 	// ZeroString indicates the zero string
 	ZeroString = "0"
+	// dateFormat indicates data format like as  YYYYMMDD
+	DateFormat = "20060102"
 )
 
 const (
@@ -81,6 +95,15 @@ const (
 	// consumer products to a person on a buy-sell, depositcommission, or any other commission basis for resale
 	// anywhere other than in a permanent retail establishment
 	DirectSalesIndicator = "1"
+
+	// Enter “1” (one) if Property Securing Mortgage is the same as payer/borrowers’ address.
+	PropertySecuringMortgageIndicator = "1"
+
+	// Enter “1” (one) for general field
+	GeneralOneIndicator = "1"
+
+	// Enter “2” (one) for general field
+	GeneralTwoIndicator = "2"
 )
 
 // State Abbreviation Codes
@@ -507,6 +530,17 @@ var AmountCodes = map[string]map[string]string{
 		"2": "Federal income tax withheld",
 		"7": "Winnings from identical wagers",
 	},
+}
+
+// Amount codes for Positions 544-750 for Form 1098-F.
+var PaymentCodes1098F = map[string]string{
+	"B": "Multiple payers/defendants",
+	"C": "Multiple payees",
+	"D": "Property included in settlement",
+	"E": "Settlement payments to nongovernmental entities, i.e., charities",
+	"F": "Settlement paid in full as of time of filing",
+	"G": "No payment received as of time of filing",
+	"H": "Deferred prosecution agreement",
 }
 
 const (

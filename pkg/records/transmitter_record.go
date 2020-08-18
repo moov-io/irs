@@ -259,3 +259,17 @@ func (r *TRecord) ValidateVendorForeignEntityIndicator() error {
 	}
 	return utils.NewErrValidValue("vendor foreign entity indicator")
 }
+
+func (r *TRecord) ValidateCompanyZipCode() error {
+	if len(r.CompanyZipCode) >= 0 {
+		return utils.IsNumeric(r.CompanyZipCode)
+	}
+	return utils.NewErrValidValue("company zip code")
+}
+
+func (r *TRecord) ValidateVendorZipCode() error {
+	if len(r.VendorZipCode) >= 0 {
+		return utils.IsNumeric(r.VendorZipCode)
+	}
+	return utils.NewErrValidValue("vendor zip code")
+}

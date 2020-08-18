@@ -7,7 +7,7 @@ GROUPID:= $(shell id -g $$USER)
 build: irs
 
 irs:
-	pkger
+#	pkger
 	go build -o ${PWD}/bin/irs cmd/irs/*
 
 run: irs

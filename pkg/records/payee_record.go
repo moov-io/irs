@@ -296,9 +296,14 @@ func (r *BRecord) SetSequenceNumber(number int) {
 }
 
 // SetTypeOfReturn set type of return of the record
-func (r *BRecord) SetTypeOfReturn(typeOfReturn string) {
+func (r *BRecord) SetTypeOfReturn(typeOfReturn string) error {
 	r.typeOfReturn = typeOfReturn
-	r.extRecord = subrecords.NewSubRecord(r.typeOfReturn)
+	extension, err := subrecords.NewSubRecord(r.typeOfReturn)
+	if err != nil {
+		return err
+	}
+	r.extRecord = extension
+	return nil
 }
 
 // PaymentAmount returns payment amount
@@ -418,4 +423,11 @@ func (r *BRecord) ValidatePayeeState() error {
 		return nil
 	}
 	return utils.NewErrValidValue("payee state")
+}
+
+func (r *BRecord) ValidatePayeeZipCode() error {
+	if len(r.PayeeZipCode) >= 0 {
+		return utils.IsNumeric(r.PayeeZipCode)
+	}
+	return utils.NewErrValidValue("payee zip code")
 }

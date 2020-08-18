@@ -18,10 +18,9 @@ func NewARecord() Record {
 	return &ARecord{}
 }
 
-func NewBRecord(typeOfReturn string) Record {
+func NewBRecord(typeOfReturn string) (Record, error) {
 	record := &BRecord{}
-	record.SetTypeOfReturn(typeOfReturn)
-	return record
+	return record, record.SetTypeOfReturn(typeOfReturn)
 }
 
 func NewCRecord() Record {

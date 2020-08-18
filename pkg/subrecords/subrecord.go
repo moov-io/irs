@@ -4,7 +4,10 @@
 
 package subrecords
 
-import "github.com/moov-io/irs/pkg/config"
+import (
+	"github.com/moov-io/irs/pkg/config"
+	"github.com/moov-io/irs/pkg/utils"
+)
 
 // General subrecord interface
 type SubRecord interface {
@@ -15,11 +18,23 @@ type SubRecord interface {
 }
 
 // NewSubRecord returns a new sub record with type of return
-func NewSubRecord(recordType string) SubRecord {
-	var newRecord SubRecord = nil
+func NewSubRecord(recordType string) (SubRecord, error) {
+	var newRecord SubRecord
 	switch recordType {
 	case config.Sub1097BtcType:
 		newRecord = &Sub1097BTC{}
+	case config.Sub1098Type:
+		newRecord = &Sub1098{}
+	case config.Sub1098CType:
+		newRecord = &Sub1098C{}
+	case config.Sub1098EType:
+		newRecord = &Sub1098E{}
+	case config.Sub1098FType:
+		newRecord = &Sub1098F{}
+	case config.Sub1098QType:
+		newRecord = &Sub1098Q{}
+	case config.Sub1098TType:
+		newRecord = &Sub1098T{}
 	case config.Sub1099IntType:
 		newRecord = &Sub1099INT{}
 	case config.Sub1099MiscType:
@@ -28,6 +43,8 @@ func NewSubRecord(recordType string) SubRecord {
 		newRecord = &Sub1099OID{}
 	case config.Sub1099PatrType:
 		newRecord = &Sub1099PATR{}
+	default:
+		return nil, utils.ErrUnsupportedBlock
 	}
-	return newRecord
+	return newRecord, nil
 }
