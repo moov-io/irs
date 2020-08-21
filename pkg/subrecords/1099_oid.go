@@ -107,15 +107,16 @@ func (r *Sub1099OID) Validate() error {
 // function name should be "Validate" + field name
 
 func (r *Sub1099OID) ValidateFATCA() error {
-	if r.FATCA == config.FatcaFilingRequirementIndicator || len(r.FATCA) == 0 {
-		return nil
+	if len(r.FATCA) > 0 &&
+		r.FATCA != config.FatcaFilingRequirementIndicator {
+		return utils.NewErrValidValue("fatca filing requirement indicator")
 	}
-	return utils.NewErrValidValue("fatca filing requirement indicator")
+	return nil
 }
 
 func (r *Sub1099OID) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; ok {
-		return nil
+	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
+		return utils.NewErrValidValue("combined federal state code")
 	}
-	return utils.NewErrValidValue("combined federal state code")
+	return nil
 }

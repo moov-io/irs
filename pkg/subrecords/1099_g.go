@@ -13,33 +13,36 @@ import (
 	"github.com/moov-io/irs/pkg/utils"
 )
 
-type Sub1099INT struct {
+type Sub1099G struct {
 	// Enter “2” (two) to indicate notification by the IRS twice within
 	// three calendar years that the payee provided an incorrect
 	// name and/or TIN combination. Otherwise, enter a blank.
 	SecondTinNotice string `json:"second_tin_notice"`
 
-	// Enter the name of the foreign country or U.S. possession to
-	// which the withheld foreign tax (Amount Code 6) applies.
-	// Otherwise, enter blanks.
-	ForeignCountry string `json:"foreign_country"`
+	// Enter “1” (one) to indicate the state or local income tax
+	// refund, credit, or offset (Amount Code 2) is attributable to
+	// income tax that applies exclusively to income from a trade or
+	// business.
+	// 1: Income tax refund applies exclusively to a trade or business
+	// Blank: Income tax refund is a general tax refund
+	TradeBusinessIndicator string `json:"trade_business_indicator"`
 
-	// Enter CUSIP Number. If the tax-exempt interest is reported
-	// in the aggregate for multiple bonds or accounts, enter
-	// VARIOUS. Right justify the information and fill unused
-	// positions with blanks.
-	CUSIP string `json:"cusip_number"`
-
-	// Enter "1" (one) if there is FATCA filing requirement.
-	// Otherwise, enter a blank.
-	FATCA string `json:"fatca_requirement_indicator"`
+	// Enter the tax year for which the refund, credit, or offset
+	// (Amount Code 2) was issued. The tax year must reflect the
+	// tax year for which the refund was made, not the tax year of
+	// Form 1099-G. The tax year must be in four-position format of
+	// YYYY (for example, 2015). The valid range of years for the
+	// refund is 2009 through 2018.
+	// Note: This data is not considered prior year data since it is
+	// required to be reported in the current tax year. Do NOT enter
+	// “P” in the field position 6 of Transmitter “T” Record.
+	TaxYearRefund int `json:"tax_tear_refund"`
 
 	// This portion of the “B” Record may be used to record
 	// information for state or local government reporting or for the
 	// filer’s own purposes. Payers should contact the state or local
-	// revenue departments for filing requirements. You may enter
-	// your routing and transit number (RTN) here. If this field is not
-	// used, enter blanks.
+	// revenue departments for the filing requirements. If this field is
+	// not used, enter blanks.
 	SpecialDataEntries string `json:"special_data_entries"`
 
 	// State income tax withheld is for the convenience of the filers.
@@ -63,13 +66,13 @@ type Sub1099INT struct {
 	CombinedFSCode int `json:"combined_federal_state_code"`
 }
 
-// Type returns type of “1099-INT” record
-func (r *Sub1099INT) Type() string {
-	return config.Sub1099IntType
+// Type returns type of “1099-G” record
+func (r *Sub1099G) Type() string {
+	return config.Sub1099GType
 }
 
-// Parse parses the “1099-INT” record from fire ascii
-func (r *Sub1099INT) Parse(buf []byte) error {
+// Parse parses the “1099-G” record from fire ascii
+func (r *Sub1099G) Parse(buf []byte) error {
 	record := string(buf)
 	if utf8.RuneCountInString(record) != config.SubRecordLength {
 		return utils.ErrRecordLength
@@ -80,13 +83,13 @@ func (r *Sub1099INT) Parse(buf []byte) error {
 		return utils.ErrValidField
 	}
 
-	return utils.ParseValue(fields, config.Sub1099INTLayout, record)
+	return utils.ParseValue(fields, config.Sub1099GLayout, record)
 }
 
-// Ascii returns fire ascii of “1099-INT” record
-func (r *Sub1099INT) Ascii() []byte {
+// Ascii returns fire ascii of “1099-G” record
+func (r *Sub1099G) Ascii() []byte {
 	var buf bytes.Buffer
-	records := config.ToSpecifications(config.Sub1099INTLayout)
+	records := config.ToSpecifications(config.Sub1099GLayout)
 	fields := reflect.ValueOf(r).Elem()
 	if !fields.IsValid() {
 		return nil
@@ -102,14 +105,14 @@ func (r *Sub1099INT) Ascii() []byte {
 }
 
 // Validate performs some checks on the record and returns an error if not Validated
-func (r *Sub1099INT) Validate() error {
-	return utils.Validate(r, config.Sub1099INTLayout)
+func (r *Sub1099G) Validate() error {
+	return utils.Validate(r, config.Sub1099GLayout)
 }
 
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *Sub1099INT) ValidateSecondTinNotice() error {
+func (r *Sub1099G) ValidateSecondTinNotice() error {
 	if len(r.SecondTinNotice) > 0 &&
 		r.SecondTinNotice != config.SecondTINNotice {
 		return utils.NewErrValidValue("second tin notice")
@@ -117,17 +120,24 @@ func (r *Sub1099INT) ValidateSecondTinNotice() error {
 	return nil
 }
 
-func (r *Sub1099INT) ValidateFATCA() error {
-	if len(r.FATCA) > 0 &&
-		r.FATCA != config.FatcaFilingRequirementIndicator {
-		return utils.NewErrValidValue("fatca filing requirement indicator")
+func (r *Sub1099G) ValidateTradeBusinessIndicator() error {
+	if len(r.TradeBusinessIndicator) > 0 &&
+		r.TradeBusinessIndicator != config.GeneralOneIndicator {
+		return utils.NewErrValidValue("trade business indicator")
 	}
 	return nil
 }
 
-func (r *Sub1099INT) ValidateCombinedFSCode() error {
+func (r *Sub1099G) ValidateCombinedFSCode() error {
 	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
 		return utils.NewErrValidValue("combined federal state code")
+	}
+	return nil
+}
+
+func (r *Sub1099G) ValidateTaxYearRefund() error {
+	if r.TaxYearRefund < 2009 || r.TaxYearRefund > 2018 {
+		return utils.NewErrValidValue("tax tear refund")
 	}
 	return nil
 }

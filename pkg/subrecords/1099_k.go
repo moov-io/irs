@@ -13,26 +13,40 @@ import (
 	"github.com/moov-io/irs/pkg/utils"
 )
 
-type Sub1099INT struct {
+type Sub1099K struct {
 	// Enter “2” (two) to indicate notification by the IRS twice within
 	// three calendar years that the payee provided an incorrect
 	// name and/or TIN combination. Otherwise, enter a blank.
 	SecondTinNotice string `json:"second_tin_notice"`
 
-	// Enter the name of the foreign country or U.S. possession to
-	// which the withheld foreign tax (Amount Code 6) applies.
-	// Otherwise, enter blanks.
-	ForeignCountry string `json:"foreign_country"`
+	// Required. Enter the appropriate indicator from the following
+	// table.
+	// 1: Payment Settlement Entity (PSE)
+	// 2: Electronic Payment Facilitator (EPF)/Other third party
+	TypeFilerIndicator string `json:"type_filer_indicator"`
 
-	// Enter CUSIP Number. If the tax-exempt interest is reported
-	// in the aggregate for multiple bonds or accounts, enter
-	// VARIOUS. Right justify the information and fill unused
-	// positions with blanks.
-	CUSIP string `json:"cusip_number"`
+	// Required. Enter the appropriate indicator from the following
+	// table.
+	// 1: Payment Card Payment
+	// 2: EThird Party Network Payment
+	TypePaymentIndicator string `json:"type_payment_indicator"`
 
-	// Enter "1" (one) if there is FATCA filing requirement.
-	// Otherwise, enter a blank.
-	FATCA string `json:"fatca_requirement_indicator"`
+	// Required. Enter the number of payment transactions. Do not
+	// include refund transactions.
+	// Right justify the information and fill unused positions with
+	// zeros.
+	NumberPaymentTransactions int `json:"number_payment_transactions"`
+
+	// Enter the payment settlement entity’s name and phone
+	// number if different from the filer's name. Otherwise, enter
+	// blanks. Left justify the information, and fill unused positions
+	// with blanks.
+	PaymentSettlementNamePhoneNumber string `json:"payment_settlement_name_phone_number"`
+
+	// Required. Enter the Merchant Category Code (MCC). All
+	// MCCs must contain four numeric characters. If no code is
+	// provided, fill unused positions with zeros.
+	MerchantCategoryCode int `json:"merchant_category_code"`
 
 	// This portion of the “B” Record may be used to record
 	// information for state or local government reporting or for the
@@ -63,13 +77,13 @@ type Sub1099INT struct {
 	CombinedFSCode int `json:"combined_federal_state_code"`
 }
 
-// Type returns type of “1099-INT” record
-func (r *Sub1099INT) Type() string {
-	return config.Sub1099IntType
+// Type returns type of “1099-K” record
+func (r *Sub1099K) Type() string {
+	return config.Sub1099KType
 }
 
-// Parse parses the “1099-INT” record from fire ascii
-func (r *Sub1099INT) Parse(buf []byte) error {
+// Parse parses the “1099-K” record from fire ascii
+func (r *Sub1099K) Parse(buf []byte) error {
 	record := string(buf)
 	if utf8.RuneCountInString(record) != config.SubRecordLength {
 		return utils.ErrRecordLength
@@ -80,13 +94,13 @@ func (r *Sub1099INT) Parse(buf []byte) error {
 		return utils.ErrValidField
 	}
 
-	return utils.ParseValue(fields, config.Sub1099INTLayout, record)
+	return utils.ParseValue(fields, config.Sub1099KLayout, record)
 }
 
-// Ascii returns fire ascii of “1099-INT” record
-func (r *Sub1099INT) Ascii() []byte {
+// Ascii returns fire ascii of “1099-K” record
+func (r *Sub1099K) Ascii() []byte {
 	var buf bytes.Buffer
-	records := config.ToSpecifications(config.Sub1099INTLayout)
+	records := config.ToSpecifications(config.Sub1099KLayout)
 	fields := reflect.ValueOf(r).Elem()
 	if !fields.IsValid() {
 		return nil
@@ -102,14 +116,14 @@ func (r *Sub1099INT) Ascii() []byte {
 }
 
 // Validate performs some checks on the record and returns an error if not Validated
-func (r *Sub1099INT) Validate() error {
-	return utils.Validate(r, config.Sub1099INTLayout)
+func (r *Sub1099K) Validate() error {
+	return utils.Validate(r, config.Sub1099KLayout)
 }
 
 // customized field validation functions
 // function name should be "Validate" + field name
 
-func (r *Sub1099INT) ValidateSecondTinNotice() error {
+func (r *Sub1099K) ValidateSecondTinNotice() error {
 	if len(r.SecondTinNotice) > 0 &&
 		r.SecondTinNotice != config.SecondTINNotice {
 		return utils.NewErrValidValue("second tin notice")
@@ -117,15 +131,23 @@ func (r *Sub1099INT) ValidateSecondTinNotice() error {
 	return nil
 }
 
-func (r *Sub1099INT) ValidateFATCA() error {
-	if len(r.FATCA) > 0 &&
-		r.FATCA != config.FatcaFilingRequirementIndicator {
-		return utils.NewErrValidValue("fatca filing requirement indicator")
+func (r *Sub1099K) ValidateTypeFilerIndicator() error {
+	if r.TypeFilerIndicator != config.GeneralOneIndicator &&
+		r.TypeFilerIndicator != config.GeneralTwoIndicator {
+		return utils.NewErrValidValue("type filer indicator")
 	}
 	return nil
 }
 
-func (r *Sub1099INT) ValidateCombinedFSCode() error {
+func (r *Sub1099K) ValidateTypePaymentIndicator() error {
+	if r.TypePaymentIndicator != config.GeneralOneIndicator &&
+		r.TypePaymentIndicator != config.GeneralTwoIndicator {
+		return utils.NewErrValidValue("type payment indicator")
+	}
+	return nil
+}
+
+func (r *Sub1099K) ValidateCombinedFSCode() error {
 	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
 		return utils.NewErrValidValue("combined federal state code")
 	}

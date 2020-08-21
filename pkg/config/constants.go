@@ -31,8 +31,26 @@ const (
 	Sub1098QType = "1098-Q"
 	// Sub1098TType indicates extension block type of payee “B” record for form 1098-Q
 	Sub1098TType = "1098-T"
+	// Sub1099AType indicates extension block type of payee “B” record for form 1099-A
+	Sub1099AType = "1099-A"
+	// Sub1099BType indicates extension block type of payee “B” record for form 1099-B
+	Sub1099BType = "1099-B"
+	// Sub1099CType indicates extension block type of payee “B” record for form 1099-C
+	Sub1099CType = "1099-C"
+	// Sub1099CapType indicates extension block type of payee “B” record for form 1099-CAP
+	Sub1099CapType = "1099-CAP"
+	// Sub1099DivType indicates extension block type of payee “B” record for form 1099-DIV
+	Sub1099DivType = "1099-DIV"
+	// Sub1099GType indicates extension block type of payee “B” record for form 1099-G
+	Sub1099GType = "1099-G"
+	// Sub1099HType indicates extension block type of payee “B” record for form 1099-H
+	Sub1099HType = "1099-H"
 	// Sub1099IntType indicates extension block type of payee “B” record for form 1099-INT
 	Sub1099IntType = "1099-INT"
+	// Sub1099KType indicates extension block type of payee “B” record for form 1099-K
+	Sub1099KType = "1099-K"
+	// Sub1099LsType indicates extension block type of payee “B” record for form 1099-LS
+	Sub1099LsType = "1099-LS"
 	// Sub1099MiscType indicates extension block type of payee “B” record for form 1099-MISC
 	Sub1099MiscType = "1099-MISC"
 	// Sub1099OidType indicates extension block type of payee “B” record for form 1099-OID

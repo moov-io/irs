@@ -233,3 +233,156 @@ func (t *RecordTest) TestBRecordWith1098T(c *check.C) {
 	c.Assert(r.Validate(), check.IsNil)
 	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1098TAscii))
 }
+
+func (t *RecordTest) TestBRecordWith1099A(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099AType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099AJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099AType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099AAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099AAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099AAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099B(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099BType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099BJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099BType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099BAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099BAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099BAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099C(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099CType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099CJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099CType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099CAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099CAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099CAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099Cap(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099CapType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099CapJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099CapType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099CapAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099CapAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099CapAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099Div(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099DivType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099DivJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099DivType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099DivAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099DivAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099DivAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099G(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099GType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099GJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099GType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099GAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099GAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099GAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099H(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099HType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099HJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099HType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099HAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099HAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099HAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099K(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099KType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099KJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099KType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099KAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099KAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099KAscii))
+}
+
+func (t *RecordTest) TestBRecordWith1099Ls(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099LsType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099LsJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub1099LsType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099LsAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord1099LsAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099LsAscii))
+}

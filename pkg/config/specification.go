@@ -318,6 +318,98 @@ var (
 		"Blank4":                   {179, 26, Alphanumeric, Nullable},
 		"Blank5":                   {205, 2, Alphanumeric, Nullable},
 	}
+	// Record Layout Positions 544-750 for Form 1099-A
+	Sub1099ALayout = map[string]SpecField{
+		"Blank1":                              {0, 3, Alphanumeric, Nullable},
+		"PersonalLiabilityIndicator":          {3, 1, Alphanumeric, Applicable},
+		"DateAcquisitionKnowledgeAbandonment": {4, 8, Date, Applicable},
+		"DescriptionProperty":                 {12, 39, Alphanumeric, Applicable},
+		"Blank2":                              {51, 68, Alphanumeric, Nullable},
+		"SpecialDataEntries":                  {119, 60, Alphanumeric, Applicable},
+		"Blank3":                              {179, 26, Alphanumeric, Nullable},
+		"Blank4":                              {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-B
+	Sub1099BLayout = map[string]SpecField{
+		"SecondTinNotice":                {0, 1, Alphanumeric, Applicable},
+		"NoncoveredSecurityIndicator":    {1, 1, Alphanumeric, Applicable},
+		"TypeGainLossIndicator":          {2, 1, Alphanumeric, Applicable},
+		"GrossProceedsIndicator":         {3, 1, Alphanumeric, Applicable},
+		"DateSoldDisposed":               {4, 8, Date, Applicable},
+		"CUSIP":                          {12, 13, AlphanumericRightAlign, Applicable},
+		"DescriptionProperty":            {25, 39, Alphanumeric, Applicable},
+		"DateAcquired":                   {64, 8, Date, Applicable},
+		"LossNotAllowedIndicator":        {72, 1, Alphanumeric, Applicable},
+		"ApplicableCheckboxForm8949":     {73, 1, Alphanumeric, Applicable},
+		"ApplicableCheckboxCollectables": {74, 1, Alphanumeric, Applicable},
+		"FATCA":                          {75, 1, Alphanumeric, Applicable},
+		"ApplicableCheckboxQOF":          {76, 1, Alphanumeric, Applicable},
+		"Blank2":                         {77, 42, Alphanumeric, Nullable},
+		"SpecialDataEntries":             {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":         {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":         {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":                 {203, 2, ZeroNumeric, Required},
+		"Blank3":                         {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-C
+	Sub1099CLayout = map[string]SpecField{
+		"Blank1":                     {0, 3, Alphanumeric, Nullable},
+		"IdentifiableEventCode":      {3, 1, Alphanumeric, Required},
+		"DateIdentifiableEvent":      {4, 8, Date, Applicable},
+		"DebtDescription":            {12, 39, Alphanumeric, Applicable},
+		"PersonalLiabilityIndicator": {51, 1, Alphanumeric, Applicable},
+		"Blank2":                     {52, 67, Alphanumeric, Nullable},
+		"SpecialDataEntries":         {119, 60, Alphanumeric, Applicable},
+		"Blank3":                     {179, 26, Alphanumeric, Nullable},
+		"Blank4":                     {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-CAP
+	Sub1099CAPLayout = map[string]SpecField{
+		"Blank1":                {0, 4, Alphanumeric, Nullable},
+		"DateSaleExchange":      {4, 8, Date, Applicable},
+		"Blank2":                {12, 52, Alphanumeric, Nullable},
+		"NumberSharesExchanged": {64, 8, ZeroNumeric, Applicable},
+		"ClassesStockExchanged": {72, 10, Alphanumeric, Applicable},
+		"Blank3":                {82, 37, Alphanumeric, Nullable},
+		"SpecialDataEntries":    {119, 60, Alphanumeric, Applicable},
+		"Blank4":                {179, 26, Alphanumeric, Nullable},
+		"Blank5":                {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-DIV
+	Sub1099DIVLayout = map[string]SpecField{
+		"SecondTinNotice":          {0, 1, Alphanumeric, Applicable},
+		"Blank1":                   {1, 2, Alphanumeric, Nullable},
+		"ForeignCountryPossession": {3, 40, Alphanumeric, Applicable},
+		"FATCA":                    {43, 1, Alphanumeric, Applicable},
+		"Blank2":                   {44, 75, Alphanumeric, Nullable},
+		"SpecialDataEntries":       {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":   {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":   {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":           {203, 2, ZeroNumeric, Required},
+		"Blank3":                   {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-G
+	Sub1099GLayout = map[string]SpecField{
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 2, Alphanumeric, Nullable},
+		"TradeBusinessIndicator": {3, 1, Alphanumeric, Applicable},
+		"TaxYearRefund":          {4, 4, DateYear, Applicable},
+		"Blank2":                 {8, 111, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-H
+	Sub1099HLayout = map[string]SpecField{
+		"Blank1":               {0, 3, Alphanumeric, Nullable},
+		"NumberMonthsEligible": {3, 2, Numeric, Required},
+		"Blank2":               {5, 114, Alphanumeric, Nullable},
+		"SpecialDataEntries":   {119, 60, Alphanumeric, Applicable},
+		"Blank4":               {179, 26, Alphanumeric, Nullable},
+		"Blank5":               {205, 2, Alphanumeric, Nullable},
+	}
 	// Record Layout Positions 544-750 for Form 1099-INT
 	Sub1099INTLayout = map[string]SpecField{
 		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
@@ -331,6 +423,51 @@ var (
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
 		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-K
+	Sub1099KLayout = map[string]SpecField{
+		"SecondTinNotice":                  {0, 1, Alphanumeric, Applicable},
+		"Blank1":                           {1, 2, Alphanumeric, Nullable},
+		"TypeFilerIndicator":               {3, 1, Alphanumeric, Required},
+		"TypePaymentIndicator":             {4, 1, Alphanumeric, Required},
+		"NumberPaymentTransactions":        {5, 13, ZeroNumeric, Applicable},
+		"Blank2":                           {18, 3, Alphanumeric, Nullable},
+		"PaymentSettlementNamePhoneNumber": {21, 40, Alphanumeric, Applicable},
+		"MerchantCategoryCode":             {61, 4, ZeroNumeric, Applicable},
+		"Blank3":                           {69, 54, Alphanumeric, Nullable},
+		"SpecialDataEntries":               {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":           {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":           {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":                   {203, 2, ZeroNumeric, Required},
+		"Blank4":                           {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-LS
+	Sub1099LSLayout = map[string]SpecField{
+		"Blank1":             {0, 2, Alphanumeric, Nullable},
+		"DateSale":           {2, 8, Date, Applicable},
+		"Blank2":             {10, 109, Alphanumeric, Nullable},
+		"IssuersInformation": {119, 39, Alphanumeric, Applicable},
+		"Blank3":             {158, 47, Alphanumeric, Nullable},
+		"Blank4":             {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-LTC
+	Sub1099LTCLayout = map[string]SpecField{
+		"Blank1":                      {0, 3, Alphanumeric, Nullable},
+		"TypePaymentIndicator":        {3, 1, Alphanumeric, Applicable},
+		"SocialSecurityNumberInsured": {4, 9, Alphanumeric, Required},
+		"NameInsured":                 {13, 40, Alphanumeric, Required},
+		"AddressInsured":              {53, 40, Alphanumeric, Required},
+		"CityInsured":                 {93, 40, Alphanumeric, Required},
+		"StateInsured":                {133, 2, Alphanumeric, Required},
+		"ZipCodeInsured":              {135, 9, Numeric, Required},
+		"StatusIllnessIndicator":      {144, 1, Alphanumeric, Applicable},
+		"DateCertified":               {145, 8, Date, Applicable},
+		"QualifiedContractIndicator":  {153, 1, Alphanumeric, Applicable},
+		"Blank2":                      {154, 25, Alphanumeric, Nullable},
+		"StateIncomeTaxWithheld":      {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":      {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":              {203, 2, ZeroNumeric, Required},
+		"Blank3":                      {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-MISC
 	Sub1099MISCLayout = map[string]SpecField{
