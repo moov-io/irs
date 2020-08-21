@@ -35,8 +35,26 @@ func NewSubRecord(recordType string) (SubRecord, error) {
 		newRecord = &Sub1098Q{}
 	case config.Sub1098TType:
 		newRecord = &Sub1098T{}
+	case config.Sub1099AType:
+		newRecord = &Sub1099A{}
+	case config.Sub1099BType:
+		newRecord = &Sub1099B{}
+	case config.Sub1099CType:
+		newRecord = &Sub1099C{}
+	case config.Sub1099CapType:
+		newRecord = &Sub1099CAP{}
+	case config.Sub1099DivType:
+		newRecord = &Sub1099DIV{}
+	case config.Sub1099GType:
+		newRecord = &Sub1099G{}
+	case config.Sub1099HType:
+		newRecord = &Sub1099H{}
 	case config.Sub1099IntType:
 		newRecord = &Sub1099INT{}
+	case config.Sub1099KType:
+		newRecord = &Sub1099K{}
+	case config.Sub1099LsType:
+		newRecord = &Sub1099LS{}
 	case config.Sub1099MiscType:
 		newRecord = &Sub1099MISC{}
 	case config.Sub1099OidType:

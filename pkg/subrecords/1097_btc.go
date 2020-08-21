@@ -98,22 +98,22 @@ func (r *Sub1097BTC) Validate() error {
 // function name should be "Validate" + field name
 
 func (r *Sub1097BTC) ValidateIssuerIndicator() error {
-	if _, ok := config.BtcIssuerIndicator[r.IssuerIndicator]; ok {
-		return nil
+	if _, ok := config.BtcIssuerIndicator[r.IssuerIndicator]; !ok {
+		return utils.NewErrValidValue("issuer indicator")
 	}
-	return utils.NewErrValidValue("issuer indicator")
+	return nil
 }
 
 func (r *Sub1097BTC) ValidateCode() error {
-	if _, ok := config.BtcCode[r.Code]; ok {
-		return nil
+	if _, ok := config.BtcCode[r.Code]; !ok {
+		return utils.NewErrValidValue("code")
 	}
-	return utils.NewErrValidValue("code")
+	return nil
 }
 
 func (r *Sub1097BTC) ValidateBondType() error {
-	if _, ok := config.BtcBondType[r.BondType]; ok {
-		return nil
+	if _, ok := config.BtcBondType[r.BondType]; !ok {
+		return utils.NewErrValidValue("bond type")
 	}
-	return utils.NewErrValidValue("bond type")
+	return nil
 }
