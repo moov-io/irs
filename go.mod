@@ -6,7 +6,7 @@ require (
 	github.com/antihax/optional v1.0.0
 	github.com/coreos/etcd v3.3.24+incompatible
 	github.com/go-kit/kit v0.10.0
-	github.com/gorilla/mux v1.7.4
+	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.0
 	github.com/moov-io/base v0.11.0
 	github.com/moov-io/identity v0.2.3
