@@ -55,12 +55,24 @@ func NewSubRecord(recordType string) (SubRecord, error) {
 		newRecord = &Sub1099K{}
 	case config.Sub1099LsType:
 		newRecord = &Sub1099LS{}
+	case config.Sub1099LtcType:
+		newRecord = &Sub1099LTC{}
 	case config.Sub1099MiscType:
 		newRecord = &Sub1099MISC{}
 	case config.Sub1099OidType:
 		newRecord = &Sub1099OID{}
 	case config.Sub1099PatrType:
 		newRecord = &Sub1099PATR{}
+	case config.Sub1099QType:
+		newRecord = &Sub1099Q{}
+	case config.Sub1099RType:
+		newRecord = &Sub1099R{}
+	case config.Sub1099SType:
+		newRecord = &Sub1099S{}
+	case config.Sub1099SaType:
+		newRecord = &Sub1099SA{}
+	case config.Sub1099SbType:
+		newRecord = &Sub1099SB{}
 	default:
 		return nil, utils.ErrUnsupportedBlock
 	}

@@ -51,12 +51,24 @@ const (
 	Sub1099KType = "1099-K"
 	// Sub1099LsType indicates extension block type of payee “B” record for form 1099-LS
 	Sub1099LsType = "1099-LS"
+	// Sub1099LtcType indicates extension block type of payee “B” record for form 1099-LTC
+	Sub1099LtcType = "1099-LTC"
 	// Sub1099MiscType indicates extension block type of payee “B” record for form 1099-MISC
 	Sub1099MiscType = "1099-MISC"
 	// Sub1099OidType indicates extension block type of payee “B” record for form 1099-OID
 	Sub1099OidType = "1099-OID"
 	// Sub1099PatrType indicates extension block type of payee “B” record for form 1099-PATR
 	Sub1099PatrType = "1099-PATR"
+	// Sub1099QType indicates extension block type of payee “B” record for form 1099-Q
+	Sub1099QType = "1099-Q"
+	// Sub1099RType indicates extension block type of payee “B” record for form 1099-R
+	Sub1099RType = "1099-R"
+	// Sub1099SType indicates extension block type of payee “B” record for form 1099-S
+	Sub1099SType = "1099-S"
+	// Sub1099SaType indicates extension block type of payee “B” record for form 1099-SA
+	Sub1099SaType = "1099-SA"
+	// Sub1099SbType indicates extension block type of payee “B” record for form 1099-SB
+	Sub1099SbType = "1099-SB"
 )
 
 const (
@@ -559,6 +571,17 @@ var PaymentCodes1098F = map[string]string{
 	"F": "Settlement paid in full as of time of filing",
 	"G": "No payment received as of time of filing",
 	"H": "Deferred prosecution agreement",
+}
+
+var DistributionCodes = []string{
+	"1", "2", "3", "4", "5", "6", "7", "8", "9", "B", "C", "E", "F",
+	"G", "H", "J", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "W",
+	"18", "1B", "1D", "1K", "1L", "1M", "1P", "28", "2B", "2D", "2K", "2L", "2M", "2P", "3D",
+	"48", "4A", "4B", "4D", "4G", "4H", "4K", "4L", "4M", "4P", "6W", "7A", "7B", "7D", "7K",
+	"7L", "7M", "81", "82", "84", "8B", "8J", "8K", "A4", "A7", "B1", "B2", "B4", "B7", "B8",
+	"BG", "BL", "BM", "BP", "BU", "CD", "D1", "D2", "D3", "D4", "D7", "DC", "G4", "GB", "GK",
+	"H4", "J8", "JP", "K1", "K2", "K4", "K7", "K8", "KG", "L1", "L2", "L4", "L7", "LB", "M1",
+	"M2", "M4", "M7", "MB", "P1", "P2", "P4", "PB", "PJ", "UB", "W6",
 }
 
 const (

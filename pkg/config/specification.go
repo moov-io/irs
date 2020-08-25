@@ -31,6 +31,7 @@ const (
 	Numeric
 	ZeroNumeric
 	TelephoneNumber
+	Percent
 	Email
 	DateYear
 	Date
@@ -456,8 +457,8 @@ var (
 		"TypePaymentIndicator":        {3, 1, Alphanumeric, Applicable},
 		"SocialSecurityNumberInsured": {4, 9, Alphanumeric, Required},
 		"NameInsured":                 {13, 40, Alphanumeric, Required},
-		"AddressInsured":              {53, 40, Alphanumeric, Required},
-		"CityInsured":                 {93, 40, Alphanumeric, Required},
+		"AddressInsured":              {53, 40, Alphanumeric, Applicable},
+		"CityInsured":                 {93, 40, Alphanumeric, Applicable},
 		"StateInsured":                {133, 2, Alphanumeric, Required},
 		"ZipCodeInsured":              {135, 9, Numeric, Required},
 		"StatusIllnessIndicator":      {144, 1, Alphanumeric, Applicable},
@@ -504,6 +505,71 @@ var (
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
 		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-Q
+	Sub1099QLayout = map[string]SpecField{
+		"Blank1":                   {0, 3, Alphanumeric, Nullable},
+		"TrusteeTransferIndicator": {3, 1, Alphanumeric, Applicable},
+		"TypeTuitionPayment":       {4, 1, Alphanumeric, Applicable},
+		"DesignatedBeneficiary":    {5, 1, Alphanumeric, Applicable},
+		"Blank2":                   {6, 113, Alphanumeric, Nullable},
+		"SpecialDataEntries":       {119, 60, Alphanumeric, Applicable},
+		"Blank3":                   {179, 26, Alphanumeric, Nullable},
+		"Blank4":                   {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-R
+	Sub1099RLayout = map[string]SpecField{
+		"Blank1":                              {0, 1, Alphanumeric, Nullable},
+		"DistributionCode":                    {1, 2, Alphanumeric, Required},
+		"TaxableAmountNotDeterminedIndicator": {3, 1, Alphanumeric, Applicable},
+		"ISSIndicator":                        {4, 1, Alphanumeric, Applicable},
+		"TotalDistributionIndicator":          {5, 1, Alphanumeric, Applicable},
+		"PercentageTotalDistribution":         {6, 2, Percent, Applicable},
+		"FirstYearDesignatedRothContribution": {8, 4, DateYear, Omitted},
+		"FATCA":                               {12, 1, Alphanumeric, Applicable},
+		"DatePayment":                         {13, 8, Date, Applicable},
+		"Blank2":                              {21, 98, Alphanumeric, Nullable},
+		"SpecialDataEntries":                  {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":              {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":              {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":                      {203, 2, ZeroNumeric, Required},
+		"Blank3":                              {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-S
+	Sub1099SLayout = map[string]SpecField{
+		"Blank1":                    {0, 3, Alphanumeric, Nullable},
+		"PropertyServicesIndicator": {3, 1, Alphanumeric, Applicable},
+		"DateClosing":               {4, 8, Date, Applicable},
+		"AddressLegalDescription":   {12, 39, Alphanumeric, Applicable},
+		"ForeignTransferor":         {51, 1, Alphanumeric, Applicable},
+		"Blank2":                    {52, 67, Alphanumeric, Nullable},
+		"SpecialDataEntries":        {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":    {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":    {191, 12, ZeroNumeric, Applicable},
+		"Blank3":                    {203, 2, Alphanumeric, Nullable},
+		"Blank4":                    {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-SA
+	Sub1099SALayout = map[string]SpecField{
+		"Blank1":                        {0, 1, Alphanumeric, Nullable},
+		"DistributionCode":              {1, 1, Alphanumeric, Required},
+		"Blank2":                        {2, 1, Alphanumeric, Nullable},
+		"MedicareAdvantageMSAIndicator": {3, 1, Alphanumeric, Applicable},
+		"HSAIndicator":                  {4, 1, Alphanumeric, Applicable},
+		"ArcherMSAIndicator":            {5, 1, Alphanumeric, Applicable},
+		"Blank3":                        {52, 113, Alphanumeric, Nullable},
+		"SpecialDataEntries":            {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld":        {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld":        {191, 12, ZeroNumeric, Applicable},
+		"Blank4":                        {203, 2, Alphanumeric, Nullable},
+		"Blank5":                        {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-SB
+	Sub1099SBLayout = map[string]SpecField{
+		"Blank1":             {0, 119, Alphanumeric, Nullable},
+		"IssuersInformation": {119, 39, Alphanumeric, Applicable},
+		"Blank3":             {158, 47, Alphanumeric, Nullable},
+		"Blank4":             {205, 2, Alphanumeric, Nullable},
 	}
 )
 
