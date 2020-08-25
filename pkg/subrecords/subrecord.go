@@ -61,6 +61,15 @@ func NewSubRecord(recordType string) (SubRecord, error) {
 		newRecord = &Sub1099MISC{}
 	case config.Sub1099OidType:
 		newRecord = &Sub1099OID{}
+	default:
+		return newSubRecord(recordType)
+	}
+	return newRecord, nil
+}
+
+func newSubRecord(recordType string) (SubRecord, error) {
+	var newRecord SubRecord
+	switch recordType {
 	case config.Sub1099PatrType:
 		newRecord = &Sub1099PATR{}
 	case config.Sub1099QType:
