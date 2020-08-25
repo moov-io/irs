@@ -75,7 +75,15 @@ func ToString(elm config.SpecField, data reflect.Value) string {
 			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
 		}
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
+	case config.Percent:
+		if data.Interface().(int) == 100 {
+			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
+		}
+		return fmt.Sprintf("%0"+sizeStr+"d", data)
 	case config.DateYear:
+		if elm.Required == config.Omitted && data.Interface().(int) == 0 {
+			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
+		}
 		return fmt.Sprintf("%-"+sizeStr+"d", data)
 	case config.Date:
 		if datetime, ok := data.Interface().(time.Time); ok && !datetime.IsZero() {
@@ -195,7 +203,7 @@ func isValidType(fieldName string, elm config.SpecField, data string) error {
 	switch elm.Type {
 	case config.Alphanumeric, config.AlphanumericRightAlign:
 		return isAlphanumeric(data)
-	case config.Numeric, config.ZeroNumeric:
+	case config.Numeric, config.ZeroNumeric, config.Percent:
 		return IsNumeric(data)
 	case config.TelephoneNumber:
 		if len(data) < minPhoneNumberLength {
@@ -277,6 +285,18 @@ func parseValue(elm config.SpecField, field reflect.Value, data string) error {
 		data = strings.Trim(data, config.BlankString)
 		if len(data) == 0 {
 			field.SetInt(0)
+			return nil
+		}
+		value, err := strconv.ParseInt(data, 10, 64)
+		if err != nil {
+			return err
+		}
+		field.SetInt(value)
+		return nil
+	case config.Percent:
+		data = strings.Trim(data, config.BlankString)
+		if len(data) == 0 {
+			field.SetInt(100)
 			return nil
 		}
 		value, err := strconv.ParseInt(data, 10, 64)
