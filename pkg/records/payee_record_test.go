@@ -455,7 +455,6 @@ func (t *RecordTest) TestBRecordWith1099S(c *check.C) {
 	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099SAscii))
 }
 
-
 func (t *RecordTest) TestBRecordWith1099SA(c *check.C) {
 	r := &BRecord{}
 	err := r.SetTypeOfReturn(config.Sub1099SaType)
