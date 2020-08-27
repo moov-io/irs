@@ -82,6 +82,18 @@ func newSubRecord(recordType string) (SubRecord, error) {
 		newRecord = &Sub1099SA{}
 	case config.Sub1099SbType:
 		newRecord = &Sub1099SB{}
+	case config.Sub3921Type:
+		newRecord = &Sub3921{}
+	case config.Sub3922Type:
+		newRecord = &Sub3922{}
+	case config.Sub5498Type:
+		newRecord = &Sub5498{}
+	case config.Sub5498EsaType:
+		newRecord = &Sub5498ESA{}
+	case config.Sub5498SaType:
+		newRecord = &Sub5498SA{}
+	case config.SubW2GType:
+		newRecord = &SubW2G{}
 	default:
 		return nil, utils.ErrUnsupportedBlock
 	}

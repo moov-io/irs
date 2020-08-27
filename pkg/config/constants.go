@@ -69,6 +69,18 @@ const (
 	Sub1099SaType = "1099-SA"
 	// Sub1099SbType indicates extension block type of payee “B” record for form 1099-SB
 	Sub1099SbType = "1099-SB"
+	// Sub3921Type indicates extension block type of payee “B” record for form 3921
+	Sub3921Type = "3921"
+	// Sub3922Type indicates extension block type of payee “B” record for form 3922
+	Sub3922Type = "3922"
+	// Sub5498Type indicates extension block type of payee “B” record for form 5498
+	Sub5498Type = "5498"
+	// Sub5498EsaType indicates extension block type of payee “B” record for form 5498-ESA
+	Sub5498EsaType = "5498ESA"
+	// Sub5498SaType indicates extension block type of payee “B” record for form 5498-SA
+	Sub5498SaType = "5498SA"
+	// SubW2GType indicates extension block type of payee “B” record for form W-2G
+	SubW2GType = "W2G"
 )
 
 const (

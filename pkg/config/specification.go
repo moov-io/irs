@@ -568,8 +568,89 @@ var (
 	Sub1099SBLayout = map[string]SpecField{
 		"Blank1":             {0, 119, Alphanumeric, Nullable},
 		"IssuersInformation": {119, 39, Alphanumeric, Applicable},
-		"Blank3":             {158, 47, Alphanumeric, Nullable},
-		"Blank4":             {205, 2, Alphanumeric, Nullable},
+		"Blank2":             {158, 47, Alphanumeric, Nullable},
+		"Blank3":             {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 3921
+	Sub3921Layout = map[string]SpecField{
+		"Blank1":                         {0, 3, Alphanumeric, Nullable},
+		"DateOptionGranted":              {3, 8, Date, Required},
+		"DateOptionExercised":            {11, 8, Date, Required},
+		"NumberSharesTransferred":        {19, 8, ZeroNumeric, Applicable},
+		"Blank2":                         {27, 4, Alphanumeric, Nullable},
+		"OtherThanTransferorInformation": {31, 40, Alphanumeric, Applicable},
+		"Blank3":                         {71, 48, Alphanumeric, Nullable},
+		"SpecialDataEntries":             {119, 60, Alphanumeric, Applicable},
+		"Blank4":                         {179, 26, Alphanumeric, Nullable},
+		"Blank5":                         {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 3922
+	Sub3922Layout = map[string]SpecField{
+		"Blank1":                    {0, 3, Alphanumeric, Nullable},
+		"DateOptionGranted":         {3, 8, Date, Required},
+		"DateOptionExercised":       {11, 8, Date, Required},
+		"NumberSharesTransferred":   {19, 8, ZeroNumeric, Applicable},
+		"DateLegalTitleTransferred": {27, 8, Date, Required},
+		"Blank2":                    {35, 84, Alphanumeric, Nullable},
+		"SpecialDataEntries":        {119, 60, Alphanumeric, Applicable},
+		"Blank3":                    {179, 26, Alphanumeric, Nullable},
+		"Blank4":                    {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 5498
+	Sub5498Layout = map[string]SpecField{
+		"Blank1":                      {0, 3, Alphanumeric, Nullable},
+		"IRAIndicator":                {3, 1, Alphanumeric, Applicable},
+		"SEPIndicator":                {4, 1, Alphanumeric, Applicable},
+		"SIMPLEIndicator":             {5, 1, Alphanumeric, Applicable},
+		"RothIRAIndicator":            {6, 1, Alphanumeric, Applicable},
+		"RMDIndicator":                {7, 1, Alphanumeric, Applicable},
+		"YearPostponedContribution":   {8, 4, DateYear, Omitted},
+		"PostponedContributionCode":   {12, 2, Alphanumeric, Applicable},
+		"PostponedContributionReason": {14, 6, Alphanumeric, Applicable},
+		"RepaymentCode":               {20, 2, Alphanumeric, Applicable},
+		"RMDDate":                     {22, 8, Date, Applicable},
+		"Codes":                       {30, 2, Alphanumeric, Applicable},
+		"Blank2":                      {32, 87, Alphanumeric, Nullable},
+		"SpecialDataEntries":          {119, 60, Alphanumeric, Applicable},
+		"Blank3":                      {179, 24, Alphanumeric, Nullable},
+		"CombinedFSCode":              {203, 2, ZeroNumeric, Required},
+		"Blank4":                      {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 5498-ESA
+	Sub5498ESALayout = map[string]SpecField{
+		"Blank1":             {0, 119, Alphanumeric, Nullable},
+		"SpecialDataEntries": {119, 60, Alphanumeric, Applicable},
+		"Blank2":             {179, 26, Alphanumeric, Nullable},
+		"Blank3":             {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 5498-SA
+	Sub5498SALayout = map[string]SpecField{
+		"Blank1":                        {0, 3, Alphanumeric, Nullable},
+		"MedicareAdvantageMSAIndicator": {3, 1, Alphanumeric, Applicable},
+		"HSAIndicator":                  {4, 1, Alphanumeric, Applicable},
+		"ArcherMSAIndicator":            {5, 1, Alphanumeric, Applicable},
+		"Blank2":                        {6, 113, Alphanumeric, Nullable},
+		"SpecialDataEntries":            {119, 60, Alphanumeric, Applicable},
+		"Blank3":                        {179, 26, Alphanumeric, Nullable},
+		"Blank4":                        {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form  W-2G
+	SubW2GLayout = map[string]SpecField{
+		"Blank1":                 {0, 3, Alphanumeric, Nullable},
+		"TypeWagerCode":          {3, 1, Alphanumeric, Required},
+		"DateWon":                {4, 8, Date, Required},
+		"Transaction":            {12, 15, Alphanumeric, Applicable},
+		"Race":                   {27, 5, Alphanumeric, Applicable},
+		"Cashier":                {32, 5, Alphanumeric, Applicable},
+		"Window":                 {37, 5, Alphanumeric, Applicable},
+		"FirstID":                {42, 15, Alphanumeric, Applicable},
+		"SecondID":               {57, 15, Alphanumeric, Applicable},
+		"Blank2":                 {72, 47, Alphanumeric, Nullable},
+		"SpecialDataEntries":     {119, 60, Alphanumeric, Applicable},
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"Blank3":                 {203, 2, Alphanumeric, Nullable},
+		"Blank4":                 {205, 2, Alphanumeric, Nullable},
 	}
 )
 
