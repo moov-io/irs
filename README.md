@@ -2,15 +2,13 @@ moov-io/irs
 ===
 
 [![GoDoc](https://godoc.org/github.com/moov-io/irs?status.svg)](https://godoc.org/github.com/moov-io/irs)
-[![Build Status](https://travis-ci.com/moov-io/irs.svg?branch=master)](https://travis-ci.com/moov-io/irs)
+[![Build Status](https://github.com/moov-io/irs/workflows/Go/badge.svg)](https://github.com/moov-io/irs/actions)
 [![Coverage Status](https://codecov.io/gh/moov-io/irs/branch/master/graph/badge.svg)](https://codecov.io/gh/moov-io/irs)
 [![Go Report Card](https://goreportcard.com/badge/github.com/moov-io/irs)](https://goreportcard.com/report/github.com/moov-io/irs)
 [![Apache 2 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://raw.githubusercontent.com/moov-io/irs/master/LICENSE)
 
-Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and
-CLI for creating, parsing, validating, and transforming IRS electronic [Filing Information Returns
-Electronically](https://www.irs.gov/e-file-providers/filing-information-returns-electronically-fire) (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and
-CSV/TEXT file formats.
+IRS implemented a reader, writer, and HTTP server for IRS electronic [Filing Information Returns
+Electronically](https://www.irs.gov/e-file-providers/filing-information-returns-electronically-fire) (FIRE). Our tools and library operate at higher levels (JSON) which makes it easier for developers to leverage over the raw bytes (ASCII).
 
 | Input      | Output     |
 |------------|------------|
@@ -20,7 +18,7 @@ CSV/TEXT file formats.
 |            | SQL        |
 
 
-Docs: [docs](docs/README.md) | [open api specification](api/api.yml)
+Docs: [Project](https://moov-io.github.io/irs/) | [API Endpoints](https://moov-io.github.io/irs/api/)
 
 ## Project Status
 
@@ -209,7 +207,7 @@ Read through the [project docs](docs/README.md) over here to get an understandin
  [Project Documentation](https://docs.moov.io/) | Our project documentation available online.
  Twitter [@moov_io](https://twitter.com/moov_io)	| You can follow Moov.IO's Twitter feed to get updates on our project(s). You can also tweet us questions or just share blogs or stories.
  [GitHub Issue](https://github.com/moov-io) | If you are able to reproduce a problem please open a GitHub Issue under the specific project that caused the error.
- [moov-io slack](https://slack.moov.io/) | Join our slack channel to have an interactive discussion about the development of the project.
+ [moov-io slack](https://slack.moov.io/) | Join our slack channel (`#irs`) to have an interactive discussion about the development of the project.
 
 ## Supported and Tested Platforms
 
