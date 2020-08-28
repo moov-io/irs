@@ -488,3 +488,105 @@ func (t *RecordTest) TestBRecordWith1099SB(c *check.C) {
 	c.Assert(r.Validate(), check.IsNil)
 	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord1099SbAscii))
 }
+
+func (t *RecordTest) TestBRecordWith3921(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub3921Type)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord3921Json, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub3921Type)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord3921Ascii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord3921Ascii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord3921Ascii))
+}
+
+func (t *RecordTest) TestBRecordWith3922(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub3922Type)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord3922Json, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub3922Type)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord3922Ascii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord3922Ascii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord3922Ascii))
+}
+
+func (t *RecordTest) TestBRecordWith5498(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub5498Type)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord5498Json, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub5498Type)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498Ascii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord5498Ascii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498Ascii))
+}
+
+func (t *RecordTest) TestBRecordWith5498ESA(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub5498EsaType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord5498EsaJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub5498EsaType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498EsaAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord5498EsaAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498EsaAscii))
+}
+
+func (t *RecordTest) TestBRecordWith5498SA(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub5498SaType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord5498SaJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.Sub5498SaType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498SaAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecord5498SaAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecord5498SaAscii))
+}
+
+func (t *RecordTest) TestBRecordWithW2G(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.SubW2GType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecordW2GJson, r)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(r.extRecord.Type(), check.Equals, config.SubW2GType)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecordW2GAscii))
+	c.Assert(r.Validate(), check.IsNil)
+	err = r.Parse(t.bRecordW2GAscii)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.IsNil)
+	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecordW2GAscii))
+}

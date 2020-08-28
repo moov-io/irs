@@ -31,10 +31,9 @@
 	"payee_state": "CA",
 	"payee_zip_code": "22222",
 	"record_sequence_number": 3,
-	"mortgage_origination_date": "2002-09-20T00:00:00Z",
-	"property_securing_mortgage_indicator": "1",
-	"property_address_description_securing_mortgage": "",
-	"other": "",
-	"number_mortgaged_properties": 0,
+	"date_option_granted": "2002-09-20T00:00:00Z",
+	"date_option_exercised": "2002-09-20T00:00:00Z",
+	"number_shares_transferred": 1,
+	"other_than_transferor_information": "",
 	"special_data_entries": ""
 }
