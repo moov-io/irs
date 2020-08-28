@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099Sa
 
 ## Properties
 
@@ -36,13 +36,13 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**DistributionCode** | **string** |  | [optional] 
+**MedicareAdvantageMsaIndicator** | **string** |  | [optional] 
+**HsaIndicator** | **string** |  | [optional] 
+**ArcherMasIndicator** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 
 **LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

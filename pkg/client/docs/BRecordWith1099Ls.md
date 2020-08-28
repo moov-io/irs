@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099Ls
 
 ## Properties
 
@@ -36,13 +36,8 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
-**SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
+**DateSale** | [**time.Time**](time.Time.md) |  | [optional] 
+**IssuersInformation** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

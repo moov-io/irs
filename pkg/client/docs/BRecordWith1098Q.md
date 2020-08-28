@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1098Q
 
 ## Properties
 
@@ -36,13 +36,22 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
-**SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
+**AnnuityStartDate** | [**time.Time**](time.Time.md) |  | [optional] 
+**January** | **int32** |  | [optional] 
+**February** | **int32** |  | [optional] 
+**March** | **int32** |  | [optional] 
+**April** | **int32** |  | [optional] 
+**May** | **int32** |  | [optional] 
+**June** | **int32** |  | [optional] 
+**July** | **int32** |  | [optional] 
+**August** | **int32** |  | [optional] 
+**September** | **int32** |  | [optional] 
+**October** | **int32** |  | [optional] 
+**November** | **int32** |  | [optional] 
+**December** | **int32** |  | [optional] 
+**NamePlan** | **string** |  | [optional] 
+**PlanNumber** | **string** |  | [optional] 
+**EmployerIdentificationNumber** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

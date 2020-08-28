@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099C
 
 ## Properties
 
@@ -37,12 +37,10 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**DateIdentifiableEvent** | [**time.Time**](time.Time.md) |  | [optional] 
+**DebtDescription** | **string** |  | [optional] 
+**PersonalLiabilityIndicator** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

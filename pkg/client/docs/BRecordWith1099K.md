@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099K
 
 ## Properties
 
@@ -37,8 +37,11 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**TypeFilerIndicator** | **string** |  | [optional] 
+**TypePaymentIndicator** | **string** |  | [optional] 
+**NumberPaymentTransactions** | **int32** |  | [optional] 
+**PaymentSettlementNamePhoneNumber** | **string** |  | [optional] 
+**MerchantCategoryCode** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 
 **LocalIncomeTaxWithheld** | **int32** |  | [optional] 

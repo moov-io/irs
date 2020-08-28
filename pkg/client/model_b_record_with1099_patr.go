@@ -47,5 +47,5 @@ type BRecordWith1099Patr struct {
 	SpecialDataEntries          string `json:"special_data_entries,omitempty"`
 	StateIncomeTaxWithheld      int32  `json:"state_income_tax_withheld,omitempty"`
 	LocalIncomeTaxWithheld      int32  `json:"local_income_tax_withheld,omitempty"`
-	CombinedFederalStateCode    int32  `json:"combined_federal_state_code,omitempty"`
+	CombinedFederalStateCode    int32  `json:"combined_federal_state_code"`
 }

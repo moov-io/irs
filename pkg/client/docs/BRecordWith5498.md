@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith5498
 
 ## Properties
 
@@ -36,12 +36,18 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**IraIndicator** | **string** |  | [optional] 
+**SepIndicator** | **string** |  | [optional] 
+**SimpleIndicator** | **string** |  | [optional] 
+**RothIraIndicator** | **string** |  | [optional] 
+**RmdIndicator** | **string** |  | [optional] 
+**YearPostponedContribution** | **int32** |  | [optional] 
+**PostponedContributionCode** | **string** |  | [optional] 
+**PostponedContributionReason** | **string** |  | [optional] 
+**RepaymentCode** | **string** |  | [optional] 
+**RmdDate** | [**time.Time**](time.Time.md) |  | [optional] 
+**Codes** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
 **CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

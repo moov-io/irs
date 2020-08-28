@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099G
 
 ## Properties
 
@@ -37,8 +37,8 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**TradeBusinessIndicator** | **string** |  | [optional] 
+**TaxTearRefund** | **int32** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 
 **LocalIncomeTaxWithheld** | **int32** |  | [optional] 

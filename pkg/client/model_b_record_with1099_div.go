@@ -9,8 +9,8 @@
 
 package client
 
-// BRecordWith1099Misc struct for BRecordWith1099Misc
-type BRecordWith1099Misc struct {
+// BRecordWith1099Div struct for BRecordWith1099Div
+type BRecordWith1099Div struct {
 	RecordType                  string `json:"record_type"`
 	PaymentYear                 int32  `json:"payment_year"`
 	CorrectedReturnIndicator    string `json:"corrected_return_indicator,omitempty"`
@@ -44,7 +44,7 @@ type BRecordWith1099Misc struct {
 	PayeeZipCode                string `json:"payee_zip_code"`
 	RecordSequenceNumber        int32  `json:"record_sequence_number"`
 	SecondTinNotice             string `json:"second_tin_notice,omitempty"`
-	DirectSalesIndicator        string `json:"direct_sales_indicator,omitempty"`
+	ForeignCountryPossession    string `json:"foreign_country_possession,omitempty"`
 	FatcaRequirementIndicator   string `json:"fatca_requirement_indicator,omitempty"`
 	SpecialDataEntries          string `json:"special_data_entries,omitempty"`
 	StateIncomeTaxWithheld      int32  `json:"state_income_tax_withheld,omitempty"`

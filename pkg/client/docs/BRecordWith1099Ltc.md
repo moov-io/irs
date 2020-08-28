@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099Ltc
 
 ## Properties
 
@@ -36,13 +36,17 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
-**SpecialDataEntries** | **string** |  | [optional] 
+**TypePaymentIndicator** | **string** |  | [optional] 
+**NameInsured** | **string** |  | [optional] 
+**AddressInsured** | **string** |  | [optional] 
+**CityInsured** | **string** |  | [optional] 
+**StateInsured** | **string** |  | [optional] 
+**ZipCodeInsured** | **string** |  | 
+**StatusIllnessIndicator** | **string** |  | [optional] 
+**DateCertified** | [**time.Time**](time.Time.md) |  | [optional] 
+**QualifiedContractIndicator** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 
 **LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
