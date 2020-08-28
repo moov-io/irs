@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099R
 
 ## Properties
 
@@ -36,9 +36,14 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
+**DistributionCode** | **string** |  | [optional] 
+**TaxableAmountNotDeterminedIndicator** | **string** |  | [optional] 
+**IraSepSimpleIndicator** | **string** |  | [optional] 
+**TotalDistributionIndicator** | **string** |  | [optional] 
+**PercentageTotalDistribution** | **int32** |  | [optional] 
+**FirstYearDesignatedRothContribution** | **int32** |  | [optional] 
 **FatcaRequirementIndicator** | **string** |  | [optional] 
+**DatePayment** | [**time.Time**](time.Time.md) |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 
 **LocalIncomeTaxWithheld** | **int32** |  | [optional] 

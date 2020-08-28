@@ -467,8 +467,8 @@ var (
 		"Blank2":                      {154, 25, Alphanumeric, Nullable},
 		"StateIncomeTaxWithheld":      {179, 12, ZeroNumeric, Applicable},
 		"LocalIncomeTaxWithheld":      {191, 12, ZeroNumeric, Applicable},
-		"CombinedFSCode":              {203, 2, ZeroNumeric, Required},
-		"Blank3":                      {205, 2, Alphanumeric, Nullable},
+		"Blank3":                      {203, 2, Alphanumeric, Nullable},
+		"Blank4":                      {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-MISC
 	Sub1099MISCLayout = map[string]SpecField{

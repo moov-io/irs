@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099Div
 
 ## Properties
 
@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
+**ForeignCountryPossession** | **string** |  | [optional] 
 **FatcaRequirementIndicator** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
 **StateIncomeTaxWithheld** | **int32** |  | [optional] 

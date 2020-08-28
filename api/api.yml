@@ -475,6 +475,1477 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+    BRecordWith1098:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        issuer_indicator:
+          type: string
+        mortgage_origination_date:
+          type: string
+          format: date-time
+        property_securing_mortgage_indicator:
+          type: string
+        property_address_description_securing_mortgage:
+          type: string
+        other:
+          type: string
+        number_mortgaged_properties:
+          type: integer
+          format: int32
+        mortgage_acquisition_date:
+          type: string
+          format: date-time
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1098C:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        transaction_indicator:
+          type: string
+        transfer_after_improvements_indicator:
+          type: string
+        transfer_market_value_indicator:
+          type: string
+        year:
+          type: integer
+          format: int32
+        make:
+          type: string
+        model:
+          type: string
+        vehicle_identification_number:
+          type: string
+        vehicle_description:
+          type: string   
+        date_contribution:
+          type: string
+          format: date-time
+        donee_indicator:
+          type: string
+        intangible_religious_benefits_indicator:
+          type: string
+        deduction_less_indicator:
+          type: string
+        goods_services:
+          type: string
+        date_sale:
+          type: string
+          format: date-time
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1098E:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        origination_interest_indicator:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1098F:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        date_order_agreement:
+          type: string
+          format: date-time
+        case_number:
+          type: string
+        matter_suit_agreement:
+          type: string
+        payment_code:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1098Q:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        annuity_start_date:
+          type: string
+          format: date-time
+        january:
+          type: integer
+          format: int32
+        february:
+          type: integer
+          format: int32
+        march:
+          type: integer
+          format: int32
+        april:
+          type: integer
+          format: int32
+        may:
+          type: integer
+          format: int32
+        june:
+          type: integer
+          format: int32
+        july:
+          type: integer
+          format: int32
+        august:
+          type: integer
+          format: int32
+        september:
+          type: integer
+          format: int32
+        october:
+          type: integer
+          format: int32
+        november:
+          type: integer
+          format: int32
+        december:
+          type: integer
+          format: int32
+        name_plan:
+          type: string
+        plan_number:
+          type: string
+        employer_identification_number:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1098T:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        identification_number:
+          type: string
+        halftime_student_indicator:
+          type: string
+        graduate_student_indicator:
+          type: string
+        academic_period_indicator:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099A:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        personal_liability_indicator:
+          type: string
+        date_acquisition_knowledge_abandonment:
+          type: string
+          format: date-time
+        description_property:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099B:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        noncovered_security_indicator:
+          type: string
+        type_gain_loss_indicator:
+          type: string
+        gross_proceeds_indicator:
+          type: string
+        date_sold_disposed:
+          type: string
+          format: date-time
+        cusip_number:
+          type: string
+        description_property:
+          type: string
+        date_acquired:
+          type: string
+          format: date-time
+        loss_not_allowed_indicator:
+          type: string
+        applicable_checkbox_form8949:
+          type: string
+        applicable_checkbox_collectables:
+          type: string
+        fatca_requirement_indicator:
+          type: string
+        applicable_checkbox_qof:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099C:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        date_identifiable_event:
+          type: string
+          format: date-time
+        debt_description:
+          type: string
+        personal_liability_indicator:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Cap:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        date_sale_exchange:
+          type: string
+          format: date-time
+        number_shares_exchanged:
+          type: integer
+          format: int32
+        classes_stock_exchanged:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Div:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        foreign_country_possession:
+          type: string
+        fatca_requirement_indicator:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099G:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        trade_business_indicator:
+          type: string
+        tax_tear_refund:
+          type: integer
+          format: int32
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099H:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        number_months_eligible:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
     BRecordWith1099Int:
       properties:
         record_type:
@@ -590,6 +2061,351 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099K:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        second_tin_notice:
+          type: string
+        type_filer_indicator:
+          type: string
+        type_payment_indicator:
+          type: string
+        number_payment_transactions:
+          type: integer
+          format: int32
+        payment_settlement_name_phone_number:
+          type: string
+        merchant_category_code:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099Ls:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        date_sale:
+          type: string
+          format: date-time
+        issuers_information:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Ltc:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        type_payment_indicator:
+          type: string
+        name_insured:
+          type: string
+        address_insured:
+          type: string
+        city_insured:
+          type: string
+        state_insured:
+          type: string
+        zip_code_insured:
+          type: string
+        status_illness_indicator:
+          type: string
+        date_certified:
+          type: string
+          format: date-time
+        qualified_contract_indicator:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - zip_code_insured
     BRecordWith1099Misc:
       properties:
         record_type:
@@ -703,6 +2519,7 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+        - combined_federal_state_code
     BRecordWith1099Oid:
       properties:
         record_type:
@@ -816,6 +2633,7 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+        - combined_federal_state_code
     BRecordWith1099Patr:
       properties:
         record_type:
@@ -925,6 +2743,1238 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099Q:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        trustee_transfer_indicator:
+          type: string
+        type_tuition_payment:
+          type: string
+        designated_beneficiary:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099R:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        distribution_code:
+          type: string
+        taxable_amount_not_determined_indicator:
+          type: string
+        ira_sep_simple_indicator:
+          type: string
+        total_distribution_indicator:
+          type: string
+        percentage_total_distribution:
+          type: integer
+          format: int32
+        firstYear_designated_roth_contribution:
+          type: integer
+          format: int32
+        fatca_requirement_indicator:
+          type: string
+        date_payment:
+          type: string
+          format: date-time
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith1099S:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        property_services_indicator:
+          type: string
+        date_closing:
+          type: string
+          format: date-time
+        address_legal_description:
+          type: string
+        foreign_transferor:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Sa:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        distribution_code:
+          type: string
+        medicare_advantage_msa_indicator:
+          type: string
+        hsa_indicator:
+          type: string
+        archer_mas_indicator:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith1099Sb:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        issuers_information:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith3921:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        date_option_granted:
+          type: string
+          format: date-time
+        date_option_exercised:
+          type: string
+          format: date-time
+        number_shares_transferred:
+          type: integer
+          format: int32
+        other_than_transferor_information:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - date_option_granted
+        - date_option_exercised
+    BRecordWith3922:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        date_option_granted:
+          type: string
+          format: date-time
+        date_option_exercised:
+          type: string
+          format: date-time
+        number_shares_transferred:
+          type: integer
+          format: int32
+        date_legal_title_transferred:
+          type: string
+          format: date-time
+        other_than_transferor_information:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - date_option_granted
+        - date_option_exercised
+        - date_legal_title_transferred
+    BRecordWith5498:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        ira_indicator:
+          type: string 
+        sep_indicator:
+          type: string 
+        simple_indicator:
+          type: string 
+        roth_ira_indicator:
+          type: string 
+        rmd_indicator:
+          type: string 
+        year_postponed_contribution:
+          type: integer
+          format: int32
+        postponed_contribution_code:
+          type: string          
+        postponed_contribution_reason:
+          type: string
+        repayment_code:
+          type: string
+        rmd_date:
+          type: string
+          format: date-time
+        codes:
+          type: string
+        special_data_entries:
+          type: string
+        combined_federal_state_code:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - combined_federal_state_code
+    BRecordWith5498Esa:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWith5498Sa:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        medicare_advantage_msa_indicator:
+          type: string
+        archer_mas_indicator:
+          type: string
+        hsa_indicator:
+          type: string
+        special_data_entries:
+          type: string
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+    BRecordWithW2G:
+      properties:
+        record_type:
+          type: string
+          enum:
+            - B
+        payment_year:
+          type: integer
+          format: int32
+        corrected_return_indicator:
+          type: string
+        payees_name_control:
+          type: string
+        type_of_tin:
+          type: string
+        payees_tin:
+          type: string
+        payers_account_number_for_payee:
+          type: string
+        payers_office_code:
+          type: string
+        payment_amount_1:
+          type: integer
+          format: int32
+        payment_amount_2:
+          type: integer
+          format: int32
+        payment_amount_3:
+          type: integer
+          format: int32
+        payment_amount_4:
+          type: integer
+          format: int32
+        payment_amount_5:
+          type: integer
+          format: int32
+        payment_amount_6:
+          type: integer
+          format: int32
+        payment_amount_7:
+          type: integer
+          format: int32
+        payment_amount_8:
+          type: integer
+          format: int32
+        payment_amount_9:
+          type: integer
+          format: int32
+        payment_amount_A:
+          type: integer
+          format: int32
+        payment_amount_B:
+          type: integer
+          format: int32
+        payment_amount_C:
+          type: integer
+          format: int32
+        payment_amount_D:
+          type: integer
+          format: int32
+        payment_amount_E:
+          type: integer
+          format: int32
+        payment_amount_F:
+          type: integer
+          format: int32
+        payment_amount_G:
+          type: integer
+          format: int32
+        foreign_country_indicator:
+          type: string
+        first_payee_name_line:
+          type: string
+        second_payee_name_line:
+          type: string
+        payee_mailing_address:
+          type: string
+        payee_city:
+          type: string
+        payee_state:
+          type: string
+        payee_zip_code:
+          type: string
+        record_sequence_number:
+          type: integer
+          format: int32
+        type_wager_code:
+          type: string
+        date_won:
+          type: string
+          format: date-time
+        transaction:
+          type: string
+        race:
+          type: string
+        cashier:
+          type: string
+        window:
+          type: string
+        first_id:
+          type: string
+        second_id:
+          type: string
+        special_data_entries:
+          type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+      required:
+        - record_type
+        - payment_year
+        - payees_tin
+        - first_payee_name_line
+        - payee_mailing_address
+        - payee_city
+        - payee_state
+        - payee_zip_code
+        - record_sequence_number
+        - type_wager_code
+        - date_won
     CRecord:
       properties:
         record_type:

@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1098C
 
 ## Properties
 
@@ -36,13 +36,21 @@ Name | Type | Description | Notes
 **PayeeState** | **string** |  | 
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
-**SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**TransactionIndicator** | **string** |  | [optional] 
+**TransferAfterImprovementsIndicator** | **string** |  | [optional] 
+**TransferMarketValueIndicator** | **string** |  | [optional] 
+**Year** | **int32** |  | [optional] 
+**Make** | **string** |  | [optional] 
+**Model** | **string** |  | [optional] 
+**VehicleIdentificationNumber** | **string** |  | [optional] 
+**VehicleDescription** | **string** |  | [optional] 
+**DateContribution** | [**time.Time**](time.Time.md) |  | [optional] 
+**DoneeIndicator** | **string** |  | [optional] 
+**IntangibleReligiousBenefitsIndicator** | **string** |  | [optional] 
+**DeductionLessIndicator** | **string** |  | [optional] 
+**GoodsServices** | **string** |  | [optional] 
+**DateSale** | [**time.Time**](time.Time.md) |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

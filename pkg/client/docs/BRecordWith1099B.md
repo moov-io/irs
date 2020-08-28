@@ -1,4 +1,4 @@
-# BRecordWith1099Oid
+# BRecordWith1099B
 
 ## Properties
 
@@ -37,12 +37,19 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**DirectSalesIndicator** | **string** |  | [optional] 
+**NoncoveredSecurityIndicator** | **string** |  | [optional] 
+**TypeGainLossIndicator** | **string** |  | [optional] 
+**GrossProceedsIndicator** | **string** |  | [optional] 
+**DateSoldDisposed** | [**time.Time**](time.Time.md) |  | [optional] 
+**CusipNumber** | **string** |  | [optional] 
+**DescriptionProperty** | **string** |  | [optional] 
+**DateAcquired** | [**time.Time**](time.Time.md) |  | [optional] 
+**LossNotAllowedIndicator** | **string** |  | [optional] 
+**ApplicableCheckboxForm8949** | **string** |  | [optional] 
+**ApplicableCheckboxCollectables** | **string** |  | [optional] 
 **FatcaRequirementIndicator** | **string** |  | [optional] 
+**ApplicableCheckboxQof** | **string** |  | [optional] 
 **SpecialDataEntries** | **string** |  | [optional] 
-**StateIncomeTaxWithheld** | **int32** |  | [optional] 
-**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
-**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
