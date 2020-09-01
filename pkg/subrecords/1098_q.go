@@ -114,7 +114,7 @@ func (r *Sub1098Q) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1098Q) Validate() error {
-	return utils.Validate(r, config.Sub1098QLayout)
+	return utils.Validate(r, config.Sub1098QLayout, config.Sub1098QType)
 }
 
 // customized field validation functions

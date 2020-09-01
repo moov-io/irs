@@ -62,5 +62,5 @@ func (r *Sub5498ESA) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub5498ESA) Validate() error {
-	return utils.Validate(r, config.Sub5498ESALayout)
+	return utils.Validate(r, config.Sub5498ESALayout, config.Sub5498EsaType)
 }

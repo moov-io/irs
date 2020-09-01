@@ -153,7 +153,7 @@ type ARecord struct {
 
 // Type returns type of “A” record
 func (r *ARecord) Type() string {
-	return config.ARecordType
+	return r.RecordType
 }
 
 // Parse parses the “A” record from fire ascii
@@ -191,7 +191,7 @@ func (r *ARecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *ARecord) Validate() error {
-	return utils.Validate(r, config.ARecordLayout)
+	return utils.Validate(r, config.ARecordLayout, config.ARecordType)
 }
 
 // SequenceNumber returns sequence number of the record

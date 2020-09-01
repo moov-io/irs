@@ -198,7 +198,7 @@ func (r *Sub1099R) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099R) Validate() error {
-	return utils.Validate(r, config.Sub1099RLayout)
+	return utils.Validate(r, config.Sub1099RLayout, config.Sub1099RType)
 }
 
 // Unmarshal parses the JSON-encoded data

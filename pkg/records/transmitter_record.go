@@ -150,7 +150,7 @@ type TRecord struct {
 
 // Type returns type of “T” record
 func (r *TRecord) Type() string {
-	return config.TRecordType
+	return r.RecordType
 }
 
 // Parse parses the “T” record from fire ascii
@@ -188,7 +188,7 @@ func (r *TRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *TRecord) Validate() error {
-	return utils.Validate(r, config.TRecordLayout)
+	return utils.Validate(r, config.TRecordLayout, config.TRecordType)
 }
 
 // SequenceNumber returns sequence number of the record

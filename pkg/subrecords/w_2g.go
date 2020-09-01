@@ -132,7 +132,7 @@ func (r *SubW2G) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *SubW2G) Validate() error {
-	return utils.Validate(r, config.SubW2GLayout)
+	return utils.Validate(r, config.SubW2GLayout, config.SubW2GType)
 }
 
 // customized field validation functions

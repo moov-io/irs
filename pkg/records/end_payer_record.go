@@ -69,7 +69,7 @@ type CRecord struct {
 
 // Type returns type of “C” record
 func (r *CRecord) Type() string {
-	return config.CRecordType
+	return r.RecordType
 }
 
 // Parse parses the “C” record from fire ascii
@@ -107,7 +107,7 @@ func (r *CRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *CRecord) Validate() error {
-	return utils.Validate(r, config.CRecordLayout)
+	return utils.Validate(r, config.CRecordLayout, config.CRecordType)
 }
 
 // SequenceNumber returns sequence number of the record

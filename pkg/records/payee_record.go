@@ -222,7 +222,7 @@ type BRecord struct {
 
 // Type returns type of “B” record
 func (r *BRecord) Type() string {
-	return config.BRecordType
+	return r.RecordType
 }
 
 // Parse parses the “B” record from fire ascii
@@ -274,7 +274,7 @@ func (r *BRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *BRecord) Validate() error {
-	err := utils.Validate(r, config.BRecordLayout)
+	err := utils.Validate(r, config.BRecordLayout, config.BRecordType)
 	if err != nil {
 		return err
 	}

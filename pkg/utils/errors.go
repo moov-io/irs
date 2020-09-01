@@ -61,6 +61,11 @@ func NewErrValidValue(field string) error {
 	return fmt.Errorf("is an invalid value of %s", field)
 }
 
+// NewErrRecordType returns a error that has invalid record type
+func NewErrRecordType(field string) error {
+	return fmt.Errorf("has invalid record type (%s)", field)
+}
+
 // NewErrFieldRequired returns a error that has empty required field
 func NewErrFieldRequired(field string) error {
 	return fmt.Errorf("is required field (%s)", field)

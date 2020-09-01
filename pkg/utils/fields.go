@@ -96,7 +96,7 @@ func ToString(elm config.SpecField, data reflect.Value) string {
 }
 
 // to validate fields of record
-func Validate(r interface{}, spec map[string]config.SpecField) error {
+func Validate(r interface{}, spec map[string]config.SpecField, rType string) error {
 	fields := reflect.ValueOf(r).Elem()
 	for i := 0; i < fields.NumField(); i++ {
 		fieldName := fields.Type().Field(i).Name
@@ -109,6 +109,11 @@ func Validate(r interface{}, spec map[string]config.SpecField) error {
 				fieldValue := fields.FieldByName(fieldName)
 				if fieldValue.IsZero() {
 					return NewErrFieldRequired(fieldName)
+				}
+				if fieldName == "RecordType" {
+					if rType != fieldValue.String() {
+						return NewErrRecordType(rType)
+					}
 				}
 			}
 		}

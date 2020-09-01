@@ -261,7 +261,7 @@ func (p *paymentPerson) integrationCheck() error {
 	}
 
 	// 1. verify corrected return indicator
-	existed := make(map[string]interface{})
+	existedIndicator := ""
 	for _, payee := range p.Payees {
 		bRecord, ok := payee.(*records.BRecord)
 		if !ok {
@@ -271,8 +271,12 @@ func (p *paymentPerson) integrationCheck() error {
 		if len(indicator) == 0 {
 			indicator = "N"
 		}
-		existed[indicator] = bRecord
-		if len(existed) > 1 {
+
+		if existedIndicator == "" {
+			existedIndicator = indicator
+		}
+
+		if existedIndicator != indicator {
 			return utils.ErrIncorrectReturnIndicator
 		}
 	}
@@ -289,7 +293,7 @@ func (p *paymentPerson) integrationCheck() error {
 	}
 
 	// 4. verify combined federal/state code in K records
-	existed = make(map[string]interface{})
+	existed := make(map[string]interface{})
 	for _, state := range p.States {
 		kRecord, ok := state.(*records.KRecord)
 		if !ok {

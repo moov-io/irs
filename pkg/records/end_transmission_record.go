@@ -48,7 +48,7 @@ type FRecord struct {
 
 // Type returns type of “F” record
 func (r *FRecord) Type() string {
-	return config.FRecordType
+	return r.RecordType
 }
 
 // Parse parses the “F” record from fire ascii
@@ -86,7 +86,7 @@ func (r *FRecord) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *FRecord) Validate() error {
-	return utils.Validate(r, config.FRecordLayout)
+	return utils.Validate(r, config.FRecordLayout, config.FRecordType)
 }
 
 // SequenceNumber returns sequence number of the record

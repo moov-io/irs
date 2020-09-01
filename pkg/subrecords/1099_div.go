@@ -96,7 +96,7 @@ func (r *Sub1099DIV) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099DIV) Validate() error {
-	return utils.Validate(r, config.Sub1099DIVLayout)
+	return utils.Validate(r, config.Sub1099DIVLayout, config.Sub1099DivType)
 }
 
 // customized field validation functions

@@ -91,7 +91,7 @@ func (r *Sub1097BTC) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1097BTC) Validate() error {
-	return utils.Validate(r, config.Sub1097BTCLayout)
+	return utils.Validate(r, config.Sub1097BTCLayout, config.Sub1097BtcType)
 }
 
 // customized field validation functions

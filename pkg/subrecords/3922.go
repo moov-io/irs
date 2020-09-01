@@ -84,5 +84,5 @@ func (r *Sub3922) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub3922) Validate() error {
-	return utils.Validate(r, config.Sub3922Layout)
+	return utils.Validate(r, config.Sub3922Layout, config.Sub3922Type)
 }

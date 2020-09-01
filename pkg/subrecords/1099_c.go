@@ -90,7 +90,7 @@ func (r *Sub1099C) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099C) Validate() error {
-	return utils.Validate(r, config.Sub1099CLayout)
+	return utils.Validate(r, config.Sub1099CLayout, config.Sub1099CType)
 }
 
 // customized field validation functions

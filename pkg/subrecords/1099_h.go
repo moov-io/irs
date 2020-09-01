@@ -67,5 +67,5 @@ func (r *Sub1099H) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099H) Validate() error {
-	return utils.Validate(r, config.Sub1099HLayout)
+	return utils.Validate(r, config.Sub1099HLayout, config.Sub1099HType)
 }
