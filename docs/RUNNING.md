@@ -1,7 +1,7 @@
 # IRS
 **[Purpose](README.md)** | **[Configuration](CONFIGURATION.md)** | **Running** | **[Client](../pkg/client/README.md)**
 
---- 
+---
 
 ## Running
 
@@ -16,7 +16,7 @@ No configuration is required to serve on `:8200` and metrics at `:8201/metrics` 
 
 ### Docker image
 
-You can download [our docker image `moov/irs`](https://hub.docker.com/r/moov/irs/) from Docker Hub or use this repository. 
+You can download [our docker image `moov/irs`](https://hub.docker.com/r/moov/irs/) from Docker Hub or use this repository.
 
 ### Local Development
 
@@ -24,22 +24,18 @@ You can download [our docker image `moov/irs`](https://hub.docker.com/r/moov/irs
 make run
 ```
 
-### Https service for client
+### HTTP server
 
-https server address is https://local.moov.io:8208 in development environment.
+IRS runs an HTTP server at http://local.moov.io:8208 by default.
 
-### Example using https service 
+### Example using HTTP server
 
-Package github.com/moov-io/irs is a file reader and writer, should input a file as json format or ascii fire format.
-Please use api endpoint of https service to creating, parsing, validating.
-
-User can use following json files as input file for special form. 
+The HTTP server accepts JSON formatted files to convert into their PDF form. We have a few examples:
 
 - [1099-INT](examples/1099int.json)
 - [1099-MISC](examples/1099misc.json)
 - [1099-OID](examples/1099oid.json)
 - [1099-PATR](examples/1099patr.json)
-
 
 ---
 **[Next - Client](../pkg/client/README.md)**
