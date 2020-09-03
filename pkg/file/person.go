@@ -16,7 +16,7 @@ type paymentPerson struct {
 	Payer    records.Record   `json:"payer"`
 	Payees   []records.Record `json:"payees"`
 	EndPayer records.Record   `json:"end_payer"`
-	States   []records.Record `json:"states"`
+	States   []records.Record `json:"states,omitempty"`
 }
 
 // Type returns type of “Person” record
@@ -292,18 +292,10 @@ func (p *paymentPerson) integrationCheck() error {
 		return err
 	}
 
-	// 4. verify combined federal/state code in K records
-	existed := make(map[string]interface{})
-	for _, state := range p.States {
-		kRecord, ok := state.(*records.KRecord)
-		if !ok {
-			return utils.NewErrUnexpectedRecord("state", state)
-		}
-		_, ok = existed[kRecord.CombinedFederalStateCode]
-		if ok {
-			return utils.ErrDuplicatedFSCode
-		}
-		existed[kRecord.CombinedFederalStateCode] = kRecord
+	// 4. verify  CF/SF code
+	err = p.validateFSCodes()
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -357,7 +349,7 @@ func (p *paymentPerson) validatePaymentCodes() error {
 		}
 	}
 
-	if p.States != nil {
+	if p.States != nil && len(p.States) > 0 {
 		// check amount codes between a record and k records
 		existedCodes = make(map[string]bool)
 		for _, state := range p.States {
@@ -439,4 +431,77 @@ func (p *paymentPerson) getTypeOfReturn() (string, error) {
 		return typeOfReturn, utils.ErrInvalidTypeOfReturn
 	}
 	return typeOfReturn, nil
+}
+
+func (p *paymentPerson) validateFSCodes() error {
+	existed := make(map[string]interface{})
+	for _, state := range p.States {
+		kRecord, ok := state.(*records.KRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("state", state)
+		}
+		_, ok = existed[kRecord.CombinedFederalStateCode]
+		if ok {
+			return utils.ErrDuplicatedFSCode
+		}
+		existed[kRecord.CombinedFederalStateCode] = kRecord
+	}
+
+	aRecord, _, err := p.getRecords()
+	if err != nil {
+		return err
+	}
+
+	if aRecord.CombinedFSFilingProgram != config.FSFilingProgramApproved {
+		return nil
+	}
+	if len(p.Payees) == 0 || len(p.States) == 0 {
+		return utils.ErrCFSFProgram
+	}
+
+	payeeCodes := make(map[string]bool)
+	for _, payee := range p.Payees {
+		bRecord, ok := payee.(*records.BRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("payee", payee)
+		}
+		code, exited := config.ParticipateStateCodes[bRecord.FederalState()]
+		if !exited {
+			return utils.NewErrValidValue("combined federal state code")
+		}
+		payeeCodes[code] = true
+	}
+
+	stateCodes := make(map[string]bool)
+	for _, state := range p.States {
+		kRecord, ok := state.(*records.KRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("state", state)
+		}
+		code, exited := config.StateAbbreviationCodes[kRecord.CombinedFederalStateCode]
+		if !exited {
+			return utils.NewErrValidValue("combined federal state code")
+		}
+		stateCodes[code] = true
+	}
+
+	if !eq(payeeCodes, stateCodes) {
+		return utils.ErrCFSFState
+	}
+
+	return nil
+}
+
+func eq(a, b map[string]bool) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for k, v := range a {
+		if w, ok := b[k]; !ok || v != w {
+			return false
+		}
+	}
+
+	return true
 }

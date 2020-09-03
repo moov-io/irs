@@ -68,6 +68,11 @@ func (r *Sub1099INT) Type() string {
 	return config.Sub1099IntType
 }
 
+// Type returns FS code of “1099-INT” record
+func (r *Sub1099INT) FederalState() int {
+	return r.CombinedFSCode
+}
+
 // Parse parses the “1099-INT” record from fire ascii
 func (r *Sub1099INT) Parse(buf []byte) error {
 	record := string(buf)
@@ -126,8 +131,5 @@ func (r *Sub1099INT) ValidateFATCA() error {
 }
 
 func (r *Sub1099INT) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
-		return utils.NewErrValidValue("combined federal state code")
-	}
-	return nil
+	return utils.ValidateCombinedFSCode(r.CombinedFSCode)
 }

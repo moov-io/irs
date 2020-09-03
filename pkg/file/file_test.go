@@ -240,3 +240,101 @@ func (t *FileTest) TestFileWithTestOption(c *check.C) {
 	err = f.Validate()
 	c.Assert(err, check.NotNil)
 }
+
+func (t *FileTest) TestSample1099IntJson(c *check.C) {
+	f1, err := CreateFile(t.sample1099IntJson)
+	c.Assert(err, check.IsNil)
+	buf1, err := json.Marshal(f1)
+	c.Assert(err, check.IsNil)
+	var prettyJSON1 bytes.Buffer
+	json.Indent(&prettyJSON1, buf1, "", "  ")
+	ascii := f1.Ascii()
+	f2, err := CreateFile(ascii)
+	c.Assert(err, check.IsNil)
+	buf2, err := json.Marshal(f2)
+	c.Assert(err, check.IsNil)
+	var prettyJSON2 bytes.Buffer
+	json.Indent(&prettyJSON2, buf2, "", "  ")
+	c.Assert(prettyJSON1.String(), check.Equals, prettyJSON2.String())
+	err = f1.Validate()
+	c.Assert(err, check.IsNil)
+	err = f2.Validate()
+	c.Assert(err, check.IsNil)
+}
+
+func (t *FileTest) TestSample1099OidJson(c *check.C) {
+	f1, err := CreateFile(t.sample1099OidJson)
+	c.Assert(err, check.IsNil)
+	buf1, err := json.Marshal(f1)
+	c.Assert(err, check.IsNil)
+	var prettyJSON1 bytes.Buffer
+	json.Indent(&prettyJSON1, buf1, "", "  ")
+	ascii := f1.Ascii()
+	f2, err := CreateFile(ascii)
+	c.Assert(err, check.IsNil)
+	buf2, err := json.Marshal(f2)
+	c.Assert(err, check.IsNil)
+	var prettyJSON2 bytes.Buffer
+	json.Indent(&prettyJSON2, buf2, "", "  ")
+	c.Assert(prettyJSON1.String(), check.Equals, prettyJSON2.String())
+	err = f1.Validate()
+	c.Assert(err, check.IsNil)
+	err = f2.Validate()
+	c.Assert(err, check.IsNil)
+}
+
+func (t *FileTest) TestSample1099MiscJson(c *check.C) {
+	f1, err := CreateFile(t.sample1099MiscJson)
+	c.Assert(err, check.IsNil)
+	buf1, err := json.Marshal(f1)
+	c.Assert(err, check.IsNil)
+	var prettyJSON1 bytes.Buffer
+	json.Indent(&prettyJSON1, buf1, "", "  ")
+	ascii := f1.Ascii()
+	f2, err := CreateFile(ascii)
+	c.Assert(err, check.IsNil)
+	buf2, err := json.Marshal(f2)
+	c.Assert(err, check.IsNil)
+	var prettyJSON2 bytes.Buffer
+	json.Indent(&prettyJSON2, buf2, "", "  ")
+	c.Assert(prettyJSON1.String(), check.Equals, prettyJSON2.String())
+	err = f1.Validate()
+	c.Assert(err, check.IsNil)
+	err = f2.Validate()
+	c.Assert(err, check.IsNil)
+}
+
+func (t *FileTest) TestSample1099PatrJson(c *check.C) {
+	f1, err := CreateFile(t.sample1099PatrJson)
+	c.Assert(err, check.IsNil)
+	buf1, err := json.Marshal(f1)
+	c.Assert(err, check.IsNil)
+	var prettyJSON1 bytes.Buffer
+	json.Indent(&prettyJSON1, buf1, "", "  ")
+	ascii := f1.Ascii()
+	f2, err := CreateFile(ascii)
+	c.Assert(err, check.IsNil)
+	buf2, err := json.Marshal(f2)
+	c.Assert(err, check.IsNil)
+	var prettyJSON2 bytes.Buffer
+	json.Indent(&prettyJSON2, buf2, "", "  ")
+	c.Assert(prettyJSON1.String(), check.Equals, prettyJSON2.String())
+	err = f1.Validate()
+	c.Assert(err, check.IsNil)
+	err = f2.Validate()
+	c.Assert(err, check.IsNil)
+}
+
+func (t *FileTest) TestOneTransactionFileWithoutKJson(c *check.C) {
+	f1, err := CreateFile(t.oneTransactionWithoutKJson)
+	err = f1.Validate()
+	c.Assert(err, check.NotNil)
+	c.Assert(err.Error(), check.Equals, "should be payee B records and the state totals K records")
+}
+
+func (t *FileTest) TestOneTransactionFileInvalidStateJson(c *check.C) {
+	f1, err := CreateFile(t.oneTransactionFileInvalidStateJson)
+	err = f1.Validate()
+	c.Assert(err, check.NotNil)
+	c.Assert(err.Error(), check.Equals, "is invalid combined federal/tate code in K record")
+}

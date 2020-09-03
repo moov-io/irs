@@ -37,6 +37,11 @@ func (r *Sub5498SA) Type() string {
 	return config.Sub5498SaType
 }
 
+// Type returns FS code of “5498-SA” record
+func (r *Sub5498SA) FederalState() int {
+	return 0
+}
+
 // Parse parses the “5498-SA” record from fire ascii
 func (r *Sub5498SA) Parse(buf []byte) error {
 	record := string(buf)

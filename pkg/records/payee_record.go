@@ -333,6 +333,11 @@ func (r *BRecord) TypeOfReturn() string {
 	return r.typeOfReturn
 }
 
+// Type returns FS code of “B” record
+func (r *BRecord) FederalState() int {
+	return r.extRecord.FederalState()
+}
+
 // Marshal returns the JSON encoding
 func (r *BRecord) MarshalJSON() ([]byte, error) {
 	type recordJson BRecord

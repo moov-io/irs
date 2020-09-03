@@ -44,6 +44,11 @@ func (r *Sub1099Q) Type() string {
 	return config.Sub1099QType
 }
 
+// Type returns FS code of “1099-Q” record
+func (r *Sub1099Q) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1099-Q” record from fire ascii
 func (r *Sub1099Q) Parse(buf []byte) error {
 	record := string(buf)

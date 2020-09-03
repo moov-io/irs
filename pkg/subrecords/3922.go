@@ -49,6 +49,11 @@ func (r *Sub3922) Type() string {
 	return config.Sub3922Type
 }
 
+// Type returns FS code of “3922” record
+func (r *Sub3922) FederalState() int {
+	return 0
+}
+
 // Parse parses the “3922” record from fire ascii
 func (r *Sub3922) Parse(buf []byte) error {
 	record := string(buf)

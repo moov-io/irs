@@ -71,6 +71,11 @@ func (r *Sub1099G) Type() string {
 	return config.Sub1099GType
 }
 
+// Type returns FS code of “1099-G” record
+func (r *Sub1099G) FederalState() int {
+	return r.CombinedFSCode
+}
+
 // Parse parses the “1099-G” record from fire ascii
 func (r *Sub1099G) Parse(buf []byte) error {
 	record := string(buf)
@@ -129,10 +134,7 @@ func (r *Sub1099G) ValidateTradeBusinessIndicator() error {
 }
 
 func (r *Sub1099G) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
-		return utils.NewErrValidValue("combined federal state code")
-	}
-	return nil
+	return utils.ValidateCombinedFSCode(r.CombinedFSCode)
 }
 
 func (r *Sub1099G) ValidateTaxYearRefund() error {

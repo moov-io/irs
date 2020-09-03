@@ -50,6 +50,11 @@ func (r *Sub1099A) Type() string {
 	return config.Sub1099AType
 }
 
+// Type returns FS code of “1099-A” record
+func (r *Sub1099A) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1099-A” record from fire ascii
 func (r *Sub1099A) Parse(buf []byte) error {
 	record := string(buf)

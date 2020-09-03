@@ -327,3 +327,10 @@ func parseValue(elm config.SpecField, field reflect.Value, data string) error {
 func validateFuncName(name string) string {
 	return "Validate" + name
 }
+
+func ValidateCombinedFSCode(code int) error {
+	if _, ok := config.ParticipateStateCodes[code]; !ok {
+		return NewErrValidValue("combined federal state code")
+	}
+	return nil
+}

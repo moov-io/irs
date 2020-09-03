@@ -106,6 +106,11 @@ func (r *Sub5498) Type() string {
 	return config.Sub5498Type
 }
 
+// Type returns FS code of “5498” record
+func (r *Sub5498) FederalState() int {
+	return r.CombinedFSCode
+}
+
 // Parse parses the “5498” record from fire ascii
 func (r *Sub5498) Parse(buf []byte) error {
 	record := string(buf)
@@ -230,8 +235,5 @@ func (r *Sub5498) ValidateCodes() error {
 }
 
 func (r *Sub5498) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
-		return utils.NewErrValidValue("combined federal state code")
-	}
-	return nil
+	return utils.ValidateCombinedFSCode(r.CombinedFSCode)
 }

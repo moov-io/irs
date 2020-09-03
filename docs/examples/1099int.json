@@ -35,7 +35,7 @@
 			"payer":{
 				"record_type": "A",
 				"payment_year": 2019,
-				"combined_fs_filing_program": "1",
+				"combined_fs_filing_program": "",
 				"payer_tin": "123456789",
 				"payer_name_control": "ASDF",
 				"last_filing_indicator": "1",
