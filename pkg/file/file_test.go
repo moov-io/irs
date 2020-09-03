@@ -327,6 +327,7 @@ func (t *FileTest) TestSample1099PatrJson(c *check.C) {
 
 func (t *FileTest) TestOneTransactionFileWithoutKJson(c *check.C) {
 	f1, err := CreateFile(t.oneTransactionWithoutKJson)
+	c.Assert(err, check.IsNil)
 	err = f1.Validate()
 	c.Assert(err, check.NotNil)
 	c.Assert(err.Error(), check.Equals, "should be payee B records and the state totals K records")
@@ -334,6 +335,7 @@ func (t *FileTest) TestOneTransactionFileWithoutKJson(c *check.C) {
 
 func (t *FileTest) TestOneTransactionFileInvalidStateJson(c *check.C) {
 	f1, err := CreateFile(t.oneTransactionFileInvalidStateJson)
+	c.Assert(err, check.IsNil)
 	err = f1.Validate()
 	c.Assert(err, check.NotNil)
 	c.Assert(err.Error(), check.Equals, "is invalid combined federal/tate code in K record")
