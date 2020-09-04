@@ -97,6 +97,11 @@ func (r *SubW2G) Type() string {
 	return config.SubW2GType
 }
 
+// Type returns FS code of “W-2G” record
+func (r *SubW2G) FederalState() int {
+	return 0
+}
+
 // Parse parses the “W-2G” record from fire ascii
 func (r *SubW2G) Parse(buf []byte) error {
 	record := string(buf)
@@ -132,7 +137,7 @@ func (r *SubW2G) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *SubW2G) Validate() error {
-	return utils.Validate(r, config.SubW2GLayout)
+	return utils.Validate(r, config.SubW2GLayout, config.SubW2GType)
 }
 
 // customized field validation functions

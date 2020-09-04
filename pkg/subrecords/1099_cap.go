@@ -45,6 +45,11 @@ func (r *Sub1099CAP) Type() string {
 	return config.Sub1099CapType
 }
 
+// Type returns FS code of “1099-CAP” record
+func (r *Sub1099CAP) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1099-CAP” record from fire ascii
 func (r *Sub1099CAP) Parse(buf []byte) error {
 	record := string(buf)
@@ -80,5 +85,5 @@ func (r *Sub1099CAP) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099CAP) Validate() error {
-	return utils.Validate(r, config.Sub1099CAPLayout)
+	return utils.Validate(r, config.Sub1099CAPLayout, config.Sub1099CapType)
 }

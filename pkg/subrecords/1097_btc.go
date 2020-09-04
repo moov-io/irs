@@ -56,6 +56,11 @@ func (r *Sub1097BTC) Type() string {
 	return config.Sub1097BtcType
 }
 
+// Type returns FS code of “1097-BTC” record
+func (r *Sub1097BTC) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1097-BTC” record from fire ascii
 func (r *Sub1097BTC) Parse(buf []byte) error {
 	record := string(buf)
@@ -91,7 +96,7 @@ func (r *Sub1097BTC) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1097BTC) Validate() error {
-	return utils.Validate(r, config.Sub1097BTCLayout)
+	return utils.Validate(r, config.Sub1097BTCLayout, config.Sub1097BtcType)
 }
 
 // customized field validation functions

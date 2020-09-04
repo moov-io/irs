@@ -52,6 +52,11 @@ func (r *Sub1099PATR) Type() string {
 	return config.Sub1099PatrType
 }
 
+// Type returns FS code of “1099-PATR” record
+func (r *Sub1099PATR) FederalState() int {
+	return r.CombinedFSCode
+}
+
 // Parse parses the “1099-PATR” record from fire ascii
 func (r *Sub1099PATR) Parse(buf []byte) error {
 	record := string(buf)
@@ -87,7 +92,7 @@ func (r *Sub1099PATR) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099PATR) Validate() error {
-	return utils.Validate(r, config.Sub1099PATRLayout)
+	return utils.Validate(r, config.Sub1099PATRLayout, config.Sub1099PatrType)
 }
 
 // customized field validation functions
@@ -102,8 +107,5 @@ func (r *Sub1099PATR) ValidateSecondTinNotice() error {
 }
 
 func (r *Sub1099PATR) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
-		return utils.NewErrValidValue("combined federal state code")
-	}
-	return nil
+	return utils.ValidateCombinedFSCode(r.CombinedFSCode)
 }

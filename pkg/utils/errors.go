@@ -54,11 +54,20 @@ var (
 	ErrInvalidTCC = errors.New("is invalid transmitter control code")
 	// ErrUnsupportedBlock is given when is not supported extension block of B record
 	ErrUnsupportedBlock = errors.New("is not supported extension block of B record")
+	// ErrCFSFProgram is given when has invalid CF/SF program
+	ErrCFSFProgram = errors.New("should be payee B records and the state totals K records")
+	// ErrCFSFState is given when has invalid Combined Federal/State Code
+	ErrCFSFState = errors.New("is invalid combined federal/tate code in K record")
 )
 
 // NewErrValidValue returns a error that has invalid value
 func NewErrValidValue(field string) error {
 	return fmt.Errorf("is an invalid value of %s", field)
+}
+
+// NewErrRecordType returns a error that has invalid record type
+func NewErrRecordType(field string) error {
+	return fmt.Errorf("has invalid record type (%s)", field)
 }
 
 // NewErrFieldRequired returns a error that has empty required field

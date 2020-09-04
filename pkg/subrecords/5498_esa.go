@@ -27,6 +27,11 @@ func (r *Sub5498ESA) Type() string {
 	return config.Sub5498EsaType
 }
 
+// Type returns FS code of “5498-ESA” record
+func (r *Sub5498ESA) FederalState() int {
+	return 0
+}
+
 // Parse parses the “5498-ESA” record from fire ascii
 func (r *Sub5498ESA) Parse(buf []byte) error {
 	record := string(buf)
@@ -62,5 +67,5 @@ func (r *Sub5498ESA) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub5498ESA) Validate() error {
-	return utils.Validate(r, config.Sub5498ESALayout)
+	return utils.Validate(r, config.Sub5498ESALayout, config.Sub5498EsaType)
 }

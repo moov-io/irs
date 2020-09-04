@@ -44,6 +44,11 @@ func (r *Sub1099Q) Type() string {
 	return config.Sub1099QType
 }
 
+// Type returns FS code of “1099-Q” record
+func (r *Sub1099Q) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1099-Q” record from fire ascii
 func (r *Sub1099Q) Parse(buf []byte) error {
 	record := string(buf)
@@ -79,7 +84,7 @@ func (r *Sub1099Q) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099Q) Validate() error {
-	return utils.Validate(r, config.Sub1099QLayout)
+	return utils.Validate(r, config.Sub1099QLayout, config.Sub1099QType)
 }
 
 // customized field validation functions

@@ -114,6 +114,11 @@ func (r *Sub1099B) Type() string {
 	return config.Sub1099BType
 }
 
+// Type returns FS code of “1099-B” record
+func (r *Sub1099B) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1099-B” record from fire ascii
 func (r *Sub1099B) Parse(buf []byte) error {
 	record := string(buf)
@@ -149,7 +154,7 @@ func (r *Sub1099B) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099B) Validate() error {
-	return utils.Validate(r, config.Sub1099BLayout)
+	return utils.Validate(r, config.Sub1099BLayout, config.Sub1099BType)
 }
 
 // customized field validation functions
