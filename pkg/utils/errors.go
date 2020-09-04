@@ -54,6 +54,10 @@ var (
 	ErrInvalidTCC = errors.New("is invalid transmitter control code")
 	// ErrUnsupportedBlock is given when is not supported extension block of B record
 	ErrUnsupportedBlock = errors.New("is not supported extension block of B record")
+	// ErrUnknownPdfTemplate is given when is unknown pdf template
+	ErrUnknownPdfTemplate = errors.New("is unknown pdf template")
+	// ErrFdfGenerate is given when failed to generate fdf file
+	ErrFdfGenerate = errors.New("failed to generate fdf file")
 )
 
 // NewErrValidValue returns a error that has invalid value
