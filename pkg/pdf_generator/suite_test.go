@@ -6,6 +6,8 @@ package pdf_generator
 
 import (
 	"gopkg.in/check.v1"
+	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 )
@@ -22,6 +24,16 @@ func (t *PdfTest) SetUpSuite(c *check.C) {}
 func (t *PdfTest) SetUpTest(c *check.C) {
 	pdfConverter = "pdftk"
 	convertParam1 = "fill_form"
+}
+
+func (t *PdfTest) TearDownTest(c *check.C) {
+	dir, err := ioutil.ReadDir(".")
+	c.Assert(err, check.IsNil)
+	for _, d := range dir {
+		if strings.HasPrefix(d.Name(), ".") {
+			os.RemoveAll(d.Name())
+		}
+	}
 }
 
 func (t *PdfTest) TestPdfWithMscCopyB(c *check.C) {
