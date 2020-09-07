@@ -103,7 +103,6 @@ var (
 	specFDF       = "spec.fdf"
 	templateFDF   = "template.fdf"
 	templatePDF   = "template.pdf"
-	applyFDF      = "apply.fdf"
 	resultPDF     = "result.pdf"
 	timeFormat    = "20060102150405"
 	convertParam1 = "fill_form"
