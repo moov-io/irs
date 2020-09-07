@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package pdf_generator
 
 import (
@@ -94,14 +98,16 @@ var fdf1099MiscPatterns = map[string]string{
 	"StateIncome2":  "State income2",
 }
 
-const (
-	pdfConverter = "pdftk"
-	specFDF      = "spec.fdf"
-	templateFDF  = "template.fdf"
-	templatePDF  = "template.pdf"
-	applyFDF     = "apply.fdf"
-	resultPDF    = "result.pdf"
-	timeFormat   = "20060102150405"
+var (
+	pdfConverter  = "pdftk"
+	specFDF       = "spec.fdf"
+	templateFDF   = "template.fdf"
+	templatePDF   = "template.pdf"
+	applyFDF      = "apply.fdf"
+	resultPDF     = "result.pdf"
+	timeFormat    = "20060102150405"
+	convertParam1 = "fill_form"
+	convertParam2 = "output"
 )
 
 func (p *Pdf1099Misc) getSpecFdf() ([]byte, error) {
@@ -179,9 +185,11 @@ func (p *Pdf1099Misc) generateFDF(fileName string) ([]byte, error) {
 	}
 	newFdf = strings.ReplaceAll(newFdf, "#?#", "\n")
 
-	err = ioutil.WriteFile(fileName, []byte(newFdf), os.ModePerm)
-	if err != nil {
-		return nil, err
+	if fileName != "" {
+		err = ioutil.WriteFile(fileName, []byte(newFdf), os.ModePerm)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return []byte(newFdf), nil
@@ -199,7 +207,7 @@ func (p *Pdf1099Misc) generatePDF(fdfFile string) ([]byte, error) {
 	}
 
 	result := filepath.Join(p.tempDir, resultPDF)
-	cmd := exec.Command(execFile, *template, "fill_form", fdfFile, "output", result)
+	cmd := exec.Command(execFile, *template, convertParam1, fdfFile, convertParam2, result)
 	err = cmd.Run()
 	if err != nil {
 		return nil, err
@@ -220,6 +228,7 @@ func (p *Pdf1099Misc) Generate() ([]byte, error) {
 	fdfFile := filepath.Join(p.tempDir, templateFDF)
 	_, err = p.generateFDF(fdfFile)
 	if err != nil {
+		os.RemoveAll(p.tempDir)
 		return nil, err
 	}
 
