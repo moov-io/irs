@@ -58,11 +58,20 @@ var (
 	ErrUnknownPdfTemplate = errors.New("is unknown pdf template")
 	// ErrFdfGenerate is given when failed to generate fdf file
 	ErrFdfGenerate = errors.New("failed to generate fdf file")
+	// ErrCFSFProgram is given when has invalid CF/SF program
+	ErrCFSFProgram = errors.New("should be payee B records and the state totals K records")
+	// ErrCFSFState is given when has invalid Combined Federal/State Code
+	ErrCFSFState = errors.New("is invalid combined federal/tate code in K record")
 )
 
 // NewErrValidValue returns a error that has invalid value
 func NewErrValidValue(field string) error {
 	return fmt.Errorf("is an invalid value of %s", field)
+}
+
+// NewErrRecordType returns a error that has invalid record type
+func NewErrRecordType(field string) error {
+	return fmt.Errorf("has invalid record type (%s)", field)
 }
 
 // NewErrFieldRequired returns a error that has empty required field

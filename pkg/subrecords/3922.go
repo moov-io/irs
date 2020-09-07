@@ -49,6 +49,11 @@ func (r *Sub3922) Type() string {
 	return config.Sub3922Type
 }
 
+// Type returns FS code of “3922” record
+func (r *Sub3922) FederalState() int {
+	return 0
+}
+
 // Parse parses the “3922” record from fire ascii
 func (r *Sub3922) Parse(buf []byte) error {
 	record := string(buf)
@@ -84,5 +89,5 @@ func (r *Sub3922) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub3922) Validate() error {
-	return utils.Validate(r, config.Sub3922Layout)
+	return utils.Validate(r, config.Sub3922Layout, config.Sub3922Type)
 }

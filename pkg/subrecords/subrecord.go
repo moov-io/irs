@@ -11,6 +11,7 @@ import (
 
 // General subrecord interface
 type SubRecord interface {
+	FederalState() int
 	Type() string
 	Parse([]byte) error
 	Ascii() []byte

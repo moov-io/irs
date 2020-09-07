@@ -67,6 +67,11 @@ func (r *Sub1098) Type() string {
 	return config.Sub1098Type
 }
 
+// Type returns FS code of “1098” record
+func (r *Sub1098) FederalState() int {
+	return 0
+}
+
 // Parse parses the “1098” record from fire ascii
 func (r *Sub1098) Parse(buf []byte) error {
 	record := string(buf)
@@ -102,7 +107,7 @@ func (r *Sub1098) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1098) Validate() error {
-	return utils.Validate(r, config.Sub1098Layout)
+	return utils.Validate(r, config.Sub1098Layout, config.Sub1098Type)
 }
 
 // customized field validation functions

@@ -48,6 +48,11 @@ func (r *Sub3921) Type() string {
 	return config.Sub3921Type
 }
 
+// Type returns FS code of “3921” record
+func (r *Sub3921) FederalState() int {
+	return 0
+}
+
 // Parse parses the “3921” record from fire ascii
 func (r *Sub3921) Parse(buf []byte) error {
 	record := string(buf)
@@ -83,5 +88,5 @@ func (r *Sub3921) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub3921) Validate() error {
-	return utils.Validate(r, config.Sub3921Layout)
+	return utils.Validate(r, config.Sub3921Layout, config.Sub3921Type)
 }

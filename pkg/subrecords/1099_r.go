@@ -163,6 +163,11 @@ func (r *Sub1099R) Type() string {
 	return config.Sub1099RType
 }
 
+// Type returns FS code of “1099-R” record
+func (r *Sub1099R) FederalState() int {
+	return r.CombinedFSCode
+}
+
 // Parse parses the “1099-R” record from fire ascii
 func (r *Sub1099R) Parse(buf []byte) error {
 	record := string(buf)
@@ -198,7 +203,7 @@ func (r *Sub1099R) Ascii() []byte {
 
 // Validate performs some checks on the record and returns an error if not Validated
 func (r *Sub1099R) Validate() error {
-	return utils.Validate(r, config.Sub1099RLayout)
+	return utils.Validate(r, config.Sub1099RLayout, config.Sub1099RType)
 }
 
 // Unmarshal parses the JSON-encoded data
@@ -259,8 +264,5 @@ func (r *Sub1099R) ValidateFATCA() error {
 }
 
 func (r *Sub1099R) ValidateCombinedFSCode() error {
-	if _, ok := config.ParticipateStateCodes[r.CombinedFSCode]; !ok {
-		return utils.NewErrValidValue("combined federal state code")
-	}
-	return nil
+	return utils.ValidateCombinedFSCode(r.CombinedFSCode)
 }
