@@ -6,6 +6,7 @@ package pdf_generator
 
 import (
 	"gopkg.in/check.v1"
+	"strings"
 	"testing"
 )
 
@@ -31,7 +32,8 @@ func (t *PdfTest) TestPdfWithMscCopyB(c *check.C) {
 	c.Assert(err, check.IsNil)
 	newFdf, err := pdf.generateFDF("")
 	c.Assert(err, check.IsNil)
-	c.Assert(templateFdf, check.DeepEquals, newFdf)
+	c.Assert(strings.ReplaceAll(string(templateFdf), "\r", ""),
+		check.Equals, strings.ReplaceAll(string(newFdf), "\r", ""))
 }
 
 func (t *PdfTest) TestPdfWithMscCopyC(c *check.C) {
@@ -42,7 +44,8 @@ func (t *PdfTest) TestPdfWithMscCopyC(c *check.C) {
 	c.Assert(err, check.IsNil)
 	newFdf, err := pdf.generateFDF("")
 	c.Assert(err, check.IsNil)
-	c.Assert(templateFdf, check.DeepEquals, newFdf)
+	c.Assert(strings.ReplaceAll(string(templateFdf), "\r", ""),
+		check.Equals, strings.ReplaceAll(string(newFdf), "\r", ""))
 }
 
 func (t *PdfTest) TestPdfWithNecCopyB(c *check.C) {
@@ -53,7 +56,8 @@ func (t *PdfTest) TestPdfWithNecCopyB(c *check.C) {
 	c.Assert(err, check.IsNil)
 	newFdf, err := pdf.generateFDF("")
 	c.Assert(err, check.IsNil)
-	c.Assert(templateFdf, check.DeepEquals, newFdf)
+	c.Assert(strings.ReplaceAll(string(templateFdf), "\r", ""),
+		check.Equals, strings.ReplaceAll(string(newFdf), "\r", ""))
 }
 
 func (t *PdfTest) TestPdfWithNecCopyC(c *check.C) {
@@ -62,7 +66,8 @@ func (t *PdfTest) TestPdfWithNecCopyC(c *check.C) {
 	c.Assert(err, check.IsNil)
 	newFdf, err := pdf.generateFDF("")
 	c.Assert(err, check.IsNil)
-	c.Assert(templateFdf, check.DeepEquals, newFdf)
+	c.Assert(strings.ReplaceAll(string(templateFdf), "\r", ""),
+		check.Equals, strings.ReplaceAll(string(newFdf), "\r", ""))
 	pdf = Pdf1099Misc{Type: PdfNecCopyC, VoID: true, Corrected: true, Fatca: true, Section: 1000}
 	_, err = pdf.Generate()
 	c.Assert(err, check.IsNil)
