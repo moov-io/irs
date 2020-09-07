@@ -14,6 +14,9 @@ run: irs
 	./bin/irs
 
 test: services build
+ifneq ($(OS),Windows_NT)
+	./install_pdftk.sh
+endif
 	go test -cover ./...
 	rm -rf cmd/irs/output
 
@@ -29,6 +32,8 @@ check: build services
 ifeq ($(OS),Windows_NT)
 	@echo "Skipping checks on Windows, currently unsupported."
 else
+	@echo "Installing pdftk"
+	./install_pdftk.sh
 	@wget -O lint-project.sh https://raw.githubusercontent.com/moov-io/infra/master/go/lint-project.sh
 	@chmod +x ./lint-project.sh
 	./lint-project.sh
@@ -62,6 +67,7 @@ ifeq ($(OS),Windows_NT)
 else
 	@rm -rf cover.out coverage.txt misspell* staticcheck*
 	@rm -rf ./bin/ openapi-generator-cli-*.jar irs.db ./storage/ lint-project.sh
+	@rm -rf cmd/irs/output
 endif
 
 .PHONY: cover-test cover-web
