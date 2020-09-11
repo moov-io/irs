@@ -62,7 +62,7 @@ func (s *storageService) Save(doc *DocumentInformation) error {
 	ascii := doc.File.Ascii()
 	created := time.Now()
 	if s.encrypter != nil {
-		nonce := encrypt.GenerateNonce(doc.DocumentID, created)
+		nonce := encrypt.GenerateNonce(id, created)
 		ascii, err = s.encrypter.Encrypt(ascii, nonce)
 		if err != nil {
 			return err

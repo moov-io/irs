@@ -57,6 +57,9 @@ func (t *DocumentTest) TestDocumentCRUD(c *check.C) {
 	ascii, err := t.encrypt.Decrypt(stored.Ascii, nonce)
 	c.Assert(err, check.IsNil)
 	c.Assert(f.Ascii(), check.DeepEquals, ascii)
+	doc.DocumentID = ""
+	err = t.service.Save(doc)
+	c.Assert(err, check.IsNil)
 }
 
 func (t *DocumentTest) TestFailedDocumentSave(c *check.C) {
