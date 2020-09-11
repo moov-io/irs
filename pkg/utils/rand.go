@@ -5,31 +5,28 @@
 package utils
 
 import (
-	"math/rand"
-	"time"
+	"crypto/rand"
 )
 
-var source = rand.NewSource(time.Now().UnixNano())
-
-const (
-	letters       = "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	letterBits    = 6
-	letterIdxMask = 1<<letterBits - 1
-	letterIdxMax  = 63 / letterBits
-)
-
-func RandAlphanumericString(length int) string {
-	b := make([]byte, length)
-	for i, cache, remain := length-1, source.Int63(), letterIdxMax; i >= 0; {
-		if remain == 0 {
-			cache, remain = source.Int63(), letterIdxMax
-		}
-		if idx := int(cache & letterIdxMask); idx < len(letters) {
-			b[i] = letters[idx]
-			i--
-		}
-		cache >>= letterBits
-		remain--
+func randomBytes(n int) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	if err != nil {
+		return nil, err
 	}
-	return string(b)
+
+	return b, nil
+}
+
+// RandAlphanumericString returns a securely generated random string.
+func RandAlphanumericString(n int) (string, error) {
+	const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	bytes, err := randomBytes(n)
+	if err != nil {
+		return "", err
+	}
+	for i, b := range bytes {
+		bytes[i] = letters[b%byte(len(letters))]
+	}
+	return string(bytes), nil
 }

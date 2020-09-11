@@ -10,52 +10,26 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"io"
-	"time"
+
+	"github.com/moov-io/irs/pkg/utils"
 )
 
 var _ EncryptService = &encryptInstance{}
 
 type encryptInstance struct {
-	Key   []byte
-	Nonce []byte
-	Type  string
+	key   []byte
+	etype string
 }
 
-func NewEncryptService(id int, created time.Time, method string) (EncryptService, error) {
-	encrypt := &encryptInstance{}
-	encrypt.Key = encrypt.createKey(EncryptKey)
-	encrypt.Nonce = encrypt.createNonce(id, created)
-	switch method {
-	case GCM, CBC:
-		encrypt.Type = method
-	default:
-		return nil, errors.New("unsupported type")
-	}
-
-	return encrypt, nil
-}
-
-func (e *encryptInstance) createKey(key string) []byte {
-	return []byte(hex.EncodeToString([]byte(key)))
-}
-
-func (e *encryptInstance) createNonce(id int, created time.Time) []byte {
-	// Never use more than 2^32 random nonces with a given key because of the risk of a repeat.
-	timestamp := created.Unix() + int64(id)
-	non := []byte(fmt.Sprintf("%12d", timestamp))
-	return []byte(hex.EncodeToString(non))
-}
-
-func (e *encryptInstance) Encrypt(buf []byte) ([]byte, error) {
-	strKey, err := hex.DecodeString(string(e.Key))
+func (e *encryptInstance) Encrypt(buf, nonce []byte) ([]byte, error) {
+	strKey, err := hex.DecodeString(string(e.key))
 	if err != nil {
 		return nil, err
 	}
-	switch e.Type {
+	switch e.etype {
 	case GCM:
-		strNonce, err := hex.DecodeString(string(e.Nonce))
+		strNonce, err := hex.DecodeString(string(nonce))
 		if err != nil {
 			return nil, err
 		}
@@ -63,17 +37,17 @@ func (e *encryptInstance) Encrypt(buf []byte) ([]byte, error) {
 	case CBC:
 		return cbcEncrypt(strKey, buf)
 	}
-	return nil, errors.New("unsupported encrypt type")
+	return nil, utils.ErrUnknownEncryptionType
 }
 
-func (e *encryptInstance) Decrypt(buf []byte) ([]byte, error) {
-	strKey, err := hex.DecodeString(string(e.Key))
+func (e *encryptInstance) Decrypt(buf, nonce []byte) ([]byte, error) {
+	strKey, err := hex.DecodeString(string(e.key))
 	if err != nil {
 		return nil, err
 	}
-	switch e.Type {
+	switch e.etype {
 	case GCM:
-		strNonce, err := hex.DecodeString(string(e.Nonce))
+		strNonce, err := hex.DecodeString(string(nonce))
 		if err != nil {
 			return nil, err
 		}
@@ -81,11 +55,11 @@ func (e *encryptInstance) Decrypt(buf []byte) ([]byte, error) {
 	case CBC:
 		return cbcDecrypt(strKey, buf)
 	}
-	return nil, errors.New("unsupported decrypt type")
+	return nil, utils.ErrUnknownEncryptionType
 }
 
 func (e *encryptInstance) GetType() string {
-	return e.Type
+	return e.etype
 }
 
 func gcmEncrypt(key, nonce, buf []byte) ([]byte, error) {
@@ -99,13 +73,13 @@ func gcmEncrypt(key, nonce, buf []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	aesGcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, err
+	if len(nonce) < MinNonceSize {
+		return nil, utils.ErrInvalidNonceLength
 	}
 
-	if len(nonce) != NonceSize {
-		return nil, errors.New("crypto/cipher: incorrect nonce length given to GCM")
+	aesGcm, err := cipher.NewGCMWithNonceSize(block, len(nonce))
+	if err != nil {
+		return nil, err
 	}
 
 	return aesGcm.Seal(nil, nonce, buf, nil), nil
@@ -122,13 +96,13 @@ func gcmDecrypt(key, nonce, buf []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	aesGcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, err
+	if len(nonce) < MinNonceSize {
+		return nil, utils.ErrInvalidNonceLength
 	}
 
-	if len(nonce) != NonceSize {
-		return nil, errors.New("crypto/cipher: incorrect nonce length given to GCM")
+	aesGcm, err := cipher.NewGCMWithNonceSize(block, len(nonce))
+	if err != nil {
+		return nil, err
 	}
 
 	return aesGcm.Open(nil, nonce, buf, nil)

@@ -66,6 +66,12 @@ var (
 	ErrCFSFProgram = errors.New("should be payee B records and the state totals K records")
 	// ErrCFSFState is given when has invalid Combined Federal/State Code
 	ErrCFSFState = errors.New("is invalid combined federal/tate code in K record")
+	// ErrUnknownEncryptionType is given when is unknown encryption type
+	ErrUnknownEncryptionType = errors.New("is unknown encryption type")
+	// ErrNullFile is given when has null file
+	ErrNullFile = errors.New("has null file")
+	// ErrInvalidNonceLength is given when has invalid nonce length
+	ErrInvalidNonceLength = errors.New("crypto/cipher: incorrect nonce length given to GCM")
 )
 
 // NewErrValidValue returns a error that has invalid value
