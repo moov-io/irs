@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package utils
 
 import (
@@ -54,10 +58,20 @@ var (
 	ErrInvalidTCC = errors.New("is invalid transmitter control code")
 	// ErrUnsupportedBlock is given when is not supported extension block of B record
 	ErrUnsupportedBlock = errors.New("is not supported extension block of B record")
+	// ErrUnknownPdfTemplate is given when is unknown pdf template
+	ErrUnknownPdfTemplate = errors.New("is unknown pdf template")
+	// ErrFdfGenerate is given when failed to generate fdf file
+	ErrFdfGenerate = errors.New("failed to generate fdf file")
 	// ErrCFSFProgram is given when has invalid CF/SF program
 	ErrCFSFProgram = errors.New("should be payee B records and the state totals K records")
 	// ErrCFSFState is given when has invalid Combined Federal/State Code
 	ErrCFSFState = errors.New("is invalid combined federal/tate code in K record")
+	// ErrUnknownEncryptionType is given when is unknown encryption type
+	ErrUnknownEncryptionType = errors.New("is unknown encryption type")
+	// ErrNullFile is given when has null file
+	ErrNullFile = errors.New("has null file")
+	// ErrInvalidNonceLength is given when has invalid nonce length
+	ErrInvalidNonceLength = errors.New("crypto/cipher: incorrect nonce length given to GCM")
 )
 
 // NewErrValidValue returns a error that has invalid value
