@@ -64,7 +64,7 @@ func (p *paymentPerson) Pdf() ([]byte, error) {
 		return nil, utils.ErrNonExistPayer
 	}
 
-	returnType, _ := config.TypeOfReturns[payer.TypeOfReturn]
+	returnType := config.TypeOfReturns[payer.TypeOfReturn]
 	pdfType := PDF.PdfMscCopyB
 	switch returnType {
 	case config.Sub1099MiscType:
