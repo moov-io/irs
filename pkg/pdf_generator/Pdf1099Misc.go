@@ -137,7 +137,6 @@ var (
 	templateFDF   = "template.fdf"
 	templatePDF   = "template.pdf"
 	resultPDF     = "result.pdf"
-	timeFormat    = "20060102150405"
 	convertParam1 = "fill_form"
 	convertParam2 = "output"
 	convertParam3 = "cat"
