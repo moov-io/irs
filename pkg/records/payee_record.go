@@ -388,6 +388,64 @@ func (r *BRecord) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, r.extRecord)
 }
 
+// Type returns fatca of “B” record
+func (r *BRecord) Fatca() (*string, error) {
+	if r.extRecord == nil {
+		return nil, utils.ErrUnsupportedBlock
+	}
+	switch r.extRecord.Type() {
+	case config.Sub1099MiscType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
+		return &ext.FATCA, nil
+	case config.Sub1099NecType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
+		return &ext.FATCA, nil
+	}
+	return nil, nil
+}
+
+// Type returns second tin of “B” record
+func (r *BRecord) SecondTIN() (*string, error) {
+	if r.extRecord == nil {
+		return nil, utils.ErrUnsupportedBlock
+	}
+	switch r.extRecord.Type() {
+	case config.Sub1099MiscType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
+		return &ext.SecondTinNotice, nil
+	case config.Sub1099NecType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
+		return &ext.SecondTinNotice, nil
+	}
+	return nil, nil
+}
+
+// Type returns direct sales of “B” record
+func (r *BRecord) DirectSales() (*string, error) {
+	if r.extRecord == nil {
+		return nil, utils.ErrUnsupportedBlock
+	}
+	switch r.extRecord.Type() {
+	case config.Sub1099MiscType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
+		return &ext.DirectSalesIndicator, nil
+	}
+	return nil, nil
+}
+
+// Type returns income tax of “B” record
+func (r *BRecord) IncomeTax() (int, int, error) {
+	if r.extRecord == nil {
+		return 0, 0, utils.ErrUnsupportedBlock
+	}
+	switch r.extRecord.Type() {
+	case config.Sub1099MiscType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
+		return ext.StateIncomeTaxWithheld, ext.LocalIncomeTaxWithheld, nil
+	}
+	return 0, 0, nil
+}
+
 // customized field validation functions
 // function name should be "Validate" + field name
 

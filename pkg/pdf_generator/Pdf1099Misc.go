@@ -6,14 +6,15 @@ package pdf_generator
 
 import (
 	"fmt"
-	"github.com/moov-io/irs/pkg/utils"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
-	"time"
+
+	"github.com/moov-io/irs/pkg/utils"
 )
 
 const (
@@ -55,12 +56,12 @@ type Pdf1099Misc struct {
 	Excess        int
 	Nonqualified  int
 	Nonemployee   int
-	StateTax1     string
-	StateTax2     string
+	StateTax1     int
+	StateTax2     int
+	StateIncome1  int
+	StateIncome2  int
 	StateNo1      string
 	StateNo2      string
-	StateIncome1  string
-	StateIncome2  string
 	tempDir       string
 }
 
@@ -139,6 +140,12 @@ var (
 	timeFormat    = "20060102150405"
 	convertParam1 = "fill_form"
 	convertParam2 = "output"
+	convertParam3 = "cat"
+)
+
+var (
+	_, b, _, _ = runtime.Caller(0)
+	basePath   = filepath.Dir(b)
 )
 
 func (p *Pdf1099Misc) getSpecFdf() ([]byte, error) {
@@ -147,7 +154,7 @@ func (p *Pdf1099Misc) getSpecFdf() ([]byte, error) {
 	default:
 		return nil, utils.ErrUnknownPdfTemplate
 	}
-	return ioutil.ReadFile(filepath.Join(p.Type, specFDF))
+	return ioutil.ReadFile(filepath.Join(basePath, p.Type, specFDF))
 }
 
 func (p *Pdf1099Misc) getTemplateFdf() ([]byte, error) {
@@ -156,7 +163,7 @@ func (p *Pdf1099Misc) getTemplateFdf() ([]byte, error) {
 	default:
 		return nil, utils.ErrUnknownPdfTemplate
 	}
-	return ioutil.ReadFile(filepath.Join(p.Type, templateFDF))
+	return ioutil.ReadFile(filepath.Join(basePath, p.Type, templateFDF))
 }
 
 func (p *Pdf1099Misc) getTemplateFile() (*string, error) {
@@ -165,7 +172,7 @@ func (p *Pdf1099Misc) getTemplateFile() (*string, error) {
 	default:
 		return nil, utils.ErrUnknownPdfTemplate
 	}
-	filePath := filepath.Join(p.Type, templatePDF)
+	filePath := filepath.Join(basePath, p.Type, templatePDF)
 	return &filePath, nil
 }
 
@@ -270,10 +277,18 @@ func (p *Pdf1099Misc) generatePDF(fdfFile string) ([]byte, error) {
 }
 
 // Generate pdf file form Pdf1099Misc struct using pdftk
-func (p *Pdf1099Misc) Generate() ([]byte, error) {
-	t := time.Now()
-	p.tempDir = "." + t.Format(timeFormat)
-	err := os.Mkdir(p.tempDir, os.ModePerm)
+func GeneratePdf(p *Pdf1099Misc) ([]byte, error) {
+	if p == nil {
+		return nil, utils.ErrInvalidFile
+	}
+
+	randStr, err := utils.RandAlphanumericString(40)
+	if err != nil {
+		return nil, err
+	}
+
+	p.tempDir = filepath.Join(basePath, "."+randStr)
+	err = os.Mkdir(p.tempDir, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
@@ -281,15 +296,74 @@ func (p *Pdf1099Misc) Generate() ([]byte, error) {
 	fdfFile := filepath.Join(p.tempDir, templateFDF)
 	_, err = p.generateFDF(fdfFile)
 	if err != nil {
-		os.RemoveAll(p.tempDir)
-		return nil, err
+		return returnWithRemoveTmp(p.tempDir, err)
 	}
 
 	buf, err := p.generatePDF(fdfFile)
 	if err != nil {
-		return nil, err
+		return returnWithRemoveTmp(p.tempDir, err)
 	}
 
 	err = os.RemoveAll(p.tempDir)
 	return buf, err
+}
+
+// Generate pdf file form Pdf1099Misc struct using pdftk
+func MergePdfs(files [][]byte) ([]byte, error) {
+	randStr, err := utils.RandAlphanumericString(40)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(files) < 1 {
+		return nil, utils.ErrPdfMerge
+	}
+
+	if len(files) == 1 {
+		return files[0], nil
+	}
+
+	execFile, err := exec.LookPath(pdfConverter)
+	if err != nil {
+		return nil, err
+	}
+
+	tempDir := filepath.Join(basePath, "."+randStr)
+	err = os.Mkdir(tempDir, os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+
+	params := make([]string, 0)
+	for index, f := range files {
+		newFile := filepath.Join(tempDir, resultPDF+fmt.Sprintf("%v", index))
+		err := ioutil.WriteFile(newFile, f, os.ModePerm)
+		if err != nil {
+			return returnWithRemoveTmp(tempDir, err)
+		}
+		params = append(params, newFile)
+	}
+
+	result := filepath.Join(tempDir, resultPDF)
+	params = append(params, convertParam3)
+	params = append(params, convertParam2)
+	params = append(params, result)
+	cmd := exec.Command(execFile, params...)
+	err = cmd.Run()
+	if err != nil {
+		return returnWithRemoveTmp(tempDir, err)
+	}
+
+	buf, err := ioutil.ReadFile(result)
+	if err != nil {
+		return returnWithRemoveTmp(tempDir, err)
+	}
+
+	err = os.RemoveAll(tempDir)
+	return buf, err
+}
+
+func returnWithRemoveTmp(tempDir string, err error) ([]byte, error){
+	os.RemoveAll(tempDir)
+	return nil, err
 }

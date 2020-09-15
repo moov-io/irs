@@ -6,6 +6,7 @@ import (
 	"sort"
 
 	"github.com/moov-io/irs/pkg/config"
+	PDF "github.com/moov-io/irs/pkg/pdf_generator"
 	"github.com/moov-io/irs/pkg/records"
 	"github.com/moov-io/irs/pkg/utils"
 )
@@ -103,7 +104,7 @@ func (f *fileInstance) Parse(buf []byte) error {
 	return nil
 }
 
-// String writes the File struct to raw string.
+// Ascii returns raw buffer.
 func (f *fileInstance) Ascii() []byte {
 	var buf bytes.Buffer
 
@@ -124,6 +125,19 @@ func (f *fileInstance) Ascii() []byte {
 	}
 
 	return buf.Bytes()
+}
+
+// Pdf returns raw buffer.
+func (f *fileInstance) Pdf() ([]byte, error) {
+	files := make([][]byte, 0)
+	for _, person := range f.PaymentPersons {
+		f, err := person.Pdf()
+		if err != nil {
+			return nil, err
+		}
+		files = append(files, f)
+	}
+	return PDF.MergePdfs(files)
 }
 
 // UnmarshalJSON parses a JSON blob

@@ -10,6 +10,7 @@ import (
 type File interface {
 	Parse([]byte) error
 	Ascii() []byte
+	Pdf() ([]byte, error)
 	Validate() error
 	SetTCC(string) error
 	TCC() (*string, error)

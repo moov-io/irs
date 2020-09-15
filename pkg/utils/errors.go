@@ -62,6 +62,8 @@ var (
 	ErrUnknownPdfTemplate = errors.New("is unknown pdf template")
 	// ErrFdfGenerate is given when failed to generate fdf file
 	ErrFdfGenerate = errors.New("failed to generate fdf file")
+	// ErrPdfMerge is given when failed to merge pdf files
+	ErrPdfMerge = errors.New("failed to merge pdf files")
 	// ErrCFSFProgram is given when has invalid CF/SF program
 	ErrCFSFProgram = errors.New("should be payee B records and the state totals K records")
 	// ErrCFSFState is given when has invalid Combined Federal/State Code
@@ -72,6 +74,8 @@ var (
 	ErrNullFile = errors.New("has null file")
 	// ErrInvalidNonceLength is given when has invalid nonce length
 	ErrInvalidNonceLength = errors.New("crypto/cipher: incorrect nonce length given to GCM")
+	// ErrUnsupportedPdf is given when is unsupported pdf logic
+	ErrUnsupportedPdf = errors.New("is unsupported pdf")
 )
 
 // NewErrValidValue returns a error that has invalid value

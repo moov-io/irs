@@ -3,10 +3,12 @@ package file
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"sort"
 	"strings"
 
 	"github.com/moov-io/irs/pkg/config"
+	PDF "github.com/moov-io/irs/pkg/pdf_generator"
 	"github.com/moov-io/irs/pkg/records"
 	"github.com/moov-io/irs/pkg/utils"
 )
@@ -45,6 +47,43 @@ func (p *paymentPerson) Ascii() []byte {
 	}
 
 	return buf.Bytes()
+}
+
+// Ascii returns pdf buffer of “Person” record
+func (p *paymentPerson) Pdf() ([]byte, error) {
+	if p.Payer == nil {
+		return nil, utils.ErrNonExistPayer
+	}
+
+	payer, ok := p.Payer.(*records.ARecord)
+	if !ok {
+		return nil, utils.ErrNonExistPayer
+	}
+
+	returnType, _ := config.TypeOfReturns[payer.TypeOfReturn]
+	pdfType := PDF.PdfMscCopyB
+	switch returnType {
+	case config.Sub1099MiscType:
+		if payer.CombinedFSFilingProgram != config.FSFilingProgramApproved {
+			pdfType = PDF.PdfMscCopyC
+		}
+	case config.Sub1099NecType:
+		pdfType = PDF.PdfNecCopyB
+		if payer.CombinedFSFilingProgram != config.FSFilingProgramApproved {
+			pdfType = PDF.PdfNecCopyC
+		}
+	default:
+		return nil, utils.ErrUnsupportedPdf
+	}
+
+	pdf := PDF.Pdf1099Misc{Type: pdfType}
+	err := p.fillingPdfInfoMisc(&pdf)
+	if err != nil {
+		fmt.Println("error 4")
+		return nil, err
+	}
+
+	return PDF.GeneratePdf(&pdf)
 }
 
 // Validate performs some checks on the record and returns an error if not Validated
@@ -488,6 +527,137 @@ func (p *paymentPerson) validateFSCodes() error {
 	if !eq(payeeCodes, stateCodes) {
 		return utils.ErrCFSFState
 	}
+
+	return nil
+}
+
+func (p *paymentPerson) fillingPdfInfoMisc(pdf *PDF.Pdf1099Misc) error {
+	payer, cRecord, err := p.getRecords()
+	if err != nil {
+		return err
+	}
+	payee, ok := p.Payees[0].(*records.BRecord)
+	if !ok {
+		return utils.ErrNonExistPayee
+	}
+
+	pdf.AccountNumber = payee.PayerAccountNumber
+	pdf.Street = payee.PayeeMailingAddress
+	pdf.RecipientTin = payee.TIN
+	info := make([]string, 0)
+	if len(payee.PayeeCity) > 0 {
+		info = append(info, payee.PayeeCity)
+	}
+	if len(payee.PayeeState) > 0 {
+		info = append(info, payee.PayeeState)
+	}
+	if len(payee.PayeeZipCode) > 0 {
+		info = append(info, payee.PayeeZipCode)
+	}
+	pdf.City = strings.Join(info, ",")
+	name := make([]string, 0)
+	if len(payee.FirstPayeeNameLine) > 0 {
+		name = append(name, payee.FirstPayeeNameLine)
+	}
+	if len(payee.SecondPayeeNameLine) > 0 {
+		name = append(name, payee.SecondPayeeNameLine)
+	}
+	pdf.RecipientName = strings.Join(name, " ")
+
+	pdf.PayerTin = payer.TIN
+	info = make([]string, 0)
+	name = make([]string, 0)
+	if len(payer.FirstPayerNameLine) > 0 {
+		name = append(name, payer.FirstPayerNameLine)
+	}
+	if len(payer.SecondPayerNameLine) > 0 {
+		name = append(name, payer.SecondPayerNameLine)
+	}
+	if len(name) > 0 {
+		info = append(info, strings.Join(name, " "))
+	}
+	if len(payer.PayerShippingAddress) > 0 {
+		info = append(info, payer.PayerShippingAddress)
+	}
+	if len(payer.PayerCity) > 0 {
+		info = append(info, payer.PayerCity)
+	}
+	if len(payer.PayerState) > 0 {
+		info = append(info, payer.PayerState)
+	}
+	if len(payer.PayerZipCode) > 0 {
+		info = append(info, payer.PayerZipCode)
+	}
+	if len(payer.PayerTelephoneNumber) > 0 {
+		info = append(info, payer.PayerTelephoneNumber)
+	}
+	pdf.PayerInfo = strings.Join(info, "\r")
+	fatca, err := payee.Fatca()
+	if err != nil {
+		return err
+	}
+	if fatca != nil && *fatca == config.FatcaFilingRequirementIndicator {
+		pdf.Fatca = true
+	}
+	tin, err := payee.SecondTIN()
+	if err != nil {
+		return err
+	}
+	if tin != nil && *tin == config.SecondTINNotice {
+		pdf.SecondTin = true
+	}
+	sale, err := payee.SecondTIN()
+	if err != nil {
+		return err
+	}
+	if sale != nil && *sale == config.DirectSalesIndicator {
+		pdf.DirectSale = true
+	}
+
+	amountCodes := strings.Split(payer.AmountCodes, "")
+	for _, amountCode := range amountCodes {
+		control, err := cRecord.ControlTotal(amountCode)
+		if err != nil {
+			return err
+		}
+		switch amountCode {
+		case "1":
+			pdf.Rents = control
+			pdf.Nonemployee = control
+		case "2":
+			pdf.Royalties = control
+		case "3":
+			pdf.Other = control
+		case "4":
+			pdf.Federal = control
+		case "5":
+			pdf.Fishing = control
+		case "6":
+			pdf.Medical = control
+		case "8":
+			pdf.Substitute = control
+		case "A":
+			pdf.Crop = control
+		case "B":
+			pdf.Excess = control
+		case "C":
+			pdf.Gross = control
+		case "D":
+			pdf.Section = control
+		case "E":
+			pdf.Nonqualified = control
+		}
+	}
+
+	pdf.StateTax1, pdf.StateIncome1, err = payee.IncomeTax()
+	if err != nil {
+		return err
+	}
+	if payee.FederalState() > 0 {
+		pdf.StateNo1 = fmt.Sprintf("%02d", payee.FederalState())
+	}
+
+	pdf.Corrected = true
 
 	return nil
 }
