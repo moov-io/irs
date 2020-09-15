@@ -363,7 +363,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 	return buf, err
 }
 
-func returnWithRemoveTmp(tempDir string, err error) ([]byte, error){
+func returnWithRemoveTmp(tempDir string, err error) ([]byte, error) {
 	os.RemoveAll(tempDir)
 	return nil, err
 }
