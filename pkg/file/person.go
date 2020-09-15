@@ -545,80 +545,30 @@ func (p *paymentPerson) fillingPdfInfoMisc(pdf *PDF.Pdf1099Misc) error {
 		return utils.ErrNonExistPayee
 	}
 
-	pdf.AccountNumber = payee.PayerAccountNumber
-	pdf.Street = payee.PayeeMailingAddress
-	pdf.RecipientTin = payee.TIN
-	info := make([]string, 0)
-	if len(payee.PayeeCity) > 0 {
-		info = append(info, payee.PayeeCity)
-	}
-	if len(payee.PayeeState) > 0 {
-		info = append(info, payee.PayeeState)
-	}
-	if len(payee.PayeeZipCode) > 0 {
-		info = append(info, payee.PayeeZipCode)
-	}
-	pdf.City = strings.Join(info, ",")
-	name := make([]string, 0)
-	if len(payee.FirstPayeeNameLine) > 0 {
-		name = append(name, payee.FirstPayeeNameLine)
-	}
-	if len(payee.SecondPayeeNameLine) > 0 {
-		name = append(name, payee.SecondPayeeNameLine)
-	}
-	pdf.RecipientName = strings.Join(name, " ")
-
-	pdf.PayerTin = payer.TIN
-	info = make([]string, 0)
-	name = make([]string, 0)
-	if len(payer.FirstPayerNameLine) > 0 {
-		name = append(name, payer.FirstPayerNameLine)
-	}
-	if len(payer.SecondPayerNameLine) > 0 {
-		name = append(name, payer.SecondPayerNameLine)
-	}
-	if len(name) > 0 {
-		info = append(info, strings.Join(name, " "))
-	}
-	if len(payer.PayerShippingAddress) > 0 {
-		info = append(info, payer.PayerShippingAddress)
-	}
-	if len(payer.PayerCity) > 0 {
-		info = append(info, payer.PayerCity)
-	}
-	if len(payer.PayerState) > 0 {
-		info = append(info, payer.PayerState)
-	}
-	if len(payer.PayerZipCode) > 0 {
-		info = append(info, payer.PayerZipCode)
-	}
-	if len(payer.PayerTelephoneNumber) > 0 {
-		info = append(info, payer.PayerTelephoneNumber)
-	}
-	pdf.PayerInfo = strings.Join(info, "\r")
-	fatca, err := payee.Fatca()
+	pdf.Corrected = true
+	err = fillPayer(pdf, payer, cRecord)
 	if err != nil {
 		return err
-	}
-	if fatca != nil && *fatca == config.FatcaFilingRequirementIndicator {
-		pdf.Fatca = true
-	}
-	tin, err := payee.SecondTIN()
-	if err != nil {
-		return err
-	}
-	if tin != nil && *tin == config.SecondTINNotice {
-		pdf.SecondTin = true
-	}
-	sale, err := payee.SecondTIN()
-	if err != nil {
-		return err
-	}
-	if sale != nil && *sale == config.DirectSalesIndicator {
-		pdf.DirectSale = true
 	}
 
-	amountCodes := strings.Split(payer.AmountCodes, "")
+	return fillRecipient(pdf, payee)
+}
+
+func eq(a, b map[string]bool) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for k, v := range a {
+		if w, ok := b[k]; !ok || v != w {
+			return false
+		}
+	}
+
+	return true
+}
+
+func fillAmounts(amountCodes []string, pdf *PDF.Pdf1099Misc, cRecord *records.CRecord) error {
 	for _, amountCode := range amountCodes {
 		control, err := cRecord.ControlTotal(amountCode)
 		if err != nil {
@@ -652,6 +602,92 @@ func (p *paymentPerson) fillingPdfInfoMisc(pdf *PDF.Pdf1099Misc) error {
 			pdf.Nonqualified = control
 		}
 	}
+	return nil
+}
+
+func fillPayer(pdf *PDF.Pdf1099Misc, payer *records.ARecord, cRecord *records.CRecord) error {
+	pdf.PayerTin = payer.TIN
+	info := make([]string, 0)
+	name := make([]string, 0)
+	if len(payer.FirstPayerNameLine) > 0 {
+		name = append(name, payer.FirstPayerNameLine)
+	}
+	if len(payer.SecondPayerNameLine) > 0 {
+		name = append(name, payer.SecondPayerNameLine)
+	}
+	if len(name) > 0 {
+		info = append(info, strings.Join(name, " "))
+	}
+	if len(payer.PayerShippingAddress) > 0 {
+		info = append(info, payer.PayerShippingAddress)
+	}
+	if len(payer.PayerCity) > 0 {
+		info = append(info, payer.PayerCity)
+	}
+	if len(payer.PayerState) > 0 {
+		info = append(info, payer.PayerState)
+	}
+	if len(payer.PayerZipCode) > 0 {
+		info = append(info, payer.PayerZipCode)
+	}
+	if len(payer.PayerTelephoneNumber) > 0 {
+		info = append(info, payer.PayerTelephoneNumber)
+	}
+	pdf.PayerInfo = strings.Join(info, "\r")
+
+	amountCodes := strings.Split(payer.AmountCodes, "")
+	err := fillAmounts(amountCodes, pdf, cRecord)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func fillRecipient(pdf *PDF.Pdf1099Misc, payee *records.BRecord) error {
+	pdf.AccountNumber = payee.PayerAccountNumber
+	pdf.Street = payee.PayeeMailingAddress
+	pdf.RecipientTin = payee.TIN
+	info := make([]string, 0)
+	if len(payee.PayeeCity) > 0 {
+		info = append(info, payee.PayeeCity)
+	}
+	if len(payee.PayeeState) > 0 {
+		info = append(info, payee.PayeeState)
+	}
+	if len(payee.PayeeZipCode) > 0 {
+		info = append(info, payee.PayeeZipCode)
+	}
+	pdf.City = strings.Join(info, ",")
+	name := make([]string, 0)
+	if len(payee.FirstPayeeNameLine) > 0 {
+		name = append(name, payee.FirstPayeeNameLine)
+	}
+	if len(payee.SecondPayeeNameLine) > 0 {
+		name = append(name, payee.SecondPayeeNameLine)
+	}
+	pdf.RecipientName = strings.Join(name, " ")
+
+	fatca, err := payee.Fatca()
+	if err != nil {
+		return err
+	}
+	if fatca != nil && *fatca == config.FatcaFilingRequirementIndicator {
+		pdf.Fatca = true
+	}
+	tin, err := payee.SecondTIN()
+	if err != nil {
+		return err
+	}
+	if tin != nil && *tin == config.SecondTINNotice {
+		pdf.SecondTin = true
+	}
+	sale, err := payee.SecondTIN()
+	if err != nil {
+		return err
+	}
+	if sale != nil && *sale == config.DirectSalesIndicator {
+		pdf.DirectSale = true
+	}
 
 	pdf.StateTax1, pdf.StateIncome1, err = payee.IncomeTax()
 	if err != nil {
@@ -660,22 +696,5 @@ func (p *paymentPerson) fillingPdfInfoMisc(pdf *PDF.Pdf1099Misc) error {
 	if payee.FederalState() > 0 {
 		pdf.StateNo1 = fmt.Sprintf("%02d", payee.FederalState())
 	}
-
-	pdf.Corrected = true
-
 	return nil
-}
-
-func eq(a, b map[string]bool) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	for k, v := range a {
-		if w, ok := b[k]; !ok || v != w {
-			return false
-		}
-	}
-
-	return true
 }
