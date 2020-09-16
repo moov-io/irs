@@ -76,6 +76,8 @@ var (
 	ErrInvalidNonceLength = errors.New("crypto/cipher: incorrect nonce length given to GCM")
 	// ErrUnsupportedPdf is given when is unsupported pdf logic
 	ErrUnsupportedPdf = errors.New("is unsupported pdf")
+	// ErrUnsupportedField is given when is not supported field of B record
+	ErrUnsupportedField = errors.New("is not supported field of B record")
 )
 
 // NewErrValidValue returns a error that has invalid value

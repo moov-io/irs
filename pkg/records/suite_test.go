@@ -21,6 +21,8 @@ type RecordTest struct {
 	aRecordAscii         []byte
 	bRecord1099MiscJson  []byte
 	bRecord1099MiscAscii []byte
+	bRecord1099NecJson   []byte
+	bRecord1099NecAscii  []byte
 	bRecord1099IntJson   []byte
 	bRecord1099IntAscii  []byte
 	bRecord1099OidJson   []byte
@@ -109,6 +111,11 @@ func (t *RecordTest) SetUpSuite(c *check.C) {
 	t.bRecord1099MiscJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1099Misc.json"))
 	c.Assert(err, check.IsNil)
 	t.bRecord1099MiscAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1099Misc.ascii"))
+	c.Assert(err, check.IsNil)
+
+	t.bRecord1099NecJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1099Nec.json"))
+	c.Assert(err, check.IsNil)
+	t.bRecord1099NecAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1099Nec.ascii"))
 	c.Assert(err, check.IsNil)
 
 	t.bRecord1099IntJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "payeeRecordWith1099Int.json"))

@@ -401,7 +401,7 @@ func (r *BRecord) Fatca() (*string, error) {
 		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
 		return &ext.FATCA, nil
 	}
-	return nil, nil
+	return nil, utils.ErrUnsupportedField
 }
 
 // Type returns second tin of “B” record
@@ -417,7 +417,7 @@ func (r *BRecord) SecondTIN() (*string, error) {
 		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
 		return &ext.SecondTinNotice, nil
 	}
-	return nil, nil
+	return nil, utils.ErrUnsupportedField
 }
 
 // Type returns direct sales of “B” record
@@ -430,7 +430,7 @@ func (r *BRecord) DirectSales() (*string, error) {
 		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
 		return &ext.DirectSalesIndicator, nil
 	}
-	return nil, nil
+	return nil, utils.ErrUnsupportedField
 }
 
 // Type returns income tax of “B” record
@@ -443,7 +443,7 @@ func (r *BRecord) IncomeTax() (int, int, error) {
 		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
 		return ext.StateIncomeTaxWithheld, ext.LocalIncomeTaxWithheld, nil
 	}
-	return 0, 0, nil
+	return 0, 0, utils.ErrUnsupportedField
 }
 
 // customized field validation functions
