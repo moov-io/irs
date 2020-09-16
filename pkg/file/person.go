@@ -83,7 +83,6 @@ func (p *paymentPerson) Pdf() ([]byte, error) {
 	pdf := PDF.Pdf1099Misc{Type: pdfType}
 	err := p.fillingPdfInfoMisc(&pdf)
 	if err != nil {
-		fmt.Println("error 4")
 		return nil, err
 	}
 

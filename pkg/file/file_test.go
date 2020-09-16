@@ -6,10 +6,13 @@ package file
 
 import (
 	"bytes"
-	"encoding/json"
-	"github.com/moov-io/irs/pkg/records"
-	"gopkg.in/check.v1"
 	"strings"
+
+	"encoding/json"
+	"gopkg.in/check.v1"
+
+	PDF "github.com/moov-io/irs/pkg/pdf_generator"
+	"github.com/moov-io/irs/pkg/records"
 )
 
 func (t *FileTest) TestParseWithOneTransactionJsonFile(c *check.C) {
@@ -133,6 +136,9 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	person.EndPayer = records.NewKRecord()
 	c.Assert(person.validateRecords(), check.NotNil)
 	_, _, err = person.getRecords()
+	c.Assert(err, check.NotNil)
+	pdf := &PDF.Pdf1099Misc{}
+	person.fillingPdfInfoMisc(pdf)
 	c.Assert(err, check.NotNil)
 }
 
