@@ -399,6 +399,8 @@ github.com/moov-io/authn v0.0.0-20200709161736-a03007d9f67a/go.mod h1:6ojOGG2NjB
 github.com/moov-io/authn v0.2.1/go.mod h1:gQAzwEgTbMVTOZVT8c9Qn52HYSv8xVk2wHt288vLDSY=
 github.com/moov-io/base v0.11.0 h1:1dhI8qsIxsUjMmbzE52ycyy2S1z3DGUN6swGYjSmOLs=
 github.com/moov-io/base v0.11.0/go.mod h1:jEkZukoSaJ4rDFoe00S5zuoLE+p3U3BEunSEPchgSbU=
+github.com/moov-io/base v0.11.1 h1:5qGfUr3eKWFmjttK2WllKgBg0Pnzx50+JBnRQQi8Gl0=
+github.com/moov-io/base v0.11.1/go.mod h1:kiWd5d0G3Ji+V9VhCNyzgfMNfbpzBblSL+QY2n2eywE=
 github.com/moov-io/identity v0.0.0-20200616225744-0dba4de79fed/go.mod h1:8cp+tvEWLT4l5+KaYAm39a54/Eazk21x3+124QWm1cQ=
 github.com/moov-io/identity v0.0.0-20200617215100-dfd904ab610b/go.mod h1:knCJJiEPe0/yYmPe30LdKddeXZsUFk9TXPp7ynWXRP4=
 github.com/moov-io/identity v0.0.0-20200617222838-75f18c632b1b/go.mod h1:vht1EqhyPooW+PIrhryhmFG9sUbKKI8F9MmV/zaruWM=
@@ -506,6 +508,7 @@ github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40T
 github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a/go.mod h1:bCqnVzQkZxMG4s8nGwiZ5l3QUCyqpo9Y+/ZMZ9VjZe4=
 github.com/remyoudompheng/bigfft v0.0.0-20190728182440-6a916e37a237/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
 github.com/rickar/cal v1.0.1/go.mod h1:3GBx8OBrvh4/y/JTxM0e1bUUIHMnqILl1rMANHWExxQ=
+github.com/rickar/cal v1.0.5/go.mod h1:3GBx8OBrvh4/y/JTxM0e1bUUIHMnqILl1rMANHWExxQ=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rs/xid v1.2.1/go.mod h1:+uKXf+4Djp6Md1KODXJxgGQPKngRmWyn10oCKFzNHOQ=
