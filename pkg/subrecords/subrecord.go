@@ -73,6 +73,8 @@ func newSubRecord(recordType string) (SubRecord, error) {
 	switch recordType {
 	case config.Sub1099PatrType:
 		newRecord = &Sub1099PATR{}
+	case config.Sub1099NecType:
+		newRecord = &Sub1099NEC{}
 	case config.Sub1099QType:
 		newRecord = &Sub1099Q{}
 	case config.Sub1099RType:

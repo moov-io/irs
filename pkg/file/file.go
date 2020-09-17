@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package file
 
 import (
@@ -10,6 +14,7 @@ import (
 type File interface {
 	Parse([]byte) error
 	Ascii() []byte
+	Pdf() ([]byte, error)
 	Validate() error
 	SetTCC(string) error
 	TCC() (*string, error)

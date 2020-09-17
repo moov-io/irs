@@ -1,11 +1,18 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package file
 
 import (
 	"bytes"
-	"encoding/json"
-	"github.com/moov-io/irs/pkg/records"
-	"gopkg.in/check.v1"
 	"strings"
+
+	"encoding/json"
+	"gopkg.in/check.v1"
+
+	PDF "github.com/moov-io/irs/pkg/pdf_generator"
+	"github.com/moov-io/irs/pkg/records"
 )
 
 func (t *FileTest) TestParseWithOneTransactionJsonFile(c *check.C) {
@@ -17,6 +24,8 @@ func (t *FileTest) TestParseWithOneTransactionJsonFile(c *check.C) {
 	json.Indent(&prettyJSON1, buf1, "", "  ")
 	ascii := f1.Ascii()
 	c.Assert(string(ascii), check.Equals, string(t.oneTransactionAscii))
+	_, err = f1.Pdf()
+	c.Assert(err, check.IsNil)
 	f2, err := CreateFile(ascii)
 	c.Assert(err, check.IsNil)
 	buf2, err := json.Marshal(f2)
@@ -128,6 +137,9 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	c.Assert(person.validateRecords(), check.NotNil)
 	_, _, err = person.getRecords()
 	c.Assert(err, check.NotNil)
+	pdf := &PDF.Pdf1099Misc{}
+	person.fillingPdfInfoMisc(pdf)
+	c.Assert(err, check.NotNil)
 }
 
 func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
@@ -190,6 +202,16 @@ func (t *FileTest) TestFileInstanceErrorCases(c *check.C) {
 	c.Assert(err, check.NotNil)
 	fRecord.NumberPayerRecords -= 1
 	err = instance.integrationCheck()
+	c.Assert(err, check.NotNil)
+	a, _ := instance.PaymentPersons[0].Payer.(*records.ARecord)
+	a.TypeOfReturn = "U"
+	_, err = instance.Pdf()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payer = records.NewCRecord()
+	_, err = instance.Pdf()
+	c.Assert(err, check.NotNil)
+	instance.PaymentPersons[0].Payer = nil
+	_, err = instance.Pdf()
 	c.Assert(err, check.NotNil)
 }
 

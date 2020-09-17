@@ -55,6 +55,8 @@ const (
 	Sub1099LtcType = "1099-LTC"
 	// Sub1099MiscType indicates extension block type of payee “B” record for form 1099-MISC
 	Sub1099MiscType = "1099-MISC"
+	// Sub1099NecType indicates extension block type of payee “B” record for form 1099-NEC
+	Sub1099NecType = "1099-NEC"
 	// Sub1099OidType indicates extension block type of payee “B” record for form 1099-OID
 	Sub1099OidType = "1099-OID"
 	// Sub1099PatrType indicates extension block type of payee “B” record for form 1099-PATR
@@ -263,6 +265,7 @@ var TypeOfReturns = map[string]string{
 	"LC": "1099-LS",
 	"T":  "1099-LTC",
 	"A":  "1099-MISC",
+	"NE": "1099-NEC",
 	"D":  "1099-OID",
 	"7":  "1099-PATR",
 	"Q":  "1099-Q",
@@ -475,6 +478,10 @@ var AmountCodes = map[string]map[string]string{
 		"C": "Gross proceeds paid to an attorney in connection with legal services",
 		"D": "Section 409A deferrals",
 		"E": "Section 409A income",
+	},
+	"1099-NEC": {
+		"1": "Nonemployee Compensation",
+		"4": "Federal Income Tax Withheld",
 	},
 	"1099-OID": {
 		"1": "Original issue discount for 2019",

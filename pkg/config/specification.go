@@ -1,3 +1,7 @@
+// Copyright 2020 The Moov Authors
+// Use of this source code is governed by an Apache License
+// license that can be found in the LICENSE file.
+
 package config
 
 import "sort"
@@ -482,6 +486,13 @@ var (
 		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
 		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
 		"Blank3":                 {205, 2, Alphanumeric, Nullable},
+	}
+	// Record Layout Positions 544-750 for Form 1099-NEC
+	Sub1099NECLayout = map[string]SpecField{
+		"SecondTinNotice": {0, 1, Alphanumeric, Applicable},
+		"Blank1":          {1, 3, Alphanumeric, Nullable},
+		"FATCA":           {4, 1, Alphanumeric, Applicable},
+		"Blank2":          {5, 202, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-OID
 	Sub1099OIDLayout = map[string]SpecField{
