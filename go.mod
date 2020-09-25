@@ -9,8 +9,8 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.0
 	github.com/moov-io/base v0.11.1
-	github.com/moov-io/identity v0.2.3
-	github.com/moov-io/tumbler v0.1.3
+	github.com/moov-io/identity v0.2.9
+	github.com/moov-io/tumbler v0.5.0
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/spf13/cobra v1.0.0
 	github.com/stretchr/testify v1.6.1
