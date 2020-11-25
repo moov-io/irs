@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/coreos/etcd v3.3.24+incompatible
+	github.com/coreos/etcd v3.4.14+incompatible
 	github.com/go-kit/kit v0.10.0
 	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.1
