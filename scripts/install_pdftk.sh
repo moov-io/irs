@@ -10,7 +10,7 @@ if [ "$OS_NAME" = "" ]; then
 fi
 
 if [ "$OS_NAME" = "linux" ]; then
-  echo 'pdftk instll on linux'
+  echo 'pdftk install on linux'
   sudo apt update
   sudo apt install snapd
   sudo snap install pdftk
@@ -18,7 +18,7 @@ fi
 
 
 if [ "$OS_NAME" = "osx" ]; then
-  echo 'pdftk instll on osx'
+  echo 'pdftk install on osx'
   wget https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg
-  sudo installer -pkg pdftk_server-2.02-mac_osx-10.11-setup.pkg -tgt  /opt
+  sudo installer -pkg pdftk_server-2.02-mac_osx-10.11-setup.pkg -tgt /
 fi

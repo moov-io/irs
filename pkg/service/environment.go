@@ -11,35 +11,45 @@ import (
 	"path/filepath"
 
 	"github.com/gorilla/mux"
-	"github.com/moov-io/identity/pkg/config"
-	"github.com/moov-io/identity/pkg/database"
-	"github.com/moov-io/identity/pkg/logging"
+	"github.com/moov-io/base/config"
+	"github.com/moov-io/base/database"
+	logging "github.com/moov-io/base/log"
+	tmwLogging "github.com/moov-io/identity/pkg/logging"
 	"github.com/moov-io/identity/pkg/stime"
 	tmw "github.com/moov-io/tumbler/pkg/middleware"
 	"github.com/moov-io/tumbler/pkg/webkeys"
 )
 
-// Environment - Contains everything thats been instantiated for this service.
+// Environment - Contains everything that has been instantiated for this service.
 type Environment struct {
-	Logger       logging.Logger
-	Config       *Config
-	TimeService  *stime.TimeService
-	GatewayKeys  webkeys.WebKeysService
-	PublicRouter *mux.Router
-	Shutdown     func()
+	Logger        logging.Logger
+	TumblerLogger tmwLogging.Logger
+	Config        *Config
+	TimeService   *stime.TimeService
+	GatewayKeys   webkeys.WebKeysService
+	PublicRouter  *mux.Router
+	Shutdown      func()
 }
 
 // NewEnvironment - Generates a new default environment. Overrides can be specified via configs.
 func NewEnvironment(env *Environment) (*Environment, error) {
+	if env == nil {
+		env = &Environment{}
+	}
+
 	if env.Logger == nil {
 		env.Logger = logging.NewDefaultLogger()
 	}
 
+	if env.TumblerLogger == nil {
+		env.TumblerLogger = tmwLogging.NewDefaultLogger()
+	}
+
 	if env.Config == nil {
-		ConfigService := config.NewConfigService(env.Logger)
+		ConfigService := config.NewService(env.Logger)
 
 		global := &GlobalConfig{}
-		if err := ConfigService.Load(global); err != nil {
+		if err := ConfigService.Load(&global); err != nil {
 			return nil, err
 		}
 
@@ -47,9 +57,9 @@ func NewEnvironment(env *Environment) (*Environment, error) {
 	}
 
 	//db setup
-	db, close, err := initializeDatabase(env.Logger, env.Config.Database)
+	db, shutdownFn, err := initializeDatabase(env.Logger, env.Config.Database)
 	if err != nil {
-		close()
+		shutdownFn()
 		return nil, err
 	}
 	_ = db // delete once used.
@@ -65,18 +75,22 @@ func NewEnvironment(env *Environment) (*Environment, error) {
 	}
 
 	// auth middleware for the tokens coming from the gateway
-	GatewayMiddleware, err := tmw.NewTumblerMiddlewareFromConfig(env.Logger, *env.TimeService, env.Config.Gateway)
+	GatewayMiddleware, err := tmw.NewTumblerMiddlewareFromConfig(env.TumblerLogger, *env.TimeService, env.Config.Gateway)
 	if err != nil {
-		return nil, env.Logger.Fatal().LogErrorF("Can't startup the Gateway middleware - %w", err)
+		return nil, env.Logger.Fatal().LogErrorf("unable to startup the gateway middleware - %w", err).Err()
 	}
 
-	env.PublicRouter.Use(GatewayMiddleware.Handler)
+	GatewayRouter := env.PublicRouter.NewRoute().Subrouter()
+	GatewayRouter.Use(GatewayMiddleware.Handler)
 
 	// configure custom handlers
-	ConfigureHandlers(env.PublicRouter)
+	err = ConfigureHandlers(env.PublicRouter)
+	if err != nil {
+		return nil, env.Logger.LogErrorf("failed to configure handlers: %v", err).Err()
+	}
 
 	env.Shutdown = func() {
-		close()
+		shutdownFn()
 	}
 
 	return env, nil
@@ -88,21 +102,21 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 	// migrate database
 	db, err := database.New(ctx, logger, config)
 	if err != nil {
-		return nil, cancelFunc, logger.Fatal().LogError("Error creating database", err)
+		return nil, cancelFunc, logger.Fatal().LogErrorf("error creating database", err).Err()
 	}
 
 	shutdown := func() {
-		logger.Info().Log("Shutting down the db")
+		logger.Info().Log("shutting down the db")
 		cancelFunc()
 		if err := db.Close(); err != nil {
-			logger.Fatal().LogError("Error closing DB", err)
+			logger.Fatal().LogErrorf("error closing DB", err)
 		}
 	}
 
 	backupFiles, _ := ioutil.ReadDir(filepath.Join("migrations"))
 	if len(backupFiles) > 0 {
-		if err := database.RunMigrations(logger, db, config); err != nil {
-			return nil, shutdown, logger.Fatal().LogError("Error running migrations", err)
+		if err := database.RunMigrations(logger, config); err != nil {
+			return nil, shutdown, logger.Fatal().LogErrorf("error running migrations", err).Err()
 		}
 	} else {
 		logger.Info().Log("there is no backup files of database")

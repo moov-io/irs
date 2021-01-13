@@ -33,7 +33,7 @@ ifeq ($(OS),Windows_NT)
 	@echo "Skipping checks on Windows, currently unsupported."
 else
 	@echo "Installing pdftk"
-	./install_pdftk.sh
+	./scripts/install_pdftk.sh
 	@wget -O lint-project.sh https://raw.githubusercontent.com/moov-io/infra/master/go/lint-project.sh
 	@chmod +x ./lint-project.sh
 	./lint-project.sh

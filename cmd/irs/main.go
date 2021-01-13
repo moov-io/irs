@@ -10,11 +10,10 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 
-	"github.com/moov-io/identity/pkg/logging"
+	"github.com/moov-io/base/log"
 	"github.com/moov-io/irs/pkg/service"
 
 	"github.com/moov-io/irs/pkg/config"
@@ -38,17 +37,17 @@ var WebCmd = &cobra.Command{
 		}
 
 		env := &service.Environment{
-			Logger: logging.NewDefaultLogger().WithKeyValue("app", "irs"),
+			Logger: log.NewDefaultLogger().Set("app", log.String("irs")),
 		}
 
 		env, err := service.NewEnvironment(env)
 		if err != nil {
-			env.Logger.Fatal().LogError("Error loading up environment.", err)
+			env.Logger.Fatal().LogErrorf("error loading up environment", err)
 			os.Exit(1)
 		}
 		defer env.Shutdown()
 
-		env.Logger.Info().Log("Starting services")
+		env.Logger.Info().Log("starting services")
 		shutdown := env.RunServers(true)
 		defer shutdown()
 		return nil
@@ -78,7 +77,7 @@ var Print = &cobra.Command{
 			return err
 		}
 		if format != config.OutputJsonFormat && format != config.OutputIrsFormat {
-			return errors.New("don't support the format")
+			return errors.New("format not supported")
 		}
 
 		f, err := file.CreateFile(rawData)
@@ -121,7 +120,7 @@ var Convert = &cobra.Command{
 			return err
 		}
 		if format != config.OutputJsonFormat && format != config.OutputIrsFormat {
-			return errors.New("don't support the format")
+			return errors.New("format not supported")
 		}
 
 		f, err := file.CreateFile(rawData)
@@ -178,7 +177,7 @@ var rootCmd = &cobra.Command{
 			if inputFile == "" {
 				path, err := os.Getwd()
 				if err != nil {
-					log.Fatal(err)
+					log.NewDefaultLogger().LogErrorf("error getting current working directory: %v", err)
 				}
 				inputFile = filepath.Join(path, "irs.json")
 			}
