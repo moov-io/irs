@@ -5,7 +5,7 @@
 package service
 
 import (
-	"github.com/moov-io/identity/pkg/database"
+	"github.com/moov-io/base/database"
 	tmw "github.com/moov-io/tumbler/pkg/middleware"
 )
 

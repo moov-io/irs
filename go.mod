@@ -4,11 +4,10 @@ go 1.14
 
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/coreos/etcd v3.3.24+incompatible
 	github.com/go-kit/kit v0.10.0
 	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.1
-	github.com/moov-io/base v0.14.0
+	github.com/moov-io/base v0.15.2
 	github.com/moov-io/identity v0.2.3
 	github.com/moov-io/tumbler v0.1.3
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect

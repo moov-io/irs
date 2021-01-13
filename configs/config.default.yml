@@ -8,7 +8,7 @@ IRS:
         Address: ":8209"
   Database:
     DatabaseName: "irs"
-    SQLLite:
+    SQLite:
       Path: ":memory:"
   Gateway:
     # Examples of how to set up this config.
