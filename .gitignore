@@ -36,3 +36,7 @@ pkged.go
 cover.out
 
 /cmd/irs/output
+
+pkg/pdf_generator/\.*
+pdftk_server-*
+**/.DS_Store
