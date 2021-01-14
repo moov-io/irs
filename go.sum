@@ -424,10 +424,11 @@ github.com/moov-io/authn v0.0.0-20200709161736-a03007d9f67a/go.mod h1:6ojOGG2NjB
 github.com/moov-io/authn v0.2.1/go.mod h1:gQAzwEgTbMVTOZVT8c9Qn52HYSv8xVk2wHt288vLDSY=
 github.com/moov-io/base v0.11.0 h1:1dhI8qsIxsUjMmbzE52ycyy2S1z3DGUN6swGYjSmOLs=
 github.com/moov-io/base v0.11.0/go.mod h1:jEkZukoSaJ4rDFoe00S5zuoLE+p3U3BEunSEPchgSbU=
-github.com/moov-io/base v0.15.2 h1:d0lYng2EFoy/j6CeOXwBaDQb92anlBjQnq+rCX+7rf0=
-github.com/moov-io/base v0.15.2/go.mod h1:7esHtjXNfvnu3KJ0HIJYUWu7W95fKvzSqo07xb8ACfg=
 github.com/moov-io/base v0.14.0 h1:bSzCJdraxOie2jWjY7ijArNeXmhgRA2NBEgyoFwRk7I=
 github.com/moov-io/base v0.14.0/go.mod h1:X3Rkm6lKCODm8zF7s43aawbyRDFyBdmEzO+NteVTj+A=
+github.com/moov-io/base v0.15.2 h1:d0lYng2EFoy/j6CeOXwBaDQb92anlBjQnq+rCX+7rf0=
+github.com/moov-io/base v0.15.2/go.mod h1:7esHtjXNfvnu3KJ0HIJYUWu7W95fKvzSqo07xb8ACfg=
+github.com/moov-io/base v0.15.3/go.mod h1:7esHtjXNfvnu3KJ0HIJYUWu7W95fKvzSqo07xb8ACfg=
 github.com/moov-io/identity v0.0.0-20200616225744-0dba4de79fed/go.mod h1:8cp+tvEWLT4l5+KaYAm39a54/Eazk21x3+124QWm1cQ=
 github.com/moov-io/identity v0.0.0-20200617215100-dfd904ab610b/go.mod h1:knCJJiEPe0/yYmPe30LdKddeXZsUFk9TXPp7ynWXRP4=
 github.com/moov-io/identity v0.0.0-20200617222838-75f18c632b1b/go.mod h1:vht1EqhyPooW+PIrhryhmFG9sUbKKI8F9MmV/zaruWM=
