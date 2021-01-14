@@ -428,6 +428,7 @@ github.com/moov-io/base v0.14.0 h1:bSzCJdraxOie2jWjY7ijArNeXmhgRA2NBEgyoFwRk7I=
 github.com/moov-io/base v0.14.0/go.mod h1:X3Rkm6lKCODm8zF7s43aawbyRDFyBdmEzO+NteVTj+A=
 github.com/moov-io/base v0.15.2 h1:d0lYng2EFoy/j6CeOXwBaDQb92anlBjQnq+rCX+7rf0=
 github.com/moov-io/base v0.15.2/go.mod h1:7esHtjXNfvnu3KJ0HIJYUWu7W95fKvzSqo07xb8ACfg=
+github.com/moov-io/base v0.15.3 h1:gSjC4uRcyp/JvqFrmWSDVDfH9FYcM9ciAT3TleLpyY4=
 github.com/moov-io/base v0.15.3/go.mod h1:7esHtjXNfvnu3KJ0HIJYUWu7W95fKvzSqo07xb8ACfg=
 github.com/moov-io/identity v0.0.0-20200616225744-0dba4de79fed/go.mod h1:8cp+tvEWLT4l5+KaYAm39a54/Eazk21x3+124QWm1cQ=
 github.com/moov-io/identity v0.0.0-20200617215100-dfd904ab610b/go.mod h1:knCJJiEPe0/yYmPe30LdKddeXZsUFk9TXPp7ynWXRP4=
@@ -617,6 +618,8 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
+github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
