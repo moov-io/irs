@@ -34,7 +34,7 @@ Custom configuration for this application may be specified via an environment va
       DatabaseName: "identity"
 
       # MySql configuration
-      MySQL:  
+      MySQL:
         Address: tcp(mysqlidentity:3306)
         User: identity
         Password: identity
@@ -42,23 +42,6 @@ Custom configuration for this application may be specified via an environment va
       # OR uses the sqllite db
       SQLLite:
         Path: ":memory:"
-
-    # Gateway configuration to look up public keys to verify JWT tokens.
-    Gateway:
-
-      # If neither http or file are specified, the service will generate random keys
-      Keys:
-
-        # Pulls Keys from endpoints
-        HTTP:
-        URLs:
-        - http://tumbler:8204/.well-known/jwks.json
-
-        # Pulls keys from the disk
-        File:
-          Paths: 
-          - ./configs/gateway-jwks-sig-pub.json
-
   ```
 
 ---

@@ -16,8 +16,6 @@ import (
 	logging "github.com/moov-io/base/log"
 	tmwLogging "github.com/moov-io/identity/pkg/logging"
 	"github.com/moov-io/identity/pkg/stime"
-	tmw "github.com/moov-io/tumbler/pkg/middleware"
-	"github.com/moov-io/tumbler/pkg/webkeys"
 )
 
 // Environment - Contains everything that has been instantiated for this service.
@@ -26,7 +24,6 @@ type Environment struct {
 	TumblerLogger tmwLogging.Logger
 	Config        *Config
 	TimeService   *stime.TimeService
-	GatewayKeys   webkeys.WebKeysService
 	PublicRouter  *mux.Router
 	Shutdown      func()
 }
@@ -73,15 +70,6 @@ func NewEnvironment(env *Environment) (*Environment, error) {
 	if env.PublicRouter == nil {
 		env.PublicRouter = mux.NewRouter()
 	}
-
-	// auth middleware for the tokens coming from the gateway
-	GatewayMiddleware, err := tmw.NewTumblerMiddlewareFromConfig(env.TumblerLogger, *env.TimeService, env.Config.Gateway)
-	if err != nil {
-		return nil, env.Logger.Fatal().LogErrorf("unable to startup the gateway middleware - %w", err).Err()
-	}
-
-	GatewayRouter := env.PublicRouter.NewRoute().Subrouter()
-	GatewayRouter.Use(GatewayMiddleware.Handler)
 
 	// configure custom handlers
 	err = ConfigureHandlers(env.PublicRouter)
