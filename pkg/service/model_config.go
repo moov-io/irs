@@ -6,7 +6,6 @@ package service
 
 import (
 	"github.com/moov-io/base/database"
-	tmw "github.com/moov-io/tumbler/pkg/middleware"
 )
 
 type GlobalConfig struct {
@@ -17,7 +16,6 @@ type GlobalConfig struct {
 type Config struct {
 	Servers  ServerConfig
 	Database database.DatabaseConfig
-	Gateway  tmw.TumblerConfig
 }
 
 // ServerConfig - Groups all the http configs for the servers and ports that get opened.
