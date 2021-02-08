@@ -37,11 +37,17 @@ func executeCommand(root *cobra.Command, args ...string) (output string, err err
 	return output, err
 }
 
+func deleteFile() {
+	// delete file
+	os.Remove("output")
+}
+
 func TestConvertWithoutInput(t *testing.T) {
 	_, err := executeCommand(rootCmd, "convert", "output", "--format", config.OutputJsonFormat)
 	if err == nil {
 		t.Errorf("invalid input file")
 	}
+	deleteFile()
 }
 
 func TestConvertWithInvalidParam(t *testing.T) {
@@ -56,6 +62,7 @@ func TestConvertJson(t *testing.T) {
 	if err != nil {
 		t.Errorf(err.Error())
 	}
+	deleteFile()
 }
 
 func TestConvertIrs(t *testing.T) {
@@ -63,6 +70,7 @@ func TestConvertIrs(t *testing.T) {
 	if err != nil {
 		t.Errorf(err.Error())
 	}
+	deleteFile()
 }
 
 func TestConvertUnknown(t *testing.T) {
@@ -70,6 +78,7 @@ func TestConvertUnknown(t *testing.T) {
 	if err == nil {
 		t.Errorf("don't support the format")
 	}
+	deleteFile()
 }
 
 func TestPrintIrs(t *testing.T) {

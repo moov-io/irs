@@ -5,6 +5,7 @@
 package documents
 
 import (
+	"context"
 	"database/sql"
 	"io/ioutil"
 	"path/filepath"
@@ -12,9 +13,12 @@ import (
 
 	"gopkg.in/check.v1"
 
-	"github.com/moov-io/identity/pkg/database"
+	"github.com/moov-io/base/config"
+	"github.com/moov-io/base/database"
+	baseLog "github.com/moov-io/base/log"
 	"github.com/moov-io/irs/pkg/encrypter"
 	"github.com/moov-io/irs/pkg/file"
+	"github.com/moov-io/irs/pkg/service"
 	"github.com/moov-io/irs/pkg/utils"
 )
 
@@ -32,8 +36,16 @@ type DocumentTest struct {
 }
 
 func (t *DocumentTest) SetUpSuite(c *check.C) {
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	defer cancelFunc()
+
+	ConfigService := config.NewService(baseLog.NewDefaultLogger())
 	var err error
-	t.db, t.close, err = database.NewAndMigrate(database.InMemorySqliteConfig, nil, nil)
+
+	global := &service.GlobalConfig{}
+	err = ConfigService.Load(global)
+	c.Assert(err, check.IsNil)
+	t.db, err = database.New(ctx, nil, global.IRS.Database)
 	c.Assert(err, check.IsNil)
 	t.encrypt, err = encrypter.NewEncryptService("", encrypter.GCM)
 	c.Assert(err, check.IsNil)
@@ -41,6 +53,7 @@ func (t *DocumentTest) SetUpSuite(c *check.C) {
 	c.Assert(err, check.IsNil)
 	t.oneTransactionJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.json"))
 	c.Assert(err, check.IsNil)
+
 }
 
 func (t *DocumentTest) TearDownSuite(c *check.C) {

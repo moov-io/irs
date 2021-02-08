@@ -14,18 +14,16 @@ import (
 	"github.com/moov-io/base/config"
 	"github.com/moov-io/base/database"
 	logging "github.com/moov-io/base/log"
-	tmwLogging "github.com/moov-io/identity/pkg/logging"
-	"github.com/moov-io/identity/pkg/stime"
+	"github.com/moov-io/base/stime"
 )
 
 // Environment - Contains everything that has been instantiated for this service.
 type Environment struct {
-	Logger        logging.Logger
-	TumblerLogger tmwLogging.Logger
-	Config        *Config
-	TimeService   *stime.TimeService
-	PublicRouter  *mux.Router
-	Shutdown      func()
+	Logger       logging.Logger
+	Config       *Config
+	TimeService  *stime.TimeService
+	PublicRouter *mux.Router
+	Shutdown     func()
 }
 
 // NewEnvironment - Generates a new default environment. Overrides can be specified via configs.
@@ -36,10 +34,6 @@ func NewEnvironment(env *Environment) (*Environment, error) {
 
 	if env.Logger == nil {
 		env.Logger = logging.NewDefaultLogger()
-	}
-
-	if env.TumblerLogger == nil {
-		env.TumblerLogger = tmwLogging.NewDefaultLogger()
 	}
 
 	if env.Config == nil {
