@@ -16,9 +16,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/moov-io/base/admin"
-	_ "github.com/moov-io/identity" // need to import the embedded files
-
-	log "github.com/moov-io/base/log"
+	logging "github.com/moov-io/base/log"
 )
 
 // RunServers - Boots up all the servers and awaits till they are stopped.
@@ -52,13 +50,13 @@ func newTerminationListener() chan error {
 	return errs
 }
 
-func awaitTermination(logger log.Logger, terminationListener chan error) {
+func awaitTermination(logger logging.Logger, terminationListener chan error) {
 	if err := <-terminationListener; err != nil {
 		logger.Fatal().LogErrorf("terminated", err)
 	}
 }
 
-func bootHTTPServer(name string, routes *mux.Router, errs chan<- error, logger log.Logger, config HTTPConfig) (*http.Server, func()) {
+func bootHTTPServer(name string, routes *mux.Router, errs chan<- error, logger logging.Logger, config HTTPConfig) (*http.Server, func()) {
 
 	// Create main HTTP server
 	serve := &http.Server{
@@ -91,7 +89,7 @@ func bootHTTPServer(name string, routes *mux.Router, errs chan<- error, logger l
 	return serve, shutdownServer
 }
 
-func bootAdminServer(errs chan<- error, logger log.Logger, config HTTPConfig) *admin.Server {
+func bootAdminServer(errs chan<- error, logger logging.Logger, config HTTPConfig) *admin.Server {
 	adminServer := admin.NewServer(config.Bind.Address)
 
 	go func() {
