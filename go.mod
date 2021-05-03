@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/antihax/optional v1.0.0
 	github.com/go-kit/kit v0.10.0
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.1
 	github.com/moov-io/base v0.15.4
