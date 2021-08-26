@@ -1,5 +1,5 @@
 # IRS
-**[Purpose](README.md)** | **Configuration** | **[Running](RUNNING.md)** | **[Client](../pkg/client/README.md)**
+**[Purpose](README.md)** | **Configuration** | **[Running](RUNNING.md)**
 
 ---
 

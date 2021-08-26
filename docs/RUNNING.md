@@ -1,5 +1,5 @@
 # IRS
-**[Purpose](README.md)** | **[Configuration](CONFIGURATION.md)** | **Running** | **[Client](../pkg/client/README.md)**
+**[Purpose](README.md)** | **[Configuration](CONFIGURATION.md)** | **Running**
 
 ---
 
@@ -36,6 +36,3 @@ The HTTP server accepts JSON formatted files to convert into their PDF form. We 
 - [1099-MISC](examples/1099misc.json)
 - [1099-OID](examples/1099oid.json)
 - [1099-PATR](examples/1099patr.json)
-
----
-**[Next - Client](../pkg/client/README.md)**
