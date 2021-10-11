@@ -8,9 +8,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/go-kit/kit/log"
 	logging "github.com/moov-io/base/log"
 	"github.com/moov-io/irs/pkg/service"
+
+	"github.com/go-kit/log"
 	"github.com/stretchr/testify/assert"
 )
 
