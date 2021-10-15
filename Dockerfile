@@ -13,6 +13,7 @@ LABEL maintainer="Moov <support@moov.io>"
 RUN apt-get update && apt-get install -y curl
 
 COPY --from=builder /src/bin/* /app/
+COPY --from=builder /configs/config.default.yml /configs/config.default.yml
 
 ENV HTTP_PORT=8208
 ENV HEALTH_PORT=8209
