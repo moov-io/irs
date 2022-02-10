@@ -134,10 +134,12 @@ var (
 		"PaymentAmountE":           {210, 12, ZeroNumeric, Applicable},
 		"PaymentAmountF":           {222, 12, ZeroNumeric, Applicable},
 		"PaymentAmountG":           {234, 12, ZeroNumeric, Applicable},
-		"ForeignCountryIndicator":  {246, 1, Alphanumeric, Applicable},
-		"FirstPayeeNameLine":       {247, 40, Alphanumeric, Required},
-		"SecondPayeeNameLine":      {287, 40, Alphanumeric, Applicable},
-		"Blank2":                   {327, 40, Alphanumeric, Nullable},
+		"PaymentAmountH":           {246, 12, ZeroNumeric, Applicable},
+		"PaymentAmountJ":           {258, 12, ZeroNumeric, Applicable},
+		"Blank2":                   {270, 16, Alphanumeric, Nullable},
+		"ForeignCountryIndicator":  {286, 1, Alphanumeric, Applicable},
+		"FirstPayeeNameLine":       {287, 40, Alphanumeric, Required},
+		"SecondPayeeNameLine":      {327, 40, Alphanumeric, Applicable},
 		"PayeeMailingAddress":      {367, 40, Alphanumeric, Required},
 		"Blank3":                   {407, 40, Alphanumeric, Nullable},
 		"PayeeCity":                {447, 40, Alphanumeric, Required},
@@ -169,7 +171,9 @@ var (
 		"ControlTotalE":        {249, 18, ZeroNumeric, Applicable},
 		"ControlTotalF":        {267, 18, ZeroNumeric, Applicable},
 		"ControlTotalG":        {285, 18, ZeroNumeric, Applicable},
-		"Blank2":               {303, 196, Alphanumeric, Nullable},
+		"ControlTotalH":        {303, 18, ZeroNumeric, Applicable},
+		"ControlTotalJ":        {321, 18, ZeroNumeric, Applicable},
+		"Blank2":               {339, 160, Alphanumeric, Nullable},
 		"RecordSequenceNumber": {499, 8, ZeroNumeric, Required},
 		"Blank3":               {507, 241, Alphanumeric, Nullable},
 		"Blank4":               {748, 2, Alphanumeric, Nullable},
@@ -195,7 +199,9 @@ var (
 		"ControlTotalE":               {249, 18, ZeroNumeric, Applicable},
 		"ControlTotalF":               {267, 18, ZeroNumeric, Applicable},
 		"ControlTotalG":               {285, 18, ZeroNumeric, Applicable},
-		"Blank2":                      {303, 196, Alphanumeric, Nullable},
+		"ControlTotalH":               {303, 18, ZeroNumeric, Applicable},
+		"ControlTotalJ":               {321, 18, ZeroNumeric, Applicable},
+		"Blank2":                      {339, 160, Alphanumeric, Nullable},
 		"RecordSequenceNumber":        {499, 8, ZeroNumeric, Required},
 		"Blank3":                      {507, 199, Alphanumeric, Nullable},
 		"StateIncomeTaxWithheldTotal": {706, 18, Numeric, Applicable},
@@ -489,10 +495,14 @@ var (
 	}
 	// Record Layout Positions 544-750 for Form 1099-NEC
 	Sub1099NECLayout = map[string]SpecField{
-		"SecondTinNotice": {0, 1, Alphanumeric, Applicable},
-		"Blank1":          {1, 3, Alphanumeric, Nullable},
-		"FATCA":           {4, 1, Alphanumeric, Applicable},
-		"Blank2":          {5, 202, Alphanumeric, Nullable},
+		"SecondTinNotice":        {0, 1, Alphanumeric, Applicable},
+		"Blank1":                 {1, 2, Alphanumeric, Nullable},
+		"DirectSalesIndicator":   {3, 1, Alphanumeric, Applicable},
+		"Blank2":                 {4, 175, Alphanumeric, Nullable}, // 175 is the correct length, Publication 1220 states length of 173, which is a bug in the publication
+		"StateIncomeTaxWithheld": {179, 12, ZeroNumeric, Applicable},
+		"LocalIncomeTaxWithheld": {191, 12, ZeroNumeric, Applicable},
+		"CombinedFSCode":         {203, 2, ZeroNumeric, Required},
+		"Blank3":                 {205, 2, Alphanumeric, Nullable},
 	}
 	// Record Layout Positions 544-750 for Form 1099-OID
 	Sub1099OIDLayout = map[string]SpecField{

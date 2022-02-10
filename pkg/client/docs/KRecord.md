@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **ControlTotalE** | **int32** |  | [optional] 
 **ControlTotalF** | **int32** |  | [optional] 
 **ControlTotalG** | **int32** |  | [optional] 
+**ControlTotalH** | **int32** |  | [optional] 
+**ControlTotalJ** | **int32** |  | [optional] 
 **RecordSequenceNumber** | **int32** |  | 
 **StateIncomeTaxWithheldTotal** | **string** |  | [optional] 
 **LocalIncomeTaxWithheldTotal** | **string** |  | [optional] 

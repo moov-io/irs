@@ -29,5 +29,7 @@ type CRecord struct {
 	ControlTotalE        int32  `json:"control_total_E,omitempty"`
 	ControlTotalF        int32  `json:"control_total_F,omitempty"`
 	ControlTotalG        int32  `json:"control_total_G,omitempty"`
+	ControlTotalH        int32  `json:"control_total_H,omitempty"`
+	ControlTotalJ        int32  `json:"control_total_J,omitempty"`
 	RecordSequenceNumber int32  `json:"record_sequence_number"`
 }

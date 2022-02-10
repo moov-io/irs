@@ -28,6 +28,8 @@ Name | Type | Description | Notes
 **PaymentAmountE** | **int32** |  | [optional] 
 **PaymentAmountF** | **int32** |  | [optional] 
 **PaymentAmountG** | **int32** |  | [optional] 
+**PaymentAmountH** | **int32** |  | [optional] 
+**PaymentAmountJ** | **int32** |  | [optional] 
 **ForeignCountryIndicator** | **string** |  | [optional] 
 **FirstPayeeNameLine** | **string** |  | 
 **SecondPayeeNameLine** | **string** |  | [optional] 
@@ -37,7 +39,10 @@ Name | Type | Description | Notes
 **PayeeZipCode** | **string** |  | 
 **RecordSequenceNumber** | **int32** |  | 
 **SecondTinNotice** | **string** |  | [optional] 
-**FatcaRequirementIndicator** | **string** |  | [optional] 
+**DirectSalesIndicator** | **string** |  | [optional] 
+**StateIncomeTaxWithheld** | **int32** |  | [optional] 
+**LocalIncomeTaxWithheld** | **int32** |  | [optional] 
+**CombinedFederalStateCode** | **int32** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

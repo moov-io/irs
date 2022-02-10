@@ -51,6 +51,8 @@ type KRecord struct {
 	ControlTotalE int `json:"control_total_E"`
 	ControlTotalF int `json:"control_total_F"`
 	ControlTotalG int `json:"control_total_G"`
+	ControlTotalH int `json:"control_total_H"`
+	ControlTotalJ int `json:"control_total_J"`
 
 	// Required. Enter the number of the record as it appears
 	// within the file. The record sequence number for the “T”
