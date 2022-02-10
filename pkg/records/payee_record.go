@@ -131,6 +131,8 @@ type BRecord struct {
 	PaymentAmountE int `json:"payment_amount_E"`
 	PaymentAmountF int `json:"payment_amount_F"`
 	PaymentAmountG int `json:"payment_amount_G"`
+	PaymentAmountH int `json:"payment_amount_H"`
+	PaymentAmountJ int `json:"payment_amount_J"`
 
 	// If the address of the payee is in a foreign country, enter a
 	// “1” (one) in this field. Otherwise, enter blank. When filers use
@@ -397,9 +399,6 @@ func (r *BRecord) Fatca() (*string, error) {
 	case config.Sub1099MiscType:
 		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
 		return &ext.FATCA, nil
-	case config.Sub1099NecType:
-		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
-		return &ext.FATCA, nil
 	}
 	return nil, utils.ErrUnsupportedField
 }
@@ -429,6 +428,9 @@ func (r *BRecord) DirectSales() (*string, error) {
 	case config.Sub1099MiscType:
 		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
 		return &ext.DirectSalesIndicator, nil
+	case config.Sub1099NecType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
+		return &ext.DirectSalesIndicator, nil
 	}
 	return nil, utils.ErrUnsupportedField
 }
@@ -441,6 +443,9 @@ func (r *BRecord) IncomeTax() (int, int, error) {
 	switch r.extRecord.Type() {
 	case config.Sub1099MiscType:
 		ext, _ := r.extRecord.(*subrecords.Sub1099MISC)
+		return ext.StateIncomeTaxWithheld, ext.LocalIncomeTaxWithheld, nil
+	case config.Sub1099NecType:
+		ext, _ := r.extRecord.(*subrecords.Sub1099NEC)
 		return ext.StateIncomeTaxWithheld, ext.LocalIncomeTaxWithheld, nil
 	}
 	return 0, 0, utils.ErrUnsupportedField
