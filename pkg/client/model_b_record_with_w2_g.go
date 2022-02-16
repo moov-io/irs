@@ -39,6 +39,8 @@ type BRecordWithW2G struct {
 	PaymentAmountE              int32     `json:"payment_amount_E,omitempty"`
 	PaymentAmountF              int32     `json:"payment_amount_F,omitempty"`
 	PaymentAmountG              int32     `json:"payment_amount_G,omitempty"`
+	PaymentAmountH              int32     `json:"payment_amount_H,omitempty"`
+	PaymentAmountJ              int32     `json:"payment_amount_J,omitempty"`
 	ForeignCountryIndicator     string    `json:"foreign_country_indicator,omitempty"`
 	FirstPayeeNameLine          string    `json:"first_payee_name_line"`
 	SecondPayeeNameLine         string    `json:"second_payee_name_line,omitempty"`
