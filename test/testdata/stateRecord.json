@@ -17,6 +17,8 @@
 	"control_total_E": 1400,
 	"control_total_F": 1500,
 	"control_total_G": 1600,
+	"control_total_H": 1700,
+	"control_total_J": 1800,
 	"record_sequence_number": 5,
 	"state_income_tax_withheld_total": "2",
 	"local_income_tax_withheld_total": "3",

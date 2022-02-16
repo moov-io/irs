@@ -82,14 +82,12 @@ func (t *RecordTest) TestBRecordWith1099NEC(c *check.C) {
 	c.Assert(len(codes), check.Not(check.Equals), 0)
 	_, err = r.PaymentAmount("1")
 	c.Assert(err, check.IsNil)
-	_, err = r.Fatca()
-	c.Assert(err, check.IsNil)
 	_, err = r.SecondTIN()
 	c.Assert(err, check.IsNil)
 	_, err = r.DirectSales()
-	c.Assert(err, check.NotNil)
+	c.Assert(err, check.IsNil)
 	_, _, err = r.IncomeTax()
-	c.Assert(err, check.NotNil)
+	c.Assert(err, check.IsNil)
 }
 
 func (t *RecordTest) TestBRecordWithError(c *check.C) {

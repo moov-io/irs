@@ -1,8 +1,10 @@
 {
+  "combined_federal_state_code": 1,
   "corrected_return_indicator": "",
-  "fatca_requirement_indicator": "",
+  "direct_sales_indicator": "",
   "first_payee_name_line": "SPACELEY SPROCKETS",
   "foreign_country_indicator": "",
+  "local_income_tax_withheld": 1,
   "payee_city": "MOON",
   "payee_mailing_address": "5678 INDUSTRY PLACE",
   "payee_state": "CA",
@@ -27,10 +29,13 @@
   "payment_amount_E": 1400,
   "payment_amount_F": 1500,
   "payment_amount_G": 1600,
+  "payment_amount_H": 1700,
+  "payment_amount_J": 1800,
   "payment_year": 2017,
   "record_sequence_number": 3,
   "record_type": "B",
   "second_payee_name_line": "",
   "second_tin_notice": "",
+  "state_income_tax_withheld": 0,
   "type_of_tin": "1"
 }

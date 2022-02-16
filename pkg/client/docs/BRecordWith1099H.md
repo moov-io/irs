@@ -28,6 +28,8 @@ Name | Type | Description | Notes
 **PaymentAmountE** | **int32** |  | [optional] 
 **PaymentAmountF** | **int32** |  | [optional] 
 **PaymentAmountG** | **int32** |  | [optional] 
+**PaymentAmountH** | **int32** |  | [optional] 
+**PaymentAmountJ** | **int32** |  | [optional] 
 **ForeignCountryIndicator** | **string** |  | [optional] 
 **FirstPayeeNameLine** | **string** |  | 
 **SecondPayeeNameLine** | **string** |  | [optional] 

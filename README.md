@@ -25,7 +25,7 @@ Docs: [Project](https://moov-io.github.io/irs/) | [API Endpoints](https://moov-i
 We are just getting started!
 
 - [ ] 1099-MISC [About Form 1099-MISC](https://www.irs.gov/forms-pubs/about-form-1099-misc)
-- [ ] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)
+- [x] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)
 
 ... more to come, open an issue or pull request!
 

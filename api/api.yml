@@ -2,9 +2,9 @@ openapi: 3.0.2
 info:
   title: "IRS API"
   version: 0.0.1
-  description: "Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and 
-CLI for creating, parsing, validating, and transforming IRS electronic Filing Information Returns 
-Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and 
+  description: "Package github.com/moov-io/irs implements a file reader and writer written in Go along with a HTTP API and
+CLI for creating, parsing, validating, and transforming IRS electronic Filing Information Returns
+Electronically (FIRE). FIRE operates on a byte(ASCII) level making it difficult to interface with JSON and
 CSV/TEXT file formats.\n
 | Input      | Output     |\n
 |------------|------------|\n
@@ -18,13 +18,13 @@ servers:
     description: Local Testing
   - url: https://api.moov.io/
     description: Production
-    
+
 tags:
   - name: 'irs files'
     description: |
       File contains the structures of a irs file. It contains one header record block, one trailer record block, multiple data blocks.
       File have 2 types such as json and irs.
-      
+
 paths:
   /health:
     get:
@@ -144,6 +144,8 @@ paths:
           "payment_amount_E": 0,
           "payment_amount_F": 0,
           "payment_amount_G": 0,
+          "payment_amount_H": 0,
+          "payment_amount_J": 0,
           "foreign_country_indicator": "",
           "first_payee_name_line": "SPACELEY SPROCKETS",
           "second_payee_name_line": "",
@@ -180,6 +182,8 @@ paths:
         "control_total_E": 0,
         "control_total_F": 0,
         "control_total_G": 0,
+        "control_total_H": 0,
+        "control_total_J": 0,
         "record_sequence_number": 4
       }
     }
@@ -307,6 +311,8 @@ paths:
           "payment_amount_E": 0,
           "payment_amount_F": 0,
           "payment_amount_G": 0,
+          "payment_amount_H": 0,
+          "payment_amount_J": 0,
           "foreign_country_indicator": "",
           "first_payee_name_line": "SPACELEY SPROCKETS",
           "second_payee_name_line": "",
@@ -343,6 +349,8 @@ paths:
         "control_total_E": 0,
         "control_total_F": 0,
         "control_total_G": 0,
+        "control_total_H": 0,
+        "control_total_J": 0,
         "record_sequence_number": 4
       }
     }
@@ -487,6 +495,8 @@ paths:
           "payment_amount_E": 0,
           "payment_amount_F": 0,
           "payment_amount_G": 0,
+          "payment_amount_H": 0,
+          "payment_amount_J": 0,
           "foreign_country_indicator": "",
           "first_payee_name_line": "SPACELEY SPROCKETS",
           "second_payee_name_line": "",
@@ -523,6 +533,8 @@ paths:
         "control_total_E": 0,
         "control_total_F": 0,
         "control_total_G": 0,
+        "control_total_H": 0,
+        "control_total_J": 0,
         "record_sequence_number": 4
       }
     }
@@ -831,6 +843,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -935,6 +953,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -1052,6 +1076,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -1085,7 +1115,7 @@ components:
         vehicle_identification_number:
           type: string
         vehicle_description:
-          type: string   
+          type: string
         date_contribution:
           type: string
           format: date-time
@@ -1179,6 +1209,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -1279,6 +1315,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -1386,6 +1428,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -1529,6 +1577,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -1635,6 +1689,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -1738,6 +1798,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -1866,6 +1932,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -1973,6 +2045,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -2077,6 +2155,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -2191,6 +2275,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -2308,6 +2398,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -2406,6 +2502,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -2522,6 +2624,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -2645,6 +2753,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -2744,6 +2858,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -2868,6 +2988,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -2982,6 +3108,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -3001,8 +3133,17 @@ components:
           format: int32
         second_tin_notice:
           type: string
-        fatca_requirement_indicator:
+        direct_sales_indicator:
           type: string
+        state_income_tax_withheld:
+          type: integer
+          format: int32
+        local_income_tax_withheld:
+          type: integer
+          format: int32
+        combined_federal_state_code:
+          type: integer
+          format: int32
       required:
         - record_type
         - payment_year
@@ -3013,6 +3154,7 @@ components:
         - payee_state
         - payee_zip_code
         - record_sequence_number
+        - combined_federal_state_code
     BRecordWith1099Oid:
       properties:
         record_type:
@@ -3080,6 +3222,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -3196,6 +3344,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -3306,6 +3460,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -3408,6 +3568,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -3537,6 +3703,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -3648,6 +3820,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -3762,6 +3940,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -3858,6 +4042,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -3969,6 +4159,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -4086,6 +4282,12 @@ components:
         payment_amount_G:
           type: integer
           format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
+          type: integer
+          format: int32
         foreign_country_indicator:
           type: string
         first_payee_name_line:
@@ -4104,20 +4306,20 @@ components:
           type: integer
           format: int32
         ira_indicator:
-          type: string 
+          type: string
         sep_indicator:
-          type: string 
+          type: string
         simple_indicator:
-          type: string 
+          type: string
         roth_ira_indicator:
-          type: string 
+          type: string
         rmd_indicator:
-          type: string 
+          type: string
         year_postponed_contribution:
           type: integer
           format: int32
         postponed_contribution_code:
-          type: string          
+          type: string
         postponed_contribution_reason:
           type: string
         repayment_code:
@@ -4210,6 +4412,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -4308,6 +4516,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -4412,6 +4626,12 @@ components:
           type: integer
           format: int32
         payment_amount_G:
+          type: integer
+          format: int32
+        payment_amount_H:
+          type: integer
+          format: int32
+        payment_amount_J:
           type: integer
           format: int32
         foreign_country_indicator:
@@ -4525,6 +4745,12 @@ components:
         control_total_G:
           type: integer
           format: int32
+        control_total_H:
+          type: integer
+          format: int32
+        control_total_J:
+          type: integer
+          format: int32
         record_sequence_number:
           type: integer
           format: int32
@@ -4586,6 +4812,12 @@ components:
           type: integer
           format: int32
         control_total_G:
+          type: integer
+          format: int32
+        control_total_H:
+          type: integer
+          format: int32
+        control_total_J:
           type: integer
           format: int32
         record_sequence_number:
