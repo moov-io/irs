@@ -1,3 +1,13 @@
+## v0.1.6 (Released 2022-02-17)
+
+IMPROVEMENTS
+
+- Add 1099-NEC and 2021 filing support
+- chore(deps): update module github.com/moov-io/base to v0.27.5
+- chore(deps): update golang.org/x/oauth2 commit hash to d3ed0bb
+- chore(deps): update github.com/spf13/cobra to v1.3.0
+- pdftk install script path fixed for MacOS
+
 ## v0.1.5 (Released 2021-10-15)
 
 IMPROVEMENTS
