@@ -14,7 +14,7 @@ run: irs
 
 test: services build
 ifneq ($(OS),Windows_NT)
-	./install_pdftk.sh
+	./scripts/install_pdftk.sh
 endif
 	go test -cover ./...
 	rm -rf cmd/irs/output
