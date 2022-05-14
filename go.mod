@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/antihax/optional v1.0.0
 	github.com/go-kit/kit v0.12.0 // indirect
-	github.com/go-kit/log v0.2.0
+	github.com/go-kit/log v0.2.1
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/markbates/pkger v0.17.1 // indirect
