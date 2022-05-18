@@ -1,4 +1,4 @@
-FROM golang:1.18-buster as builder
+FROM golang:1.18 as builder
 RUN apt-get update && apt-get install -y pdftk make gcc g++ ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
@@ -7,7 +7,7 @@ COPY . .
 COPY ./configs/config.default.yml /configs/config.default.yml
 RUN make build
 
-FROM debian:buster AS runtime
+FROM debian:stable AS runtime
 LABEL maintainer="Moov <support@moov.io>"
 
 RUN apt-get update && apt-get install -y curl
