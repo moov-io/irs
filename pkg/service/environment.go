@@ -7,7 +7,7 @@ package service
 import (
 	"context"
 	"database/sql"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/gorilla/mux"
@@ -95,7 +95,7 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 		}
 	}
 
-	backupFiles, _ := ioutil.ReadDir(filepath.Join("migrations"))
+	backupFiles, _ := os.ReadDir(filepath.Join("migrations"))
 	if len(backupFiles) > 0 {
 		if err := database.RunMigrations(logger, config); err != nil {
 			return nil, shutdown, logger.Fatal().LogErrorf("error running migrations", err).Err()

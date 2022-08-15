@@ -9,7 +9,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -185,7 +184,7 @@ var rootCmd = &cobra.Command{
 			if os.IsNotExist(err) {
 				return errors.New("invalid input file")
 			}
-			rawData, err = ioutil.ReadFile(inputFile)
+			rawData, err = os.ReadFile(inputFile)
 			if err != nil {
 				return err
 			}

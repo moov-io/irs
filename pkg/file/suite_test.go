@@ -5,10 +5,11 @@
 package file
 
 import (
-	"gopkg.in/check.v1"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"testing"
+
+	"gopkg.in/check.v1"
 )
 
 func Test(t *testing.T) { check.TestingT(t) }
@@ -32,36 +33,36 @@ var _ = check.Suite(&FileTest{})
 func (t *FileTest) SetUpSuite(c *check.C) {
 	var err error
 
-	t.oneTransactionJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.json"))
+	t.oneTransactionJson, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.json"))
 	c.Assert(err, check.IsNil)
 
-	t.oneTransactionWithoutKJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFileWithoutK.json"))
+	t.oneTransactionWithoutKJson, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFileWithoutK.json"))
 	c.Assert(err, check.IsNil)
 
-	t.oneTransactionFileInvalidStateJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFileInvalidState.json"))
+	t.oneTransactionFileInvalidStateJson, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFileInvalidState.json"))
 	c.Assert(err, check.IsNil)
 
-	t.oneTransactionAscii, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.ascii"))
+	t.oneTransactionAscii, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "oneTransactionFile.ascii"))
 	c.Assert(err, check.IsNil)
 
-	t.jsonWithInvalidPayment, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithInvalidPayment.json"))
+	t.jsonWithInvalidPayment, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithInvalidPayment.json"))
 	c.Assert(err, check.IsNil)
 
-	t.jsonWithoutCRecord, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithoutCRecord.json"))
+	t.jsonWithoutCRecord, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithoutCRecord.json"))
 	c.Assert(err, check.IsNil)
 
-	t.fileWithTestOptionJson, err = ioutil.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithTestOption.json"))
+	t.fileWithTestOptionJson, err = os.ReadFile(filepath.Join("..", "..", "test", "testdata", "fileWithTestOption.json"))
 	c.Assert(err, check.IsNil)
 
-	t.sample1099IntJson, err = ioutil.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099int.json"))
+	t.sample1099IntJson, err = os.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099int.json"))
 	c.Assert(err, check.IsNil)
 
-	t.sample1099MiscJson, err = ioutil.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099misc.json"))
+	t.sample1099MiscJson, err = os.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099misc.json"))
 	c.Assert(err, check.IsNil)
 
-	t.sample1099OidJson, err = ioutil.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099oid.json"))
+	t.sample1099OidJson, err = os.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099oid.json"))
 	c.Assert(err, check.IsNil)
 
-	t.sample1099PatrJson, err = ioutil.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099patr.json"))
+	t.sample1099PatrJson, err = os.ReadFile(filepath.Join("..", "..", "docs", "examples", "1099patr.json"))
 	c.Assert(err, check.IsNil)
 }
