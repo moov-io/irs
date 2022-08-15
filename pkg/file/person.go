@@ -17,7 +17,7 @@ import (
 	"github.com/moov-io/irs/pkg/utils"
 )
 
-//  paymentPerson identifies the person making payments
+// paymentPerson identifies the person making payments
 type paymentPerson struct {
 	Payer    records.Record   `json:"payer"`
 	Payees   []records.Record `json:"payees"`
