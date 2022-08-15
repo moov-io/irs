@@ -6,7 +6,6 @@ package pdf_generator
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -153,7 +152,7 @@ func (p *Pdf1099Misc) getSpecFdf() ([]byte, error) {
 	default:
 		return nil, utils.ErrUnknownPdfTemplate
 	}
-	return ioutil.ReadFile(filepath.Join(basePath, p.Type, specFDF))
+	return os.ReadFile(filepath.Join(basePath, p.Type, specFDF))
 }
 
 func (p *Pdf1099Misc) getTemplateFdf() ([]byte, error) {
@@ -162,7 +161,7 @@ func (p *Pdf1099Misc) getTemplateFdf() ([]byte, error) {
 	default:
 		return nil, utils.ErrUnknownPdfTemplate
 	}
-	return ioutil.ReadFile(filepath.Join(basePath, p.Type, templateFDF))
+	return os.ReadFile(filepath.Join(basePath, p.Type, templateFDF))
 }
 
 func (p *Pdf1099Misc) getTemplateFile() (*string, error) {
@@ -245,7 +244,7 @@ func (p *Pdf1099Misc) generateFDF(fileName string) ([]byte, error) {
 	newFdf = strings.ReplaceAll(newFdf, "#?#", "\n")
 
 	if fileName != "" {
-		err = ioutil.WriteFile(fileName, []byte(newFdf), os.ModePerm)
+		err = os.WriteFile(fileName, []byte(newFdf), os.ModePerm)
 		if err != nil {
 			return nil, err
 		}
@@ -272,7 +271,7 @@ func (p *Pdf1099Misc) generatePDF(fdfFile string) ([]byte, error) {
 		return nil, err
 	}
 
-	return ioutil.ReadFile(result)
+	return os.ReadFile(result)
 }
 
 // Generate pdf file form Pdf1099Misc struct using pdftk
@@ -336,7 +335,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 	params := make([]string, 0)
 	for index, f := range files {
 		newFile := filepath.Join(tempDir, resultPDF+fmt.Sprintf("%v", index))
-		err := ioutil.WriteFile(newFile, f, os.ModePerm)
+		err := os.WriteFile(newFile, f, os.ModePerm)
 		if err != nil {
 			return returnWithRemoveTmp(tempDir, err)
 		}
@@ -353,7 +352,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 		return returnWithRemoveTmp(tempDir, err)
 	}
 
-	buf, err := ioutil.ReadFile(result)
+	buf, err := os.ReadFile(result)
 	if err != nil {
 		return returnWithRemoveTmp(tempDir, err)
 	}
