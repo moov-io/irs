@@ -6,10 +6,10 @@ require (
 	github.com/antihax/optional v1.0.0
 	github.com/go-kit/log v0.2.1
 	github.com/gorilla/mux v1.8.0
-	github.com/moov-io/base v0.35.0
-	github.com/spf13/cobra v1.5.0
-	github.com/stretchr/testify v1.8.0
-	golang.org/x/oauth2 v0.0.0-20221006150949-b44042a4b9c1
+	github.com/moov-io/base v0.36.0
+	github.com/spf13/cobra v1.6.0
+	github.com/stretchr/testify v1.8.1
+	golang.org/x/oauth2 v0.1.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
 )
 
@@ -27,7 +27,7 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
@@ -42,7 +42,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	github.com/rickar/cal/v2 v2.1.6 // indirect
+	github.com/rickar/cal/v2 v2.1.7 // indirect
 	github.com/rogpeppe/go-internal v1.6.1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
@@ -51,9 +51,9 @@ require (
 	github.com/spf13/viper v1.13.0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/net v0.1.0 // indirect
+	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
