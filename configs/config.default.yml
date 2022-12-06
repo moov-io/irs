@@ -8,5 +8,3 @@ IRS:
         Address: ":8209"
   Database:
     DatabaseName: "irs"
-    SQLite:
-      Path: ":memory:"
