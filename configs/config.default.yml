@@ -8,3 +8,7 @@ IRS:
         Address: ":8209"
   Database:
     DatabaseName: "irs"
+    MySQL:
+      Address: "tcp(localhost:3306)"
+      User: "irs"
+      Password: "irs"

@@ -34,6 +34,7 @@ coverage.txt
 pkger*
 pkged.go
 cover.out
+gitleaks.tar.gz
 
 /cmd/irs/output
 

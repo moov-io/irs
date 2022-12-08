@@ -1,3 +1,23 @@
 version: '3'
+services:
+  mysql:
+    image: mysql:8-oracle
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=irs
+      - MYSQL_USER=irs
+      - MYSQL_PASSWORD=irs
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - intranet
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    tmpfs: # Run this mysql in memory as its used for testing
+      - /var/lib/mysql
 
-services: {}
+networks:
+  intranet:
