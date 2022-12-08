@@ -26,6 +26,10 @@ install:
 	go install github.com/markbates/pkger/cmd/pkger
 	git checkout LICENSE
 
+.PHONY: setup
+setup:
+	docker-compose up -d --force-recreate --remove-orphans
+
 .PHONY: check
 check: build services
 ifeq ($(OS),Windows_NT)
@@ -66,6 +70,11 @@ else
 	@rm -rf ./bin/ openapi-generator-cli-*.jar irs.db ./storage/ lint-project.sh
 	@rm -rf cmd/irs/output
 endif
+
+.PHONY: teardown
+teardown:
+	-docker-compose down --remove-orphans
+	-docker-compose rm -f -v
 
 .PHONY: cover-test cover-web
 cover-test:
