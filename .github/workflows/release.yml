@@ -30,7 +30,7 @@ jobs:
     - name: Check
       run: make check
 
-    - run: Teardown
+    - name: Teardown
       if: ${{ always() }}
       run: teardown
 

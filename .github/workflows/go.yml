@@ -44,6 +44,6 @@ jobs:
       if: runner.os == 'Linux'
       run: make docker
 
-    - run: Teardown
+    - name: Teardown
       if: ${{ always() }}
-      run: teardown
+      run: make teardown
