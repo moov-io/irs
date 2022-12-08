@@ -6,6 +6,7 @@ package service_test
 
 import (
 	"os"
+	"runtime"
 	"testing"
 
 	logging "github.com/moov-io/base/log"
@@ -16,6 +17,12 @@ import (
 )
 
 func Test_Environment_Startup(t *testing.T) {
+	if os.Getenv("GITHUB_ACTIONS") != "" {
+		if runtime.GOOS != "linux" {
+			t.Skip("Docker doens't work outside of linux on Actions")
+		}
+	}
+
 	a := assert.New(t)
 
 	env := &service.Environment{
