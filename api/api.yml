@@ -698,7 +698,6 @@ components:
       required:
         - record_type
         - payment_year
-        - prior_year_data_indicator
         - transmitter_tin
         - transmitter_control_code
         - transmitter_name

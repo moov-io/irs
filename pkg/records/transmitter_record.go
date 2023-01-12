@@ -24,7 +24,7 @@ type TRecord struct {
 	// Required. Enter “P” only if reporting prior year data. Otherwise, enter a blank.
 	// Do not enter a “P” if the tax year is 2019.
 	// The FIRE System accepts 2010 through 2018 for prior years. You cannot mix tax years within a file.
-	PriorYearDataIndicator string `json:"prior_year_data_indicator" validate:"required"`
+	PriorYearDataIndicator string `json:"prior_year_data_indicator"`
 
 	// Required. Enter the transmitter’s nine-digit taxpayer identification number (TIN).
 	TIN string `json:"transmitter_tin" validate:"required"`
@@ -212,6 +212,7 @@ func (r *TRecord) ValidateRecordSequenceNumber() error {
 }
 
 func (r *TRecord) ValidatePriorYearDataIndicator() error {
+	// “P” or a blank.
 	if r.PriorYearDataIndicator == config.PriorYearDataIndicator || len(r.PriorYearDataIndicator) == 0 {
 		return nil
 	}
