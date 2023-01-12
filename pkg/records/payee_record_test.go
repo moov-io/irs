@@ -654,3 +654,14 @@ func (t *RecordTest) TestBRecordWithW2G(c *check.C) {
 	c.Assert(r.Validate(), check.IsNil)
 	c.Assert(string(r.Ascii()), check.Equals, string(t.bRecordW2GAscii))
 }
+
+func (t *RecordTest) TestBRecord_BlankFields(c *check.C) {
+	r := &BRecord{}
+	err := r.SetTypeOfReturn(config.Sub1099MiscType)
+	c.Assert(err, check.IsNil)
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err = json.Unmarshal(t.bRecord1099MiscJson, r)
+	c.Assert(err, check.IsNil)
+	r.TypeOfTIN = ""
+	c.Assert(r.Validate(), check.IsNil)
+}

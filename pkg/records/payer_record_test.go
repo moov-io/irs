@@ -50,3 +50,14 @@ func (t *RecordTest) TestARecordWithError(c *check.C) {
 	c.Assert(r.ValidatePayerState(), check.Not(check.IsNil))
 	c.Assert(r.ValidateAmountCodes(), check.Not(check.IsNil))
 }
+
+func (t *RecordTest) TestARecord_BlankFields(c *check.C) {
+	r := NewARecord()
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.aRecordJson, r)
+	c.Assert(err, check.IsNil)
+	transmitter := r.(*ARecord)
+	transmitter.LastFilingIndicator = ""
+	transmitter.ForeignEntityIndicator = ""
+	c.Assert(r.Validate(), check.IsNil)
+}

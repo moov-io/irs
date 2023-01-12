@@ -145,7 +145,7 @@ type TRecord struct {
 	VendorContactTelephoneNumber string `json:"vendor_contact_telephone_and_ext" validate:"required"`
 
 	// Enter “1” (one) if the vendor is a foreign entity. Otherwise, enter a blank.
-	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator" validate:"required"`
+	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator"`
 }
 
 // Type returns type of “T” record
