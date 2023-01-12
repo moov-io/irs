@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **PayeeMailingAddress** | **string** |  | 
 **PayeeCity** | **string** |  | 
 **PayeeState** | **string** |  | 
-**PayeeZipCode** | **string** |  | 
+**PayeeZipCode** | **string** |  | [optional] 
 **RecordSequenceNumber** | **int32** |  | 
 **IssuerIndicator** | **string** |  | [optional] 
 **Code** | **string** |  | [optional] 

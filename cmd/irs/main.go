@@ -12,12 +12,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/moov-io/base/log"
-	"github.com/moov-io/irs/pkg/service"
+	"github.com/spf13/cobra"
 
+	"github.com/moov-io/base/log"
 	"github.com/moov-io/irs/pkg/config"
 	"github.com/moov-io/irs/pkg/file"
-	"github.com/spf13/cobra"
+	"github.com/moov-io/irs/pkg/service"
 )
 
 var (

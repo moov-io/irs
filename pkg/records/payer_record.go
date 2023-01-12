@@ -130,7 +130,7 @@ type ARecord struct {
 	// foreign countries, alpha characters are acceptable as long as
 	// the filer has entered a “1” (one) in “A” Record, field position 52
 	// Foreign Entity Indicator.
-	PayerZipCode string `json:"payer_zip_code" validate:"required"`
+	PayerZipCode string `json:"payer_zip_code"`
 
 	// Enter the payer’s telephone number and extension. Omit
 	// hyphens. Left justify the information and fill unused positions
@@ -274,8 +274,11 @@ func (r *ARecord) ValidateAmountCodes() error {
 }
 
 func (r *ARecord) ValidatePayerZipCode() error {
-	if len(r.PayerZipCode) >= 0 {
-		return utils.IsNumeric(r.PayerZipCode)
+	if len(r.PayerZipCode) == 0 {
+		return nil
+	}
+	if err := utils.IsNumeric(r.PayerZipCode); err == nil {
+		return nil
 	}
 	return utils.NewErrValidValue("payer zip code")
 }
