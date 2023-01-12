@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **PayerShippingAddress** | **string** |  | 
 **PayerCity** | **string** |  | 
 **PayerState** | **string** |  | 
-**PayerZipCode** | **string** |  | 
+**PayerZipCode** | **string** |  | [optional] 
 **PayerTelephoneNumberAndExt** | **string** |  | [optional] 
 **RecordSequenceNumber** | **int32** |  | 
 

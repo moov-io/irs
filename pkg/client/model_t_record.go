@@ -32,12 +32,12 @@ type TRecord struct {
 	ContactEmailAddress          string `json:"contact_email_address,omitempty"`
 	RecordSequenceNumber         int32  `json:"record_sequence_number"`
 	VendorIndicator              string `json:"vendor_indicator"`
-	VendorName                   string `json:"vendor_name"`
-	VendorMailingAddress         string `json:"vendor_mailing_address"`
-	VendorCity                   string `json:"vendor_city"`
-	VendorState                  string `json:"vendor_state"`
-	VendorZipCode                string `json:"vendor_zip_code"`
-	VendorContactName            string `json:"vendor_contact_name"`
-	VendorContactTelephoneAndExt string `json:"vendor_contact_telephone_and_ext"`
-	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator"`
+	VendorName                   string `json:"vendor_name,omitempty"`
+	VendorMailingAddress         string `json:"vendor_mailing_address,omitempty"`
+	VendorCity                   string `json:"vendor_city,omitempty"`
+	VendorState                  string `json:"vendor_state,omitempty"`
+	VendorZipCode                string `json:"vendor_zip_code,omitempty"`
+	VendorContactName            string `json:"vendor_contact_name,omitempty"`
+	VendorContactTelephoneAndExt string `json:"vendor_contact_telephone_and_ext,omitempty"`
+	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator,omitempty"`
 }

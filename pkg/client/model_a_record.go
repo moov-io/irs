@@ -26,7 +26,7 @@ type ARecord struct {
 	PayerShippingAddress       string `json:"payer_shipping_address"`
 	PayerCity                  string `json:"payer_city"`
 	PayerState                 string `json:"payer_state"`
-	PayerZipCode               string `json:"payer_zip_code"`
+	PayerZipCode               string `json:"payer_zip_code,omitempty"`
 	PayerTelephoneNumberAndExt string `json:"payer_telephone_number_and_ext,omitempty"`
 	RecordSequenceNumber       int32  `json:"record_sequence_number"`
 }

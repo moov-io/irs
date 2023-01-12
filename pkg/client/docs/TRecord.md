@@ -25,14 +25,14 @@ Name | Type | Description | Notes
 **ContactEmailAddress** | **string** |  | [optional] 
 **RecordSequenceNumber** | **int32** |  | 
 **VendorIndicator** | **string** |  | 
-**VendorName** | **string** |  | 
-**VendorMailingAddress** | **string** |  | 
-**VendorCity** | **string** |  | 
-**VendorState** | **string** |  | 
-**VendorZipCode** | **string** |  | 
-**VendorContactName** | **string** |  | 
-**VendorContactTelephoneAndExt** | **string** |  | 
-**VendorForeignEntityIndicator** | **string** |  | 
+**VendorName** | **string** |  | [optional] 
+**VendorMailingAddress** | **string** |  | [optional] 
+**VendorCity** | **string** |  | [optional] 
+**VendorState** | **string** |  | [optional] 
+**VendorZipCode** | **string** |  | [optional] 
+**VendorContactName** | **string** |  | [optional] 
+**VendorContactTelephoneAndExt** | **string** |  | [optional] 
+**VendorForeignEntityIndicator** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

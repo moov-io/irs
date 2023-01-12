@@ -43,7 +43,7 @@ type BRecordWith1097Btc struct {
 	PayeeMailingAddress         string `json:"payee_mailing_address"`
 	PayeeCity                   string `json:"payee_city"`
 	PayeeState                  string `json:"payee_state"`
-	PayeeZipCode                string `json:"payee_zip_code"`
+	PayeeZipCode                string `json:"payee_zip_code,omitempty"`
 	RecordSequenceNumber        int32  `json:"record_sequence_number"`
 	IssuerIndicator             string `json:"issuer_indicator,omitempty"`
 	Code                        string `json:"code,omitempty"`
