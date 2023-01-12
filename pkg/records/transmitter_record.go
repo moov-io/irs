@@ -107,7 +107,7 @@ type TRecord struct {
 
 	// Required. Enter the name of the company from whom the software
 	// was purchased. If the software is produced in-house, enter blanks
-	VendorName string `json:"vendor_name" validate:"required"`
+	VendorName string `json:"vendor_name"`
 
 	// Required. Enter the mailing address. If the software is produced
 	// in-house, enter blanks.
@@ -119,30 +119,31 @@ type TRecord struct {
 	// following order: city, province or state, postal code, and the name of
 	// the country. When reporting a foreign address, the Foreign Entity
 	// Indicator in position 29 must contain a “1” (one).
-	VendorMailingAddress string `json:"vendor_mailing_address" validate:"required"`
+	VendorMailingAddress string `json:"vendor_mailing_address"`
 
 	// Required. Enter the city, town, or post office. If the software is
 	// produced in-house, enter blanks.
-	VendorCity string `json:"vendor_city" validate:"required"`
+	VendorCity string `json:"vendor_city"`
 
 	// Required. Enter U.S. Postal Service state abbreviation.
-	VendorState string `json:"vendor_state" validate:"required"`
+	// If the software is produced in-house, enter blanks
+	VendorState string `json:"vendor_state"`
 
 	// Required. Enter the valid nine-digit ZIP Code assigned by the U.S.
 	// Postal Service. If only the first five digits are known, fill unused
 	// positions with blanks. Left justify. If the software is produced inhouse, enter blanks.
-	VendorZipCode string `json:"vendor_zip_code" validate:"required"`
+	VendorZipCode string `json:"vendor_zip_code"`
 
 	// Required. Enter the name of the person to contact concerning
 	// software questions. If the software is produced in-house, enter
 	// blanks.
-	VendorContactName string `json:"vendor_contact_name" validate:"required"`
+	VendorContactName string `json:"vendor_contact_name"`
 
 	// Required. Enter the telephone number of the person to contact
 	// concerning software questions. Omit hyphens. If no extension is
 	// available, left justify the information and fill unused positions with
 	// blanks. If the software is produced in-house, enter blanks.
-	VendorContactTelephoneNumber string `json:"vendor_contact_telephone_and_ext" validate:"required"`
+	VendorContactTelephoneNumber string `json:"vendor_contact_telephone_and_ext"`
 
 	// Enter “1” (one) if the vendor is a foreign entity. Otherwise, enter a blank.
 	VendorForeignEntityIndicator string `json:"vendor_foreign_entity_indicator"`
@@ -248,6 +249,9 @@ func (r *TRecord) ValidateVendorIndicator() error {
 }
 
 func (r *TRecord) ValidateVendorState() error {
+	if len(r.VendorState) == 0 {
+		return nil
+	}
 	if _, ok := config.StateAbbreviationCodes[r.VendorState]; ok {
 		return nil
 	}
@@ -262,15 +266,17 @@ func (r *TRecord) ValidateVendorForeignEntityIndicator() error {
 }
 
 func (r *TRecord) ValidateCompanyZipCode() error {
-	if len(r.CompanyZipCode) >= 0 {
-		return utils.IsNumeric(r.CompanyZipCode)
+	if err := utils.IsNumeric(r.CompanyZipCode); err == nil {
+		return nil
 	}
 	return utils.NewErrValidValue("company zip code")
 }
 
 func (r *TRecord) ValidateVendorZipCode() error {
-	if len(r.VendorZipCode) >= 0 {
-		return utils.IsNumeric(r.VendorZipCode)
+	if len(r.VendorZipCode) == 0 {
+		return nil
+	} else if err := utils.IsNumeric(r.VendorZipCode); err == nil {
+		return nil
 	}
 	return utils.NewErrValidValue("vendor zip code")
 }

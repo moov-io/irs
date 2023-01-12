@@ -202,7 +202,7 @@ type BRecord struct {
 	// Country Indicator, located in position 247 of the “B” Record. If
 	// only the first five-digits are known, left justify the information
 	// and fill the unused positions with blanks.
-	PayeeZipCode string `json:"payee_zip_code" validate:"required"`
+	PayeeZipCode string `json:"payee_zip_code"`
 
 	// Required. Enter the number of the record as it appears
 	//within the file. The record sequence number for the “T”
@@ -494,8 +494,11 @@ func (r *BRecord) ValidatePayeeState() error {
 }
 
 func (r *BRecord) ValidatePayeeZipCode() error {
-	if len(r.PayeeZipCode) >= 0 {
-		return utils.IsNumeric(r.PayeeZipCode)
+	if len(r.PayeeZipCode) == 0 {
+		return nil
+	}
+	if err := utils.IsNumeric(r.PayeeZipCode); err == nil {
+		return nil
 	}
 	return utils.NewErrValidValue("payee zip code")
 }

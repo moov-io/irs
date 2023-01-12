@@ -710,14 +710,6 @@ components:
         - contact_telephone_number_and_ext
         - record_sequence_number
         - vendor_indicator
-        - vendor_name
-        - vendor_mailing_address
-        - vendor_city
-        - vendor_state
-        - vendor_zip_code
-        - vendor_contact_name
-        - vendor_contact_telephone_and_ext
-        - vendor_foreign_entity_indicator
     ARecord:
       properties:
         record_type:
@@ -771,7 +763,6 @@ components:
         - payer_shipping_address
         - payer_city
         - payer_state
-        - payer_zip_code
         - record_sequence_number
     BRecordWith1097Btc:
       properties:
@@ -883,7 +874,6 @@ components:
         - payee_mailing_address
         - payee_city
         - payee_state
-        - payee_zip_code
         - record_sequence_number
     BRecordWith1098:
       properties:
