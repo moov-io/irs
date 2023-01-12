@@ -46,7 +46,7 @@ var (
 	TRecordLayout = map[string]SpecField{
 		"RecordType":                   {0, 1, Alphanumeric, Required},
 		"PaymentYear":                  {1, 4, DateYear, Required},
-		"PriorYearDataIndicator":       {5, 1, Alphanumeric, Required},
+		"PriorYearDataIndicator":       {5, 1, Alphanumeric, Applicable},
 		"TIN":                          {6, 9, Numeric, Required},
 		"TCC":                          {15, 5, Alphanumeric, Required},
 		"Blank1":                       {20, 7, Alphanumeric, Nullable},

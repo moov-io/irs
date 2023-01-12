@@ -51,3 +51,16 @@ func (t *RecordTest) TestTRecordWithError(c *check.C) {
 	r.PriorYearDataIndicator = "ERR"
 	c.Assert(r.ValidatePriorYearDataIndicator(), check.Not(check.IsNil))
 }
+
+func (t *RecordTest) TestTRecord_BlankFields(c *check.C) {
+	r := NewTRecord()
+	c.Assert(r.Validate(), check.Not(check.IsNil))
+	err := json.Unmarshal(t.tRecordJson, r)
+	c.Assert(err, check.IsNil)
+	transmitter := r.(*TRecord)
+	transmitter.PriorYearDataIndicator = ""
+	transmitter.TestFileIndicator = ""
+	transmitter.ForeignEntityIndicator = ""
+	transmitter.VendorForeignEntityIndicator = ""
+	c.Assert(r.Validate(), check.IsNil)
+}
