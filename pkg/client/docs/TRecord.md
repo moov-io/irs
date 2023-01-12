@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RecordType** | **string** |  | 
 **PaymentYear** | **int32** |  | 
-**PriorYearDataIndicator** | **string** |  | 
+**PriorYearDataIndicator** | **string** |  | [optional] 
 **TransmitterTin** | **string** |  | 
 **TransmitterControlCode** | **string** |  | 
 **TestFileIndicator** | **string** |  | [optional] 

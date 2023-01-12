@@ -13,7 +13,7 @@ package client
 type TRecord struct {
 	RecordType                   string `json:"record_type"`
 	PaymentYear                  int32  `json:"payment_year"`
-	PriorYearDataIndicator       string `json:"prior_year_data_indicator"`
+	PriorYearDataIndicator       string `json:"prior_year_data_indicator,omitempty"`
 	TransmitterTin               string `json:"transmitter_tin"`
 	TransmitterControlCode       string `json:"transmitter_control_code"`
 	TestFileIndicator            string `json:"test_file_indicator,omitempty"`

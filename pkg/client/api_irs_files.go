@@ -36,11 +36,12 @@ type ConvertOpts struct {
 /*
 Convert Convert irs file
 Convert from original irs file to new irs file
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ConvertOpts - Optional Parameters:
- * @param "Format" (optional.String) -  print irs file type
- * @param "Generate" (optional.Bool) -  generate new trailer record
- * @param "File" (optional.Interface of *os.File) -  irs file to upload
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ConvertOpts - Optional Parameters:
+  - @param "Format" (optional.String) -  print irs file type
+  - @param "Generate" (optional.Bool) -  generate new trailer record
+  - @param "File" (optional.Interface of *os.File) -  irs file to upload
+
 @return *os.File
 */
 func (a *IrsFilesApiService) Convert(ctx _context.Context, localVarOptionals *ConvertOpts) (*os.File, *_nethttp.Response, error) {
@@ -165,7 +166,8 @@ func (a *IrsFilesApiService) Convert(ctx _context.Context, localVarOptionals *Co
 /*
 Health health irs service
 Check the irs service to check if running
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+
 @return string
 */
 func (a *IrsFilesApiService) Health(ctx _context.Context) (string, *_nethttp.Response, error) {
@@ -255,10 +257,11 @@ type PrintOpts struct {
 /*
 Print Print irs file with specific format
 Print irs file with requested file format.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *PrintOpts - Optional Parameters:
- * @param "Format" (optional.String) -  print irs file type
- * @param "File" (optional.Interface of *os.File) -  irs file to upload
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *PrintOpts - Optional Parameters:
+  - @param "Format" (optional.String) -  print irs file type
+  - @param "File" (optional.Interface of *os.File) -  irs file to upload
+
 @return string
 */
 func (a *IrsFilesApiService) Print(ctx _context.Context, localVarOptionals *PrintOpts) (string, *_nethttp.Response, error) {
@@ -375,9 +378,10 @@ type ValidatorOpts struct {
 /*
 Validator Validate irs file
 Validation of irs file.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ValidatorOpts - Optional Parameters:
- * @param "File" (optional.Interface of *os.File) -  irs file to upload
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ValidatorOpts - Optional Parameters:
+  - @param "File" (optional.Interface of *os.File) -  irs file to upload
+
 @return string
 */
 func (a *IrsFilesApiService) Validator(ctx _context.Context, localVarOptionals *ValidatorOpts) (string, *_nethttp.Response, error) {
