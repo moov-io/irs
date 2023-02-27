@@ -57,7 +57,8 @@ func (t *RecordTest) TestTRecord_BlankFields(c *check.C) {
 	c.Assert(r.Validate(), check.Not(check.IsNil))
 	err := json.Unmarshal(t.tRecordJson, r)
 	c.Assert(err, check.IsNil)
-	transmitter := r.(*TRecord)
+	transmitter, _ := r.(*TRecord)
+	c.Assert(transmitter, check.NotNil)
 	transmitter.PriorYearDataIndicator = ""
 	transmitter.TestFileIndicator = ""
 	transmitter.ForeignEntityIndicator = ""

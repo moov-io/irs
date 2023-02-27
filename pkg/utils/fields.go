@@ -75,17 +75,35 @@ func ToString(elm config.SpecField, data reflect.Value) string {
 	case config.AlphanumericRightAlign:
 		return fmt.Sprintf("%"+sizeStr+"s", data)
 	case config.ZeroNumeric:
-		if elm.Required == config.Omitted && data.Interface().(int) == 0 {
+		var value int
+		if data.CanInterface() {
+			if v, ok := data.Interface().(int); ok {
+				value = v
+			}
+		}
+		if elm.Required == config.Omitted && value == 0 {
 			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
 		}
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
 	case config.Percent:
-		if data.Interface().(int) == 100 {
+		var value int
+		if data.CanInterface() {
+			if v, ok := data.Interface().(int); ok {
+				value = v
+			}
+		}
+		if value == 100 {
 			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
 		}
 		return fmt.Sprintf("%0"+sizeStr+"d", data)
 	case config.DateYear:
-		if elm.Required == config.Omitted && data.Interface().(int) == 0 {
+		var value int
+		if data.CanInterface() {
+			if v, ok := data.Interface().(int); ok {
+				value = v
+			}
+		}
+		if elm.Required == config.Omitted && value == 0 {
 			return fmt.Sprintf("%"+sizeStr+"s", config.BlankString)
 		}
 		return fmt.Sprintf("%-"+sizeStr+"d", data)
@@ -132,7 +150,13 @@ func Validate(r interface{}, spec map[string]config.SpecField, rType string) err
 
 			err := method.Call(nil)[0]
 			if !err.IsNil() {
-				return err.Interface().(error)
+				var value error
+				if err.CanInterface() {
+					if v, ok := err.Interface().(error); ok {
+						value = v
+					}
+				}
+				return value
 			}
 		}
 	}
