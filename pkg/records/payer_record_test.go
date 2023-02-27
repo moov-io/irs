@@ -56,7 +56,8 @@ func (t *RecordTest) TestARecord_BlankFields(c *check.C) {
 	c.Assert(r.Validate(), check.Not(check.IsNil))
 	err := json.Unmarshal(t.aRecordJson, r)
 	c.Assert(err, check.IsNil)
-	transmitter := r.(*ARecord)
+	transmitter, _ := r.(*ARecord)
+	c.Assert(transmitter, check.NotNil)
 	transmitter.LastFilingIndicator = ""
 	transmitter.ForeignEntityIndicator = ""
 	c.Assert(r.Validate(), check.IsNil)
