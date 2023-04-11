@@ -6,7 +6,7 @@ require (
 	github.com/antihax/optional v1.0.0
 	github.com/go-kit/log v0.2.1
 	github.com/gorilla/mux v1.8.0
-	github.com/moov-io/base v0.40.1
+	github.com/moov-io/base v0.40.2
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.2
 	golang.org/x/oauth2 v0.7.0
