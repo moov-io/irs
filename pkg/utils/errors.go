@@ -26,7 +26,7 @@ var (
 	ErrShortRecord = errors.New("is too short / missing data")
 	// ErrEmail is given when a field is not email
 	ErrEmail = errors.New("is not email address")
-	// ErrPayeeExtBlock is given when payee record has not extension block for  for each type of return
+	// ErrPayeeExtBlock is given when payee record has not extension block for each type of return
 	ErrPayeeExtBlock = errors.New("should exist extension block")
 	// ErrInvalidAscii is given when is invalid ascii
 	ErrInvalidAscii = errors.New("is invalid ascii")
