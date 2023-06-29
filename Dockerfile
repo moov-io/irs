@@ -8,7 +8,7 @@ COPY ./configs/config.default.yml /configs/config.default.yml
 RUN make build
 
 FROM debian:stable AS runtime
-LABEL maintainer="Moov <support@moov.io>"
+LABEL maintainer="Moov <oss@moov.io>"
 
 RUN apt-get update && apt-get install -y curl
 
