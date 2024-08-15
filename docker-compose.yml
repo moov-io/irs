@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: mysql:8-oracle
+    image: mysql:9-oracle
     restart: always
     ports:
       - "3306:3306"
