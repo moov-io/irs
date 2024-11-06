@@ -9,7 +9,7 @@
 
 More tutorials to come on how to use this as other pieces required to handle authorization are in place!
 
-- [Using docker-compose](#local-development)
+- [Using docker compose](#local-development)
 - [Using our Docker image](#docker-image)
 
 No configuration is required to serve on `:8200` and metrics at `:8201/metrics` in Prometheus format.

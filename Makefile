@@ -20,7 +20,7 @@ endif
 	rm -rf cmd/irs/output
 
 services:
-	-docker-compose up -d --force-recreate
+	-docker compose up -d --force-recreate
 
 install:
 	go install github.com/markbates/pkger/cmd/pkger
@@ -28,7 +28,7 @@ install:
 
 .PHONY: setup
 setup:
-	docker-compose up -d --force-recreate --remove-orphans
+	docker compose up -d --force-recreate --remove-orphans
 
 .PHONY: check
 check: build services
@@ -73,8 +73,8 @@ endif
 
 .PHONY: teardown
 teardown:
-	-docker-compose down --remove-orphans
-	-docker-compose rm -f -v
+	-docker compose down --remove-orphans
+	-docker compose rm -f -v
 
 .PHONY: cover-test cover-web
 cover-test:
