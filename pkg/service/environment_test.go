@@ -9,6 +9,7 @@ import (
 	"runtime"
 	"testing"
 
+	"github.com/moov-io/base/database"
 	logging "github.com/moov-io/base/log"
 	"github.com/moov-io/irs/pkg/service"
 
@@ -27,6 +28,16 @@ func Test_Environment_Startup(t *testing.T) {
 
 	env := &service.Environment{
 		Logger: logging.NewLogger(log.NewLogfmtLogger(log.NewSyncWriter(os.Stderr))),
+		Config: &service.Config{
+			Database: database.DatabaseConfig{
+				DatabaseName: "irs",
+				MySQL: &database.MySQLConfig{
+					Address:  "tcp(localhost:3306)",
+					User:     "irs",
+					Password: "irs",
+				},
+			},
+		},
 	}
 
 	env, err := service.NewEnvironment(env)
