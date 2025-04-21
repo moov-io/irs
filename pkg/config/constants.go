@@ -239,7 +239,7 @@ var ParticipateStateCodes = map[int]string{
 	37: "North Carolina",
 	38: "North Dakota",
 	39: "Ohio",
-	40: "Ohio",
+	40: "Oklahoma",
 	45: "South Carolina",
 	55: "Wisconsin",
 }
