@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"encoding/json"
+
 	"gopkg.in/check.v1"
 
 	PDF "github.com/moov-io/irs/pkg/pdf_generator"
@@ -122,6 +123,7 @@ func (t *FileTest) TestParseFailed(c *check.C) {
 	person = &paymentPerson{}
 	c.Assert(person.validateRecords(), check.NotNil)
 	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validateAmounts(), check.NotNil)
 	c.Assert(person.integrationCheck(), check.NotNil)
 	_, err = person.getTypeOfReturn()
 	c.Assert(err, check.NotNil)
@@ -226,17 +228,22 @@ func (t *FileTest) TestPersonErrorCases(c *check.C) {
 	kRecord, ok := person.States[0].(*records.KRecord)
 	c.Assert(ok, check.Equals, true)
 	kRecord.ControlTotal7 = 1
-	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validatePaymentCodes(), check.IsNil)
+	c.Assert(person.validateAmounts(), check.IsNil)
 	kRecord.ControlTotal8 = 1
 	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validateAmounts(), check.IsNil)
 	person.States = append(person.States, records.NewCRecord())
 	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validateAmounts(), check.NotNil)
 	bRecord, ok := person.Payees[0].(*records.BRecord)
 	c.Assert(ok, check.Equals, true)
 	bRecord.PaymentAmount2 = 1
 	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validateAmounts(), check.NotNil)
 	person.Payees = append(person.Payees, records.NewCRecord())
 	c.Assert(person.validatePaymentCodes(), check.NotNil)
+	c.Assert(person.validateAmounts(), check.NotNil)
 	c.Assert(person.integrationCheck(), check.NotNil)
 }
 
