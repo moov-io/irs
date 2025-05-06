@@ -1,4 +1,4 @@
-FROM golang:1.23 as builder
+FROM golang:1.24 as builder
 RUN apt-get update && apt-get install -y pdftk make gcc g++ ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
