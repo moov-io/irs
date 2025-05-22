@@ -38,6 +38,6 @@ func TestFillAmounts(t *testing.T) {
 	record := &records.CRecord{}
 	err := fillAmounts(amountCodes, pdf, record)
 	if err != nil {
-		t.Errorf(err.Error())
+		t.Error(err)
 	}
 }
