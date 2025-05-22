@@ -143,12 +143,12 @@ func Validate(r interface{}, spec map[string]config.SpecField, rType string) err
 		funcName := validateFuncName(fieldName)
 		method := reflect.ValueOf(r).MethodByName(funcName)
 		if method.IsValid() {
-			response := method.Call(nil)
+			response := method.Call(nil) //nolint:forbidigo
 			if len(response) == 0 {
 				continue
 			}
 
-			err := method.Call(nil)[0]
+			err := method.Call(nil)[0] //nolint:forbidigo
 			if !err.IsNil() {
 				var value error
 				if err.CanInterface() {

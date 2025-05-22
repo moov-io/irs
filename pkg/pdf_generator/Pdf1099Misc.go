@@ -244,7 +244,7 @@ func (p *Pdf1099Misc) generateFDF(fileName string) ([]byte, error) {
 	newFdf = strings.ReplaceAll(newFdf, "#?#", "\n")
 
 	if fileName != "" {
-		err = os.WriteFile(fileName, []byte(newFdf), os.ModePerm)
+		err = os.WriteFile(fileName, []byte(newFdf), 0644) //nolint:gosec
 		if err != nil {
 			return nil, err
 		}
@@ -265,7 +265,7 @@ func (p *Pdf1099Misc) generatePDF(fdfFile string) ([]byte, error) {
 	}
 
 	result := filepath.Join(p.tempDir, resultPDF)
-	cmd := exec.Command(execFile, *template, convertParam1, fdfFile, convertParam2, result)
+	cmd := exec.Command(execFile, *template, convertParam1, fdfFile, convertParam2, result) //nolint:gosec
 	err = cmd.Run()
 	if err != nil {
 		return nil, err
@@ -286,7 +286,7 @@ func GeneratePdf(p *Pdf1099Misc) ([]byte, error) {
 	}
 
 	p.tempDir = filepath.Join(basePath, "."+randStr)
-	err = os.Mkdir(p.tempDir, os.ModePerm)
+	err = os.Mkdir(p.tempDir, 0644) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}
@@ -327,7 +327,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 	}
 
 	tempDir := filepath.Join(basePath, "."+randStr)
-	err = os.Mkdir(tempDir, os.ModePerm)
+	err = os.Mkdir(tempDir, 0644) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 	params := make([]string, 0)
 	for index, f := range files {
 		newFile := filepath.Join(tempDir, resultPDF+fmt.Sprintf("%v", index))
-		err := os.WriteFile(newFile, f, os.ModePerm)
+		err := os.WriteFile(newFile, f, 0644) //nolint:gosec
 		if err != nil {
 			return returnWithRemoveTmp(tempDir, err)
 		}
@@ -346,7 +346,7 @@ func MergePdfs(files [][]byte) ([]byte, error) {
 	params = append(params, convertParam3)
 	params = append(params, convertParam2)
 	params = append(params, result)
-	cmd := exec.Command(execFile, params...)
+	cmd := exec.Command(execFile, params...) //nolint:gosec
 	err = cmd.Run()
 	if err != nil {
 		return returnWithRemoveTmp(tempDir, err)
