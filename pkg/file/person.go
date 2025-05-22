@@ -334,7 +334,13 @@ func (p *paymentPerson) integrationCheck() error {
 		return err
 	}
 
-	// 4. verify  CF/SF code
+	// 4. verify payment amounts
+	err = p.validateAmounts()
+	if err != nil {
+		return err
+	}
+
+	// 5. verify  CF/SF code
 	err = p.validateFSCodes()
 	if err != nil {
 		return err
@@ -343,87 +349,129 @@ func (p *paymentPerson) integrationCheck() error {
 	return nil
 }
 
+func toSet(codes string) map[string]bool {
+	set := make(map[string]bool, len(codes))
+	for _, r := range strings.Split(codes, "") {
+		if r != "" {
+			set[r] = true
+		}
+	}
+	return set
+}
+
+func merge(dst map[string]bool, codes string) {
+	for _, r := range strings.Split(codes, "") {
+		if r != "" {
+			dst[r] = true
+		}
+	}
+}
+
+// subset(inner ⊆ outer)
+func subset(inner, outer map[string]bool) bool {
+	for k := range inner {
+		if !outer[k] {
+			return false
+		}
+	}
+	return true
+}
+
+// equal(a == b)
+func equal(a, b map[string]bool) bool {
+	return subset(a, b) && subset(b, a)
+}
+
 func (p *paymentPerson) validatePaymentCodes() error {
 	aRecord, cRecord, err := p.getRecords()
 	if err != nil {
 		return err
 	}
-	amountCodes := strings.Split(aRecord.AmountCodes, "")
+	aCodes := toSet(aRecord.AmountCodes)
 
-	// check amount codes between a record and b records
-	existedCodes := make(map[string]bool)
+	// --------------------  B ⊆ A & collect ∪B --------------------------
+	bUnion := make(map[string]bool)
 	for _, payee := range p.Payees {
 		bRecord, ok := payee.(*records.BRecord)
 		if !ok {
 			return utils.NewErrUnexpectedRecord("payee", payee)
 		}
-		for _, existed := range strings.Split(bRecord.PaymentCodes(), "") {
-			existedCodes[existed] = true
+		bCodes := toSet(bRecord.PaymentCodes())
+		if !subset(bCodes, aCodes) {
+			return utils.ErrUnexpectedPaymentAmount
 		}
-	}
-	if len(existedCodes) != len(amountCodes) {
-		return utils.ErrUnexpectedPaymentAmount
+		merge(bUnion, bRecord.PaymentCodes())
 	}
 
-	// check amount codes between a record and c record
-	if cRecord.TotalCodes() != aRecord.AmountCodes {
+	// --------------  codes(C) must equal ∪B ----------------------------
+	cCodes := toSet(cRecord.TotalCodes())
+	if !equal(cCodes, bUnion) {
 		return utils.ErrUnexpectedTotalAmount
 	}
 
-	// check amounts between c record and b records
-	for _, amountCode := range amountCodes {
-		control, err := cRecord.ControlTotal(amountCode)
+	// ---------------------  K ⊆ A  ----------------------
+	for _, state := range p.States {
+		kRecord, ok := state.(*records.KRecord)
+		if !ok {
+			return utils.NewErrUnexpectedRecord("state", state)
+		}
+		if !subset(toSet(kRecord.PaymentCodes()), aCodes) {
+			return utils.ErrUnexpectedTotalAmount
+		}
+	}
+
+	return nil
+}
+
+func (p *paymentPerson) validateAmounts() error {
+	_, cRecord, err := p.getRecords()
+	if err != nil {
+		return err
+	}
+
+	amountCodes := strings.Split(cRecord.TotalCodes(), "")
+
+	// -----------  ΣB == C for every amount code ------------------------
+	for _, code := range amountCodes {
+		control, err := cRecord.ControlTotal(code)
 		if err != nil {
 			return err
 		}
-
 		for _, payee := range p.Payees {
-			bRecord, _ := payee.(*records.BRecord)
-			amount, err := bRecord.PaymentAmount(amountCode)
+			bRecord, ok := payee.(*records.BRecord)
+			if !ok {
+				return utils.NewErrUnexpectedRecord("payee", payee)
+			}
+			amount, err := bRecord.PaymentAmount(code)
 			if err != nil {
 				return err
 			}
 			control -= amount
 		}
-
 		if control != 0 {
 			return utils.ErrInvalidTotalAmounts
 		}
 	}
 
-	if p.States != nil && len(p.States) > 0 {
-		// check amount codes between a record and k records
-		existedCodes = make(map[string]bool)
-		for _, state := range p.States {
-			kRecord, ok := state.(*records.KRecord)
-			if !ok {
-				return utils.NewErrUnexpectedRecord("state", state)
-			}
-			for _, existed := range strings.Split(kRecord.PaymentCodes(), "") {
-				existedCodes[existed] = true
-			}
-		}
-		if len(existedCodes) != len(amountCodes) {
-			return utils.ErrUnexpectedTotalAmount
-		}
-
-		// check amounts between c record and k records
-		for _, amountCode := range amountCodes {
-			control, err := cRecord.ControlTotal(amountCode)
+	// --- ΣK ≤ C (state totals may be subset of national totals) --------
+	if len(p.States) > 0 {
+		for _, code := range amountCodes {
+			control, err := cRecord.ControlTotal(code)
 			if err != nil {
 				return err
 			}
-
 			for _, state := range p.States {
-				kRecord, _ := state.(*records.KRecord)
-				amount, err := kRecord.ControlTotal(amountCode)
+				kRecord, ok := state.(*records.KRecord)
+				if !ok {
+					return utils.NewErrUnexpectedRecord("state", state)
+				}
+				amount, err := kRecord.ControlTotal(code)
 				if err != nil {
 					return err
 				}
 				control -= amount
 			}
-
-			if control != 0 {
+			if control < 0 { // K exceeded C — must never happen
 				return utils.ErrInvalidTotalAmounts
 			}
 		}
