@@ -1,4 +1,4 @@
-FROM golang:1.25 as builder
+FROM golang:1.26 as builder
 RUN apt-get update && apt-get install -y pdftk make gcc g++ ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
@@ -7,7 +7,7 @@ COPY . .
 COPY ./configs/config.default.yml /configs/config.default.yml
 RUN make build
 
-FROM debian:stable AS runtime
+FROM debian:trixie-20260803 AS runtime
 LABEL maintainer="Moov <oss@moov.io>"
 
 RUN apt-get update && apt-get install -y curl
