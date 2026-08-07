@@ -34,18 +34,28 @@ func (p *paymentPerson) Type() string {
 func (p *paymentPerson) Ascii() []byte {
 	var buf bytes.Buffer
 
-	buf.Grow(config.RecordLength)
-	buf.Write(p.Payer.Ascii())
+	if p.Payer != nil {
+		buf.Grow(config.RecordLength)
+		buf.Write(p.Payer.Ascii())
+	}
 
 	for _, payee := range p.Payees {
+		if payee == nil {
+			continue
+		}
 		buf.Grow(config.RecordLength)
 		buf.Write(payee.Ascii())
 	}
 
-	buf.Grow(config.RecordLength)
-	buf.Write(p.EndPayer.Ascii())
+	if p.EndPayer != nil {
+		buf.Grow(config.RecordLength)
+		buf.Write(p.EndPayer.Ascii())
+	}
 
 	for _, state := range p.States {
+		if state == nil {
+			continue
+		}
 		buf.Grow(config.RecordLength)
 		buf.Write(state.Ascii())
 	}

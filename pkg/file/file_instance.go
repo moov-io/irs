@@ -69,7 +69,7 @@ func (f *fileInstance) Validate() error {
 func (f *fileInstance) Parse(buf []byte) error {
 	bufSize := len(buf)
 	readPtr := 0
-	if string(buf[readPtr]) != config.TRecordType || bufSize < config.RecordLength {
+	if bufSize == 0 || string(buf[readPtr]) != config.TRecordType || bufSize < config.RecordLength {
 		return utils.ErrInvalidAscii
 	}
 
@@ -83,17 +83,20 @@ func (f *fileInstance) Parse(buf []byte) error {
 	readPtr += config.RecordLength
 
 	f.PaymentPersons = []*paymentPerson{}
-	for string(buf[readPtr]) == config.ARecordType {
+	for readPtr < bufSize && string(buf[readPtr]) == config.ARecordType {
 		currentPerson := &paymentPerson{}
 		readSize, err := currentPerson.Parse(buf[readPtr:])
 		if err != nil {
 			return err
 		}
+		if readSize <= 0 {
+			return utils.ErrInvalidAscii
+		}
 		readPtr += readSize
 		f.PaymentPersons = append(f.PaymentPersons, currentPerson)
 	}
 
-	if string(buf[readPtr]) != config.FRecordType || bufSize < readPtr+config.RecordLength {
+	if readPtr >= bufSize || string(buf[readPtr]) != config.FRecordType || bufSize < readPtr+config.RecordLength {
 		return utils.ErrInvalidAscii
 	}
 
@@ -118,6 +121,9 @@ func (f *fileInstance) Ascii() []byte {
 	}
 
 	for _, person := range f.PaymentPersons {
+		if person == nil {
+			continue
+		}
 		ascii := person.Ascii()
 		buf.Grow(len(ascii))
 		buf.Write(ascii)
