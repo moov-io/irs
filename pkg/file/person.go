@@ -185,7 +185,10 @@ func (p *paymentPerson) Parse(buf []byte) (int, error) {
 		return readPtr, utils.ErrInvalidAscii
 	}
 
-	if string(buf[readPtr]) == config.CRecordType || bufSize < readPtr+config.RecordLength {
+	if string(buf[readPtr]) == config.CRecordType {
+		if bufSize < readPtr+config.RecordLength {
+			return readPtr, utils.ErrInvalidAscii
+		}
 		if p.EndPayer == nil {
 			p.EndPayer = records.NewCRecord()
 		}
