@@ -7,6 +7,8 @@ cloud.google.com/go/alloydb v1.26.0 h1:UTzyumJ8tEo0CqwzLkV4WMGnCxvvhw3BDy1nXfCt9
 cloud.google.com/go/alloydb v1.26.0/go.mod h1:oqHGc/Xb5fWtH+wIDpu2wcPJX9oML/fGJuH/sp8ysyo=
 cloud.google.com/go/alloydbconn v1.18.5 h1:DsUY/zZIARley3ZKGO6Sa7enGaSMh614uT0CBYjCJY0=
 cloud.google.com/go/alloydbconn v1.18.5/go.mod h1:3TUfDxT+TUbfYk18UgiiUx+h783jcJNERcvsHvmGZ2s=
+cloud.google.com/go/alloydbconn v1.18.6 h1:vtRmNRk1kq0QjJ8lbrPLeooIVqCbKcDxKycRtmb6gsQ=
+cloud.google.com/go/alloydbconn v1.18.6/go.mod h1:P70koybK8sRT5E11jBlCQxthyWc3+Y0gKhA4hL1favE=
 cloud.google.com/go/auth v0.20.0 h1:kXTssoVb4azsVDoUiF8KvxAqrsQcQtB53DcSgta74CA=
 cloud.google.com/go/auth v0.20.0/go.mod h1:942/yi/itH1SsmpyrbnTMDgGfdy2BUqIKyd0cyYLc5Q=
 cloud.google.com/go/auth/oauth2adapt v0.2.8 h1:keo8NaayQZ6wimpNSmW5OPc283g65QNIiLpZnkHRbnc=
@@ -198,6 +200,8 @@ github.com/moov-io/base v0.62.1 h1:nM+RdTWMsWaUd572D/Hitgf+wND6vnfnYjM9MNWLd7g=
 github.com/moov-io/base v0.62.1/go.mod h1:Rndo5mNk38K74u6zTA8K5pxpsgmnK7CirAf++zXuWuM=
 github.com/moov-io/base v0.63.0 h1:J2dGj5z5X2dbLumWkbCCjM6rWycf/Zfdvk31fHJQjZk=
 github.com/moov-io/base v0.63.0/go.mod h1:7lW1P0fiFOrINtS2zoxYtvTgvhdI0EcGSi5J//pIZcY=
+github.com/moov-io/base v0.63.2 h1:ZbAr8StvwRphZ46El15bTbnJmDHZcArjOqy/0aqNllU=
+github.com/moov-io/base v0.63.2/go.mod h1:MEqa+7MXLHb1EacH3HZlcirgB8TxLalKvu7j+M7BXok=
 github.com/morikuni/aec v1.0.0 h1:nP9CBfwrvYnBRgY6qfDQkygYDmYwOilePFkwzv4dU8A=
 github.com/morikuni/aec v1.0.0/go.mod h1:BbKIizmSmc5MMPqRYbxO4ZU0S0+P200+tUnFx7PXmsc=
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 h1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=
@@ -257,6 +261,8 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
+github.com/stretchr/testify v1.12.0 h1:K6Mr6jO9JICuend/5xzTM03ydSV3vdNRYAdPSukj8uI=
+github.com/stretchr/testify v1.12.0/go.mod h1:bOYBZb5qJ00vPzWfIqBUZPaxK8jWiXc6d3ErP4Ca9Gw=
 github.com/subosito/gotenv v1.6.0 h1:9NlTDc1FTs4qu0DDq7AEtTPNw6SVm7uBMsUCUjABIf8=
 github.com/subosito/gotenv v1.6.0/go.mod h1:Dk4QP5c2W3ibzajGcXpNraDfq2IrhjMIvMSWPKKo0FU=
 go.opencensus.io v0.24.0 h1:y73uSU6J157QMP2kn2r30vwW1A2W2WFwSCGnAVxeaD0=
