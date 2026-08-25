@@ -7,7 +7,7 @@ COPY . .
 COPY ./configs/config.default.yml /configs/config.default.yml
 RUN make build
 
-FROM debian:trixie-20260803 AS runtime
+FROM debian:13 AS runtime
 LABEL maintainer="Moov <oss@moov.io>"
 
 RUN apt-get update && apt-get install -y curl
