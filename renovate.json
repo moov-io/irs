@@ -12,6 +12,37 @@
         "digest"
       ],
       "automerge": true
+    },
+    {
+      "description": "Automerge GitHub Actions updates (including majors)",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Keep docker/image majors out of grouped update-all PRs and do not automerge them",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "docker major",
+      "automerge": false
+    },
+    {
+      "description": "Ignore invalid mysql docker majors (9-oracle -> 26-oracle)",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "mysql"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ],
   "platformAutomerge": true
