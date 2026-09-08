@@ -1,6 +1,6 @@
 module github.com/moov-io/irs
 
-go 1.25.8
+go 1.26.0
 
 require (
 	github.com/antihax/optional v1.0.0
@@ -9,7 +9,7 @@ require (
 	github.com/moov-io/base v0.63.3
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/oauth2 v0.36.0
+	golang.org/x/oauth2 v0.37.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
 )
 
