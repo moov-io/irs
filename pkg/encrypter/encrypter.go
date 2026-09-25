@@ -128,11 +128,12 @@ func cbcEncrypt(key, buf []byte) ([]byte, error) {
 
 	// The IV needs to be unique, but not secure. Therefore it's common to
 	// include it at the beginning of the ciphertext.
-	ciphertext := make([]byte, aes.BlockSize+len(buf))
-	iv := ciphertext[:aes.BlockSize]
+	iv := make([]byte, aes.BlockSize)
 	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
 		return nil, err
 	}
+	ciphertext := make([]byte, aes.BlockSize+len(buf))
+	copy(ciphertext[:aes.BlockSize], iv)
 
 	mode := cipher.NewCBCEncrypter(block, iv)
 	mode.CryptBlocks(ciphertext[aes.BlockSize:], buf)
