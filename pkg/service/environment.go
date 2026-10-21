@@ -84,21 +84,21 @@ func initializeDatabase(logger logging.Logger, config database.DatabaseConfig) (
 	// migrate database
 	db, err := database.New(ctx, logger, config)
 	if err != nil {
-		return nil, cancelFunc, logger.Fatal().LogErrorf("error creating database", err).Err()
+		return nil, cancelFunc, logger.Fatal().LogErrorf("error creating database: %v", err).Err()
 	}
 
 	shutdown := func() {
 		logger.Info().Log("shutting down the db")
 		cancelFunc()
 		if err := db.Close(); err != nil {
-			logger.Fatal().LogErrorf("error closing DB", err)
+			logger.Fatal().LogErrorf("error closing DB: %v", err)
 		}
 	}
 
 	backupFiles, _ := os.ReadDir(filepath.Join("migrations"))
 	if len(backupFiles) > 0 {
 		if err := database.RunMigrations(logger, config); err != nil {
-			return nil, shutdown, logger.Fatal().LogErrorf("error running migrations", err).Err()
+			return nil, shutdown, logger.Fatal().LogErrorf("error running migrations: %v", err).Err()
 		}
 	} else {
 		logger.Info().Log("there is no backup files of database")
