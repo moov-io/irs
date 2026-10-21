@@ -41,7 +41,7 @@ var WebCmd = &cobra.Command{
 
 		env, err := service.NewEnvironment(env)
 		if err != nil {
-			env.Logger.Fatal().LogErrorf("error loading up environment", err)
+			env.Logger.Fatal().LogErrorf("error loading up environment: %v", err)
 			os.Exit(1)
 		}
 		defer env.Shutdown()

@@ -52,7 +52,7 @@ func newTerminationListener() chan error {
 
 func awaitTermination(logger logging.Logger, terminationListener chan error) {
 	if err := <-terminationListener; err != nil {
-		logger.Fatal().LogErrorf("terminated", err)
+		logger.Fatal().LogErrorf("terminated: %v", err)
 	}
 }
 
