@@ -10,6 +10,15 @@ moov-io/irs
 IRS implemented a reader, writer, and HTTP server for IRS electronic [Filing Information Returns
 Electronically](https://www.irs.gov/e-file-providers/filing-information-returns-electronically-fire) (FIRE). Our tools and library operate at higher levels (JSON) which makes it easier for developers to leverage over the raw bytes (ASCII).
 
+> [!IMPORTANT]
+> **This repository is archived.**
+>
+> The IRS FIRE system retires on **19 November 2026 at 3 p.m. Eastern**. After that date the IRS does not accept Publication 1220 (ASCII FIRE) files. IRIS is the only IRS electronic filing system for information returns after 1 January 2027. IRIS takes Publication 5718 XML (A2A) or Publication 5717 CSV (Taxpayer Portal).
+>
+> This project is a Publication 1220 reader, writer, and HTTP server. We do not add IRIS output here. The code stays available for historical files, tests, and migration work.
+>
+> IRS resources: [FIRE](https://www.irs.gov/e-file-providers/filing-information-returns-electronically-fire) · [IRIS](https://www.irs.gov/filing/e-file-information-returns-with-iris)
+
 | Input      | Output     |
 |------------|------------|
 | JSON       | JSON       |
@@ -22,12 +31,10 @@ Docs: [Project](https://moov-io.github.io/irs/) | [API Endpoints](https://moov-i
 
 ## Project Status
 
-We are just getting started!
+**Archived.** This is a legacy Publication 1220 (FIRE) reader, writer, and HTTP server.
 
 - [ ] 1099-MISC [About Form 1099-MISC](https://www.irs.gov/forms-pubs/about-form-1099-misc)
 - [x] 1099-NEC [About Form 1099-NEC](https://www.irs.gov/forms-pubs/about-form-1099-nec)
-
-... more to come, open an issue or pull request!
 
 ## Commands
 
